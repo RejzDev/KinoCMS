@@ -15,8 +15,8 @@ class CreateMainPagesTable extends Migration
     {
         Schema::create('main_pages', function (Blueprint $table) {
             $table->bigIncrements('page_id');
-            $table->varchar('first_phone', 20);
-            $table->varchar('second_phone', 20);
+            $table->string('first_phone', 20);
+            $table->string('second_phone', 20);
             $table->text('description');
             $table->string('url', 100);
             $table->string('title', 100);

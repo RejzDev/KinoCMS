@@ -15,7 +15,6 @@ class CreatePagesTable extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->bigIncrements('page_id');
-            $table->string('name', 100);
             $table->text('description');
             $table->string('image', 100)->nullable();
             $table->integer('key_img')->unique()->nullable();
@@ -23,7 +22,6 @@ class CreatePagesTable extends Migration
             $table->string('title', 100);
             $table->string('keywords', 100);
             $table->text('seo_description');
-            $table->integer('status');
             $table->timestamps();
         });
     }
