@@ -14,11 +14,10 @@ class CreatePagesTable extends Migration
     public function up()
     {
         Schema::create('pages', function (Blueprint $table) {
-            $table->bigIncrements('page_id');
+            $table->bigIncrements('id');
             $table->text('description');
             $table->string('image', 100)->nullable();
-            $table->integer('key_img')->unique()->nullable();
-            $table->string('url', 100);
+             $table->string('url', 100);
             $table->string('title', 100);
             $table->string('keywords', 100);
             $table->text('seo_description');

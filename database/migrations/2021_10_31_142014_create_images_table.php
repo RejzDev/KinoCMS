@@ -15,10 +15,19 @@ class CreateImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('key_img')->unique()->nullable();
+            $table->unsignedBigInteger('key_img')->nullable();
             $table->string('patch')->unique()->nullable();
             $table->string('position')->nullable();
             $table->timestamps();
+
+
+            $table->foreign('key_img')->references('id')->on('actions')->cascade('delete');
+            $table->foreign('key_img')->references('id')->on('pages')->cascade('delete');
+            $table->foreign('key_img')->references('id')->on('news')->cascade('delete');
+            $table->foreign('key_img')->references('id')->on('halls')->cascade('delete');
+            $table->foreign('key_img')->references('id')->on('movies')->cascade('delete');
+            $table->foreign('key_img')->references('id')->on('cinemas')->cascade('delete');
+            $table->foreign('key_img')->references('id')->on('banners')->cascade('delete');
         });
     }
 

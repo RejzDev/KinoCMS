@@ -14,11 +14,10 @@ class CreateMoviesTable extends Migration
     public function up()
     {
         Schema::create('movies', function (Blueprint $table) {
-            $table->bigIncrements('movie_id');
+            $table->bigIncrements('id');
             $table->string('name', 100);
             $table->text('description');
             $table->string('image', 100)->nullable();
-            $table->integer('key_img')->unique()->nullable();
             $table->string('url_trailer', 300);
             $table->string('type_movie', 100);
             $table->string('url', 100);

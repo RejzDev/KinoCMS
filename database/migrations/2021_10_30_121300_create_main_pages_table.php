@@ -14,7 +14,7 @@ class CreateMainPagesTable extends Migration
     public function up()
     {
         Schema::create('main_pages', function (Blueprint $table) {
-            $table->bigIncrements('page_id');
+            $table->bigIncrements('id');
             $table->string('first_phone', 20);
             $table->string('second_phone', 20);
             $table->text('description');

@@ -14,13 +14,12 @@ class CreateCinemasTable extends Migration
     public function up()
     {
         Schema::create('cinemas', function (Blueprint $table) {
-            $table->bigIncrements('cinema_id');
+            $table->bigIncrements('id');
             $table->string('name', 100);
             $table->text('description');
             $table->text('conditions');
             $table->string('logo_img', 100)->nullable();
             $table->string('background_img', 100)->nullable();
-            $table->integer('key_img')->unique()->nullable();
             $table->string('url', 100);
             $table->string('title', 100);
             $table->string('keywords', 100);
