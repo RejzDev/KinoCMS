@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Hall extends Model
 {
     use HasFactory;
+
+    //Зв'язок з таблицею images
+    public function images()
+    {
+        return $this->hasMany(Image::class,'key_img');
+    }
 }

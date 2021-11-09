@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
     use Illuminate\Support\Facades\Auth;
+    use App\Http\Controllers\Admin\MovieController;
 
     /*
     |--------------------------------------------------------------------------
@@ -22,9 +23,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
-    Route::group(['middleware' => ['role:user']], function () {
+   // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+    Route::middleware(['role:admin'])->prefix('admin_panel')->group(function () {
         //
-        Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+        Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index']);
 
+       Route::get('/movie', [App\Http\Controllers\Admin\MovieController::class, 'index']);
+       Route::get('/movie/create', [App\Http\Controllers\Admin\MovieController::class, 'create']);
     });
