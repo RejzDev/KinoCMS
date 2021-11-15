@@ -28,6 +28,11 @@ Auth::routes();
         //
         Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index']);
 
-       Route::get('/movie', [App\Http\Controllers\Admin\MovieController::class, 'index']);
-       Route::get('/movie/create', [App\Http\Controllers\Admin\MovieController::class, 'create']);
+   //    Route::get('/movie', [App\Http\Controllers\Admin\MovieController::class, 'index']);
+//
+   //    //Виправити на post
+   //    Route::get('/movie/create', [App\Http\Controllers\Admin\MovieController::class, 'create']);
+
+        Route::resource('movies', MovieController::class);
+
     });
