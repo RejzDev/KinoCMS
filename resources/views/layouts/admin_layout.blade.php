@@ -73,7 +73,7 @@
                 </div>
             </li>
 
-           
+
         </ul>
     </nav>
     <!-- /.navbar -->
@@ -123,7 +123,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="/" class="nav-link">
+                        <a href="{{ route('movies.index') }}" class="nav-link">
                             <p>
                                 Фильмы
                             </p>
@@ -189,7 +189,10 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-       @yield('content')
+        <div class="container-fluid">
+            @yield('content')
+        </div>
+
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->

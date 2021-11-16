@@ -46,10 +46,10 @@ class Movie extends Model
      */
     public function create(array $data): int
     {
-
+        $img = $data['images'][1]['name'] ?? null;
         $this->name = $data['name'];
         $this->description = $data['description'];
-        $this->image = $data['images'][1]['name'];
+        $this->image = $img;
         $this->url_trailer = $data['url-trailer'];
         $this->type_movie = $data['ch'];
         $this->url = $data['url'];
@@ -62,6 +62,32 @@ class Movie extends Model
         $object = $this->save();
 
         return $this->id;
+    }
+
+    /**
+     * Оновлення даних фильма
+     * @param $attributes
+     * @param $movie
+     * @return mixed
+     */
+    public function updates($attributes,$movie)
+    {
+        $img = $attributes['images'][1]['name'] ?? null;
+        $movie->name = $attributes['name'];
+        $movie->description = $attributes['description'];
+        $movie->image = $img;
+        $movie->url_trailer = $attributes['url-trailer'];
+        $movie->type_movie = $attributes['ch'];
+        $movie->url = $attributes['url'];
+        $movie->title = $attributes['title'];
+        $movie->keywords = $attributes['keywords'];
+        $movie->seo_description = $attributes['seo-description'];
+        $movie->status = 1;
+        $movie->soon = 0;
+
+        $object = $movie->save();
+
+        return $movie->id;
     }
 
 }

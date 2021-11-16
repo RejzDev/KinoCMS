@@ -19,7 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
+    Route::resource('movies', MovieController::class);
 
 Auth::routes();
 
@@ -33,6 +33,6 @@ Auth::routes();
    //    //Виправити на post
    //    Route::get('/movie/create', [App\Http\Controllers\Admin\MovieController::class, 'create']);
 
-        Route::resource('movies', MovieController::class);
+
 
     });

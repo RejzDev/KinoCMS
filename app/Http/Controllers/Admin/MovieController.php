@@ -18,15 +18,20 @@
             $this->imageSaver = $imageSaver;
         }
 
+
         /**
          * Display a listing of the resource.
+         *Вивід фільмів
          *
          * @return \Illuminate\Http\Response
          */
         public function index()
         {
             $movies = new Movie();
-            var_dump($movies->getOngoingMovies());
+            $date = $movies->getOngoingMovies();
+
+
+            return view('admin.movie.index', ['date' => $date]);
         }
 
         /**
@@ -41,6 +46,7 @@
 
         /**
          * Store a newly created resource in storage.
+         * Сохранение фильма
          *
          * @param \Illuminate\Http\Request $request
          * @return \Illuminate\Http\Response
@@ -49,22 +55,30 @@
         {
             $movies = new Movie();
             $images = new Image();
-            // $movie->createMovie($request);
+            //$movie->createMovie($request);
+
 
             $this->validate($request, [
-                'parent_id' => 'integer',
-                'image-1' => 'mimes:jpeg,jpg,png|max:5000',
+                'name' => 'required|max:100',
+                'description' => 'required',
+                'image-1' => '|mimes:jpeg,jpg,png|max:5000',
                 'image-2' => 'mimes:jpeg,jpg,png|max:5000',
                 'image-3' => 'mimes:jpeg,jpg,png|max:5000',
                 'image-4' => 'mimes:jpeg,jpg,png|max:5000',
                 'image-5' => 'mimes:jpeg,jpg,png|max:5000',
-                'image-6' => 'mimes:jpeg,jpg,png|max:5000'
+                'image-6' => 'mimes:jpeg,jpg,png|max:5000',
+                'url-trailer' => 'max:300|',
+                'type_movie' => 'required',
+                'url' => 'required|max:100|unique:movies,url|regex:~^[-_a-z0-9]+$~i',
+                'title' => 'required|max:100',
+                'keywords' => 'required',
+                'seo-description' => 'required',
             ]);
             /*
              * Проверка пройдена, создаем категорию
              */
 
-            $file = $request->file('image');
+            $file = $request->file('image-1');
 
 
             $data = $request->all();
@@ -87,7 +101,7 @@
 
 
             return redirect()
-                ->route('movies.create');
+                ->route('movies.index');
 
         }
 
@@ -97,35 +111,93 @@
          * @param \App\Models\Movie $movie
          * @return \Illuminate\Http\Response
          */
-        public
-        function show(Movie $movie)
+        public function show(Movie $movie)
         {
             //
         }
 
         /**
          * Show the form for editing the specified resource.
-         *
+         *Сторінка редагування
          * @param \App\Models\Movie $movie
          * @return \Illuminate\Http\Response
          */
-        public
-        function edit(Movie $movie)
+        public function edit(Movie $movie)
         {
-            //
+            $date = explode(',', $movie['type_movie']);
+            foreach ($date as $type) {
+                if ($type == '3D') {
+                    $movie['3D'] = $type;
+                } elseif ($type == '2D') {
+                    $movie['2D'] = $type;
+                } else {
+                    $movie['IMAX'] = $type;
+                }
+            }
+
+
+            return view('admin.movie.edit', ['movie' => $movie]);
         }
 
         /**
          * Update the specified resource in storage.
+         *Оновлення даних фільму
          *
          * @param \Illuminate\Http\Request $request
          * @param \App\Models\Movie $movie
          * @return \Illuminate\Http\Response
          */
-        public
-        function update(Request $request, Movie $movie)
+        public function update(Request $request, Movie $movie)
         {
-            //
+
+            $images = new Image();
+
+            //Валидация
+            $this->validate($request, [
+                'name' => 'required|max:100',
+                'description' => 'required',
+                'image-1' => 'mimes:jpeg,jpg,png|max:5000',
+                'image-2' => 'mimes:jpeg,jpg,png|max:5000',
+                'image-3' => 'mimes:jpeg,jpg,png|max:5000',
+                'image-4' => 'mimes:jpeg,jpg,png|max:5000',
+                'image-5' => 'mimes:jpeg,jpg,png|max:5000',
+                'image-6' => 'mimes:jpeg,jpg,png|max:5000',
+                'url-trailer' => 'max:300|',
+                'type_movie' => 'required',
+                'url' => 'required|max:100|regex:~^[-_a-z0-9]+$~i|unique:movies,url,'. $movie['id'],
+                'title' => 'required|max:100',
+                'keywords' => 'required',
+                'seo-description' => 'required',
+            ]);
+            /*
+             * Проверка пройдена, создаем категорию
+             */
+
+            $file = $request->file('image-1');
+
+
+            $data = $request->all();
+
+            $data['ch'] = implode(',', $request->input('type_movie'));
+
+            $data['images'] = $this->imageSaver->upload($request, $movie, 'movie');
+
+            $movies = $movie->updates($data,$movie);
+
+            if ($request->file('image-2')) {
+                $imagesDate['movie_id'] = $movie;
+                for ($i = 1; $i < count($data['images']); $i++) {
+
+                    $imagesDate['images'] = $data['images'][$i]['name'];
+                    $imagesDate['position'] = $i;
+                    $image = $images->create($imagesDate);
+
+                }
+            }
+
+
+            return redirect()
+                ->route('movies.index');
         }
 
         /**
