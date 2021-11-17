@@ -55,7 +55,6 @@
         {
             $movies = new Movie();
             $images = new Image();
-            //$movie->createMovie($request);
 
 
             $this->validate($request, [
@@ -74,11 +73,8 @@
                 'keywords' => 'required',
                 'seo-description' => 'required',
             ]);
-            /*
-             * Проверка пройдена, создаем категорию
-             */
 
-            $file = $request->file('image-1');
+
 
 
             $data = $request->all();
@@ -169,12 +165,6 @@
                 'keywords' => 'required',
                 'seo-description' => 'required',
             ]);
-            /*
-             * Проверка пройдена, создаем категорию
-             */
-
-            $file = $request->file('image-1');
-
 
             $data = $request->all();
 
