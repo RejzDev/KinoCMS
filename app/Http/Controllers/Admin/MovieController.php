@@ -54,8 +54,11 @@
          */
         public function store(Request $request)
         {
+
             $movies = new Movie();
             $images = new Image();
+
+            $movies->getRelationValue('images');
 
 
             $this->validate($request, [
@@ -83,16 +86,24 @@
             $data['ch'] = implode(',', $request->input('type_movie'));
 
 
-            $data['images'] = $this->imageSaver->upload($request, null, 'movie');
+            $data['main_img'] = $this->imageSaver->upload($request, null, 'movie');
 
             $movie = $movies->create($data);
 
-            $imagesDate['movie_id'] = $movie;
-            for ($i = 1; $i < count($data['images']); $i++) {
+            if (!empty($request->file('image'))) {
+                $imagesDate['movie_id'] = $movie;
+                foreach ($request->file('image') as $image){
+                    $data['images'][] = $this->imageSaver->uploadGalary($request, $image , $movies, 'movie');
+                }
 
-                $imagesDate['images'] = $data['images'][$i]['name'];
-                $imagesDate['position'] = $i;
-                $image = $images->create($imagesDate);
+                $i =1;
+                foreach ($data['images'] as $item) {
+                    var_dump($item);
+                    $imagesDate['images'] = $item;
+                    $imagesDate['position'] = $i;
+                    $id = $images->creates($imagesDate);
+                    $i++;
+                }
 
             }
 
@@ -170,24 +181,32 @@
                 'seo-description' => 'required',
             ]);
 
+
             $data = $request->all();
 
             $data['ch'] = implode(',', $request->input('type_movie'));
 
 
-            $data['images'] = $this->imageSaver->upload($request, $movie, 'movie');
+            $data['main_img'] = $this->imageSaver->upload($request, $movie, 'movie');
 
             $movies = $movie->updates($data,$movie);
 
-            if ($request->file('image-2')) {
-                $imagesDate['movie_id'] = $movie;
-                for ($i = 1; $i < count($data['images']); $i++) {
-
-                    $imagesDate['images'] = $data['images'][$i]['name'];
-                    $imagesDate['position'] = $i;
-                    $image = $images->create($imagesDate);
-
+            if (!empty($request->file('image'))) {
+                $imagesDate['movie_id'] = $movie->id;
+                foreach ($request->file('image') as $image){
+                    $data['images'][] = $this->imageSaver->uploadGalary($request, $image , $movie, 'movie');
                 }
+
+                $i =1;
+                foreach ($data['images'] as $item) {
+                    var_dump($item);
+                    $imagesDate['images'] = $item;
+                    $imagesDate['position'] = $i;
+                   $id = $images->creates($imagesDate);
+                    $i++;
+                }
+                dd($imagesDate);
+
             }
 
 

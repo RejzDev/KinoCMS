@@ -51,12 +51,12 @@ class Image extends Model
   //     return $this->belongsTo(Action::class);
   // }
 
-    public function create(array $date)
+    public function creates(array $date)
     {
         $this->key_img = $date['movie_id'];
         $this->patch = $date['images'];
         $this->position = $date['position'];
-
-        return $this->save();
+        $this->save();
+        return $this->id;
     }
 }

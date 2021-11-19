@@ -46,7 +46,7 @@ class Movie extends Model
      */
     public function create(array $data): int
     {
-        $img = (isset($data['images'][1]['name'])) ? $data['images'][1]['name'] : null;
+        $img = (isset($data['main_img'])) ? $data['main_img'] : null;
         $this->name = $data['name'];
         $this->description = $data['description'];
         if ($img != null){ $this->image = $img;}
@@ -72,10 +72,10 @@ class Movie extends Model
      */
     public function updates($attributes,$movie)
     {
-        $img = (isset($attributes['images'][1]['name'])) ? $attributes['images'][1]['name'] : null;
+        $img = (isset($attributes['main_img'])) ? $attributes['main_img'] : null;
         $movie->name = $attributes['name'];
         $movie->description = $attributes['description'];
-        if ($img != null){ $this->image = $img;}
+        if ($img != null){ $movie->image = $img;}
         $movie->url_trailer = $attributes['url-trailer'];
         $movie->type_movie = $attributes['ch'];
         $movie->url = $attributes['url'];

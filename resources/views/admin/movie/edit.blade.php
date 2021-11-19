@@ -41,7 +41,7 @@
                             <div class="input-group">
                                 <img src="{{ Storage::disk('public')->url('catalog/movie/source/no-img.jpg') }}" alt=""
                                      class="img-lg">
-                                <input type="file" class="form-control-file" name="image-1">
+                                <input type="file" class="form-control-file" name="main_img">
                             </div>
                         </div>
 
@@ -51,27 +51,27 @@
                                 <div class="col-md-2"><img
                                         src="{{ Storage::disk('public')->url('catalog/movie/source/no-img.jpg') }}"
                                         alt="" class="img-lg">
-                                    <input type="file" class="form-control-file" name="image-2">
+                                    <input type="file" class="form-control-file" name="image[]">
                                 </div>
                                 <div class="col-md-2"><img
                                         src="{{ Storage::disk('public')->url('catalog/movie/source/no-img.jpg') }}"
                                         alt="" class="img-lg">
-                                    <input type="file" class="form-control-file" name="image-3">
+                                    <input type="file" class="form-control-file" name="image[]">
                                 </div>
                                 <div class="col-md-2"><img
                                         src="{{ Storage::disk('public')->url('catalog/movie/source/no-img.jpg') }}"
                                         alt="" class="img-lg">
-                                    <input type="file" class="form-control-file" name="image-4">
+                                    <input type="file" class="form-control-file" name="image[]">
                                 </div>
                                 <div class="col-md-2"><img
                                         src="{{ Storage::disk('public')->url('catalog/movie/source/no-img.jpg') }}"
                                         alt="" class="img-lg">
-                                    <input type="file" class="form-control-file" name="image-5">
+                                    <input type="file" class="form-control-file" name="image[]">
                                 </div>
                                 <div class="col-md-2"><img
                                         src="{{ Storage::disk('public')->url('catalog/movie/source/no-img.jpg') }}"
                                         alt="" class="img-lg">
-                                    <input type="file" class="form-control-file" name="image-6">
+                                    <input type="file" class="form-control-file" name="image[]">
                                 </div>
                             </div>
                         </div>
