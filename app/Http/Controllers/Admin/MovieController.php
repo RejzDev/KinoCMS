@@ -31,6 +31,7 @@
             $date = $movies->getOngoingMovies();
 
 
+
             return view('admin.movie.index', ['date' => $date]);
         }
 
@@ -120,6 +121,8 @@
          */
         public function edit(Movie $movie)
         {
+         $movie->getRelationValue('images');
+
             $date = explode(',', $movie['type_movie']);
             foreach ($date as $type) {
                 if ($type == '3D') {
@@ -147,6 +150,7 @@
         {
 
             $images = new Image();
+            $movie->getRelationValue('images');
 
             //Валидация
             $this->validate($request, [
@@ -169,6 +173,7 @@
             $data = $request->all();
 
             $data['ch'] = implode(',', $request->input('type_movie'));
+
 
             $data['images'] = $this->imageSaver->upload($request, $movie, 'movie');
 

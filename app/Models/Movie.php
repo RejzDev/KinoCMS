@@ -37,7 +37,7 @@ class Movie extends Model
      */
     public function getOngoingMovies(): Collection
     {
-        return $this->where('status', '=', 1)->get();
+        return $this->with('images')->where('status', '=', 1)->get();
     }
 
     /**
@@ -46,10 +46,10 @@ class Movie extends Model
      */
     public function create(array $data): int
     {
-        $img = $data['images'][1]['name'] ?? null;
+        $img = (isset($data['images'][1]['name'])) ? $data['images'][1]['name'] : null;
         $this->name = $data['name'];
         $this->description = $data['description'];
-        $this->image = $img;
+        if ($img != null){ $this->image = $img;}
         $this->url_trailer = $data['url-trailer'];
         $this->type_movie = $data['ch'];
         $this->url = $data['url'];
@@ -72,10 +72,10 @@ class Movie extends Model
      */
     public function updates($attributes,$movie)
     {
-        $img = $attributes['images'][1]['name'] ?? null;
+        $img = (isset($attributes['images'][1]['name'])) ? $attributes['images'][1]['name'] : null;
         $movie->name = $attributes['name'];
         $movie->description = $attributes['description'];
-        $movie->image = $img;
+        if ($img != null){ $this->image = $img;}
         $movie->url_trailer = $attributes['url-trailer'];
         $movie->type_movie = $attributes['ch'];
         $movie->url = $attributes['url'];

@@ -23,6 +23,9 @@
                         if ($item && $item->image) {
                             $this->remove($item, $dir);
                         }
+                        if ($item && $item->images) {
+                            $this->remove($item, $dir);
+                        }
                         $ext = $source->extension();
 
                         $path = $source->store('catalog/'.$dir.'/source', 'public');

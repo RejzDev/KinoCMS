@@ -44,6 +44,7 @@
                                 <input type="file" class="form-control-file" name="image-1">
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label for="exampleInputFile">Галерея картинка</label>
                             <div class="input-group">
