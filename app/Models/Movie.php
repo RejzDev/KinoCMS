@@ -28,7 +28,7 @@ class Movie extends Model
     //Зв'язок з таблицею images
     public function images()
     {
-        return $this->hasMany(Image::class,'key_img');
+        return $this->hasMany(Image::class,'key_img')->orderBy('position', 'asc');
     }
 
     /**
@@ -85,7 +85,7 @@ class Movie extends Model
         $movie->status = 1;
         $movie->soon = 0;
 
-        $object = $movie->save();
+        $object = $movie->update();
 
         return $movie->id;
     }

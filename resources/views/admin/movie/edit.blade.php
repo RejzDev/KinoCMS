@@ -39,7 +39,7 @@
 
 
                             <div class="input-group">
-                                <img src="{{ Storage::disk('public')->url('catalog/movie/source/no-img.jpg') }}" alt=""
+                                <img src="{{ Storage::disk('public')->url('catalog/movie/source/' . $movie['image']) }}" alt=""
                                      class="img-lg">
                                 <input type="file" class="form-control-file" name="main_img">
                             </div>
@@ -47,32 +47,49 @@
 
                         <div class="form-group">
                             <label for="exampleInputFile">Галерея картинка</label>
+                            @php
+                                $i =0;
+                                if (isset($movie['images'][0]) ){
+                                foreach ($movie['images'] as $img){
+                                if ($img) {
+                                    // $url = url('storage/catalog/category/image/' . $category->image);
+                                    $url['img'][$i] = Storage::disk('public')->url('catalog/movie/source/' . $img['patch']);
+                                    $url['patch'][$i] = $img['patch'];
+
+                                } else {
+                                    // $url = url('storage/catalog/category/image/default.jpg');
+                                    $url = Storage::disk('public')->url('catalog/movie/source/no-img.jpg');
+                                }
+                                $i++;
+                                }
+                                } else {
+                                    $url['img'] = 0;
+                                }
+                                 $i =0;
+                            @endphp
                             <div class="input-group">
-                                <div class="col-md-2"><img
-                                        src="{{ Storage::disk('public')->url('catalog/movie/source/no-img.jpg') }}"
-                                        alt="" class="img-lg">
-                                    <input type="file" class="form-control-file" name="image[]">
-                                </div>
-                                <div class="col-md-2"><img
-                                        src="{{ Storage::disk('public')->url('catalog/movie/source/no-img.jpg') }}"
-                                        alt="" class="img-lg">
-                                    <input type="file" class="form-control-file" name="image[]">
-                                </div>
-                                <div class="col-md-2"><img
-                                        src="{{ Storage::disk('public')->url('catalog/movie/source/no-img.jpg') }}"
-                                        alt="" class="img-lg">
-                                    <input type="file" class="form-control-file" name="image[]">
-                                </div>
-                                <div class="col-md-2"><img
-                                        src="{{ Storage::disk('public')->url('catalog/movie/source/no-img.jpg') }}"
-                                        alt="" class="img-lg">
-                                    <input type="file" class="form-control-file" name="image[]">
-                                </div>
-                                <div class="col-md-2"><img
-                                        src="{{ Storage::disk('public')->url('catalog/movie/source/no-img.jpg') }}"
-                                        alt="" class="img-lg">
-                                    <input type="file" class="form-control-file" name="image[]">
-                                </div>
+                                @if($url['img'] != 0)
+                                    @for($i =0; $i < 5; $i++)
+
+                                        @if(isset($movie['images'][$i]['position']))
+                                                <div class="col-md-2"><img
+                                                        src="{{$url['img'][$i]}}"
+                                                        alt="" class="img-lg">
+                                                    <input type="file" class="form-control-file" name="image[{{$i}}]">
+                                                    <input type="hidden" class="form-control-file" name="image_{{$i}}"
+                                                           value="{{$url['patch'][$i]}}">
+                                                </div>
+                                        @else
+                                            <div class="col-md-2"><img
+                                                    src="{{ Storage::disk('public')->url('catalog/movie/source/no-img.jpg') }}"
+                                                    alt="" class="img-lg">
+                                                <input type="file" class="form-control-file" name="image[{{$i}}]">
+                                            </div>
+                                        @endif
+                                    @endfor
+                                @endif
+
+
                             </div>
                         </div>
                         <div class="form-group">
@@ -84,15 +101,18 @@
                             <label for="name">Тип кино:</label>
                             <div class="form-check">
 
-                                    <input type="checkbox" name="type_movie[]" value="3D" @if(isset($movie['3D']))checked @endif class="form-check-input"
-                                           id="3D">
-                                    <label class="form-check-label" for="3D">3D</label>
-                                    <input type="checkbox" name="type_movie[]" value="2D" @if(isset($movie['2D']))checked @endif class="form-check-input"
-                                           id="2D">
-                                    <label class="form-check-label" for="2D">2D</label>
-                                    <input type="checkbox" name="type_movie[]" value="IMAX" @if(isset($movie['IMAX']))checked @endif class="form-check-input"
-                                           id="IMAX">
-                                    <label class="form-check-label" for="IMAX">IMAX</label>
+                                <input type="checkbox" name="type_movie[]" value="3D" @if(isset($movie['3D']))checked
+                                       @endif class="form-check-input"
+                                       id="3D">
+                                <label class="form-check-label" for="3D">3D</label>
+                                <input type="checkbox" name="type_movie[]" value="2D" @if(isset($movie['2D']))checked
+                                       @endif class="form-check-input"
+                                       id="2D">
+                                <label class="form-check-label" for="2D">2D</label>
+                                <input type="checkbox" name="type_movie[]" value="IMAX"
+                                       @if(isset($movie['IMAX']))checked @endif class="form-check-input"
+                                       id="IMAX">
+                                <label class="form-check-label" for="IMAX">IMAX</label>
 
 
                             </div>
@@ -100,20 +120,23 @@
                         <label for="name">SEO блок:</label>
                         <div class="form-group">
                             <label for="name">URL:</label>
-                            <input type="text" class="form-control" name="url" value="{{$movie['url']}}" id="url" placeholder="url">
+                            <input type="text" class="form-control" name="url" value="{{$movie['url']}}" id="url"
+                                   placeholder="url">
                         </div>
                         <div class="form-group">
                             <label for="name">Title</label>
-                            <input type="text" class="form-control" name="title" value="{{$movie['title']}}" id="title" placeholder="title">
+                            <input type="text" class="form-control" name="title" value="{{$movie['title']}}" id="title"
+                                   placeholder="title">
                         </div>
                         <div class="form-group">
                             <label for="name">Keywords</label>
-                            <input type="text" class="form-control" name="keywords" value="{{$movie['keywords']}}" id="keywords"
+                            <input type="text" class="form-control" name="keywords" value="{{$movie['keywords']}}"
+                                   id="keywords"
                                    placeholder="keywords">
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <textarea class="form-control" rows="5" name="seo-description"  id="seo-description"
+                            <textarea class="form-control" rows="5" name="seo-description" id="seo-description"
                                       placeholder="description">{{$movie['seo_description']}}</textarea>
                         </div>
                     </div>

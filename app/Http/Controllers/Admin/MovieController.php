@@ -31,7 +31,6 @@
             $date = $movies->getOngoingMovies();
 
 
-
             return view('admin.movie.index', ['date' => $date]);
         }
 
@@ -79,8 +78,6 @@
             ]);
 
 
-
-
             $data = $request->all();
 
             $data['ch'] = implode(',', $request->input('type_movie'));
@@ -92,18 +89,18 @@
 
             if (!empty($request->file('image'))) {
                 $imagesDate['movie_id'] = $movie;
-                foreach ($request->file('image') as $image){
-                    $data['images'][] = $this->imageSaver->uploadGalary($request, $image , $movies, 'movie');
+                foreach ($request->file('image') as $image) {
+                    $data['images'][] = $this->imageSaver->uploadGalary($request, $image, $movies, 'movie');
                 }
 
-                $i =1;
-                foreach ($data['images'] as $item) {
-                    var_dump($item);
-                    $imagesDate['images'] = $item;
+                $i = 1;
+                do {
+                    $imagesDate['images'] = $data['images'][$i];
                     $imagesDate['position'] = $i;
                     $id = $images->creates($imagesDate);
                     $i++;
-                }
+                } while ($i < count($data['images']));
+
 
             }
 
@@ -132,7 +129,8 @@
          */
         public function edit(Movie $movie)
         {
-         $movie->getRelationValue('images');
+            $movie->getRelationValue('images');
+
 
             $date = explode(',', $movie['type_movie']);
             foreach ($date as $type) {
@@ -163,9 +161,18 @@
             $images = new Image();
             $movie->getRelationValue('images');
 
+
+            if (!empty($request->file('image'))) {
+                for ($i = 0; $i < 5; $i++) {
+                    if (isset($request->image[$i])) {
+                       $img_pos[] = $i + 1;
+                       $request['img_pos'] = $img_pos;
+                    }
+                }
+
+            }
             //Валидация
-            $this->validate($request, [
-                'name' => 'required|max:100',
+            $this->validate($request, ['name' => 'required|max:100',
                 'description' => 'required',
                 'image-1' => 'mimes:jpeg,jpg,png|max:5000',
                 'image-2' => 'mimes:jpeg,jpg,png|max:5000',
@@ -175,37 +182,39 @@
                 'image-6' => 'mimes:jpeg,jpg,png|max:5000',
                 'url-trailer' => 'max:300|',
                 'type_movie' => 'required',
-                'url' => 'required|max:100|regex:~^[-_a-z0-9]+$~i|unique:movies,url,'. $movie['id'],
+                'url' => 'required|max:100|regex:~^[-_a-z0-9]+$~i|unique:movies,url,' . $movie['id'],
                 'title' => 'required|max:100',
                 'keywords' => 'required',
-                'seo-description' => 'required',
-            ]);
+                'seo-description' => 'required',]);
 
 
             $data = $request->all();
+
 
             $data['ch'] = implode(',', $request->input('type_movie'));
 
 
             $data['main_img'] = $this->imageSaver->upload($request, $movie, 'movie');
 
-            $movies = $movie->updates($data,$movie);
+            $movies = $movie->updates($data, $movie);
 
             if (!empty($request->file('image'))) {
                 $imagesDate['movie_id'] = $movie->id;
-                foreach ($request->file('image') as $image){
-                    $data['images'][] = $this->imageSaver->uploadGalary($request, $image , $movie, 'movie');
-                }
+                $i=0;
 
-                $i =1;
-                foreach ($data['images'] as $item) {
-                    var_dump($item);
-                    $imagesDate['images'] = $item;
-                    $imagesDate['position'] = $i;
-                   $id = $images->creates($imagesDate);
+                foreach ($request->file('image') as $image) {
+                    $imagesDate['newPatch'] = $this->imageSaver->uploadGalary($request, $image, $movie, 'movie');
+                    $imagesDate['oldPatch'] = $movie->images[$i]['patch'];
+                    $images->updates($imagesDate);
+
                     $i++;
                 }
-                dd($imagesDate);
+
+
+
+
+
+
 
             }
 
