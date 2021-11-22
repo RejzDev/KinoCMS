@@ -23,7 +23,10 @@ class CreateHallsTable extends Migration
             $table->string('title', 100);
             $table->string('keywords', 100);
             $table->text('seo_description');
+            $table->unsignedBigInteger('cinema_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('cinema_id')->references('id')->on('cinemas');
         });
     }
 

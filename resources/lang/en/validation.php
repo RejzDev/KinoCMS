@@ -144,24 +144,15 @@
             'description' => [
                 'required' => 'Поле «:attribute» обязательно для заполнения',
             ],
-            'image-1' => [
+            'main_img' => [
+                'mimes' => 'Поле «:attribute» должо мати формат jpeg,jpg,png',
                 'max' => 'Поле «:attribute» должно быть не больше :max символов',
             ],
-            'image-2' => [
+            'image' => [
+                'mimes' => 'Поле «:attribute» должо мати формат jpeg,jpg,png',
                 'max' => 'Поле «:attribute» должно быть не больше :max символов',
             ],
-            'image-3' => [
-                'max' => 'Поле «:attribute» должно быть не больше :max символов',
-            ],
-            'image-4' => [
-                'max' => 'Поле «:attribute» должно быть не больше :max символов',
-            ],
-            'image-5' => [
-                'max' => 'Поле «:attribute» должно быть не больше :max символов',
-            ],
-            'image-6' => [
-                'max' => 'Поле «:attribute» должно быть не больше :max символов',
-            ],
+
             'type_movie' => [
                 'required' => 'Поле «:attribute» обязательно для заполнения',
             ],
@@ -199,12 +190,8 @@
         'attributes' => [
             'name' => 'Название фильма',
             'description' => 'Описание',
-            'image-1' => 'Главная картинка',
-            'image-2' => 'image-2',
-            'image-3' => 'image-3',
-            'image-4' => 'image-4',
-            'image-5' => 'image-5',
-            'image-6' => 'image-6',
+            'main_img' => 'Главная картинка',
+            'image' => 'Галерея',
             'type_movie' => 'Тип кино',
             'url' => 'URL',
             'title' => 'Title',

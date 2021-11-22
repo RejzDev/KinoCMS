@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
     use Illuminate\Support\Facades\Auth;
     use App\Http\Controllers\Admin\MovieController;
+    use App\Http\Controllers\Admin\CinemaController;
 
     /*
     |--------------------------------------------------------------------------
@@ -20,6 +21,7 @@ Route::get('/', function () {
 });
 
     Route::resource('movies', MovieController::class);
+    Route::resource('cinema', CinemaController::class);
 
     Route::post('/image/removeImage', [\App\Http\Controllers\Admin\ImageController::class, 'removeImage']);
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateImagesTable extends Migration
+class CreateHallImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('images', function (Blueprint $table) {
+        Schema::create('hall_images', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('key_img')->nullable();
+            $table->unsignedBigInteger('hall_id')->nullable();
             $table->string('patch')->unique()->nullable();
             $table->string('position')->nullable();
             $table->timestamps();
 
-            $table->foreign('key_img')->references('id')->on('movies')->cascade('delete');
-
+            $table->foreign('hall_id')->references('id')->on('halls')->cascade('delete');
         });
     }
 
@@ -32,6 +31,6 @@ class CreateImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('hall_images');
     }
 }

@@ -34,14 +34,14 @@
             return $name;
         }
 
-        public function uploadGalary(Request $request, $image, $movie, string $dir)
+        public function uploadGalary(Request $request, $image, $object, string $dir)
         {
 
-            foreach ($movie->images as $img) {
+            foreach ($object->images as $img) {
                 $name = $img->patch ?? null;
             }
             $i = 0;
-            foreach ($movie->images as $img) {
+            foreach ($object->images as $img) {
                 if ($image && $request->remove && $img->position == $request->img_pos[$i]) {
                     $this->removeGalery($image, $dir);
                     $name = null;
@@ -52,9 +52,9 @@
             if ($source) { // если было загружено изображение
                 // перед загрузкой нового изображения удаляем старое
                 $i = 0;
-                foreach ($movie->images as $img) {
+                foreach ($object->images as $img) {
                     if (isset($request->img_pos[$i])){
-                    if ($movie && $img->patch && $img->position == $request->img_pos[$i]) {
+                    if ($object && $img->patch && $img->position == $request->img_pos[$i]) {
                         $this->removeGalery($img, $dir);
                     }
                     }
