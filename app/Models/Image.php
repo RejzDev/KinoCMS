@@ -55,15 +55,15 @@ class Image extends Model
     {
         $images = array();
         $i=0;
-        foreach ($date['images'] as $item) {
-            if (isset($date['img_pos'][$i])) $pos = $date['img_pos'][$i];
-            $images[] = [
-            'key_img' => $date['movie_id'],
-            'patch' => $item,
-            'position' => $pos
+            foreach ($date['images'] as $item) {
 
-        ];
-            $i++;
+                $images[] = [
+                    'key_img' => $date['movie_id'],
+                    'patch' => $item,
+                    'position' => $i
+
+                ];
+                $i++;
         }
         $this->insert($images);
     }
@@ -87,8 +87,8 @@ class Image extends Model
         return $this->where('patch', '=', $date['oldPatch'])->update(["patch" => $date['newPatch']]);
     }
 
-    public function deletes(Image $image)
+    public function deletes(string $patch)
     {
-        $image->delete();
+        return $this->where('patch', '=', $patch)->delete();
     }
 }

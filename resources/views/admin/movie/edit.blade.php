@@ -23,7 +23,7 @@
                 <form action="{{ route('movies.update', $movie['id']) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <div class="card-body">
+                     <div class="card-body">
                         <div class="form-group">
                             <label for="name">Название фильма</label>
                             <input type="text" class="form-control" name="name" id="name" value="{{$movie['name']}}"
@@ -39,7 +39,8 @@
 
 
                             <div class="input-group">
-                                <img src="{{ Storage::disk('public')->url('catalog/movie/source/' . $movie['image']) }}" alt=""
+                                <img src="{{ Storage::disk('public')->url('catalog/movie/source/' . $movie['image']) }}"
+                                     alt=""
                                      class="img-lg">
                                 <input type="file" class="form-control-file" name="main_img">
                             </div>
@@ -72,13 +73,19 @@
                                     @for($i =0; $i < 5; $i++)
 
                                         @if(isset($movie['images'][$i]['position']))
-                                                <div class="col-md-2"><img
-                                                        src="{{$url['img'][$i]}}"
-                                                        alt="" class="img-lg">
-                                                    <input type="file" class="form-control-file" name="image[{{$i}}]">
-                                                    <input type="hidden" class="form-control-file" name="image_{{$i}}"
-                                                           value="{{$url['patch'][$i]}}">
-                                                </div>
+                                            <div class="col-md-2">
+                                                    <span class="close-image-icon">
+                                                    <a href="#" class="close" aria-label="Close" onclick="removeImage({{$i, $movie->id}}); return false;">
+                                                     <span aria-hidden="true" title="Удалить">&times;</span>
+                                                    </a>
+                                                    </span>
+                                                <img src="{{$url['img'][$i]}}" id="img-{{$i}}" alt="" class="img-lg">
+                                                <input type="file" class="form-control-file"  name="image[{{$i}}]">
+                                                <input type="hidden" class="form-control-file" id="image_{{$i}}" name="image_{{$i}}"
+                                                       value="{{$url['patch'][$i]}}">
+
+
+                                            </div>
                                         @else
                                             <div class="col-md-2"><img
                                                     src="{{ Storage::disk('public')->url('catalog/movie/source/no-img.jpg') }}"
@@ -86,6 +93,15 @@
                                                 <input type="file" class="form-control-file" name="image[{{$i}}]">
                                             </div>
                                         @endif
+                                    @endfor
+                                    @else
+                                    @for($i =0; $i < 5; $i++)
+                                            <div class="col-md-2"><img
+                                                    src="{{ Storage::disk('public')->url('catalog/movie/source/no-img.jpg') }}"
+                                                    alt="" class="img-lg">
+                                                <input type="file" class="form-control-file" name="image[{{$i}}]">
+                                            </div>
+
                                     @endfor
                                 @endif
 

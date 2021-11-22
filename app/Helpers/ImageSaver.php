@@ -40,10 +40,12 @@
             foreach ($movie->images as $img) {
                 $name = $img->patch ?? null;
             }
+            $i = 0;
             foreach ($movie->images as $img) {
                 if ($image && $request->remove && $img->position == $request->img_pos[$i]) {
                     $this->removeGalery($image, $dir);
                     $name = null;
+                    $i++;
                 }
             }
             $source = $image;

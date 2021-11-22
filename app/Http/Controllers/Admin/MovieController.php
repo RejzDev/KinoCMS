@@ -93,14 +93,13 @@
                     $data['images'][] = $this->imageSaver->uploadGalary($request, $image, $movies, 'movie');
                 }
 
-                $i = 1;
+                $i = 0;
                 do {
-                    $imagesDate['images'] = $data['images'][$i];
+                    $imagesDate['images'][] = $data['images'][$i];
                     $imagesDate['position'] = $i;
-                    $id = $images->creates($imagesDate);
                     $i++;
                 } while ($i < count($data['images']));
-
+                $id = $images->creates($imagesDate);
 
             }
 
@@ -203,18 +202,19 @@
                 $i=0;
 
                 foreach ($request->file('image') as $image) {
-                    $imagesDate['newPatch'] = $this->imageSaver->uploadGalary($request, $image, $movie, 'movie');
-                    $imagesDate['oldPatch'] = $movie->images[$i]['patch'];
-                    $images->updates($imagesDate);
+                    if (!empty($movie->images[$i]['patch'])) {
+                         $imagesDate['newPatch'] = $this->imageSaver->uploadGalary($request, $image, $movie, 'movie');
 
+                        $imagesDate['oldPatch'] = $movie->images[$i]['patch'];
+                        $images->updates($imagesDate);
+                    } else {
+                        $imagesDate['images'][] = $this->imageSaver->uploadGalary($request, $image, $movie, 'movie');
+                    }
                     $i++;
                 }
-
-
-
-
-
-
+                if (isset($imagesDate['images'])) {
+                    $images->creates($imagesDate);
+                }
 
             }
 
@@ -230,8 +230,8 @@
          * @return \Illuminate\Http\Response
          */
         public
-        function destroy(Movie $movie)
+        function destroy(Request $request, Movie $movie)
         {
-            //
+            return 'succsess';
         }
     }

@@ -242,9 +242,13 @@
 <script src="/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/admin/dist/js/adminlte.js"></script>
+<script src="/js/ajax.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="/admin/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="/admin/dist/js/pages/dashboard.js"></script>
+
+<meta name="csrf-token" content="{!! csrf_token() !!}" />
+
 </body>
 </html>

@@ -21,6 +21,8 @@ Route::get('/', function () {
 
     Route::resource('movies', MovieController::class);
 
+    Route::post('/image/removeImage', [\App\Http\Controllers\Admin\ImageController::class, 'removeImage']);
+
 Auth::routes();
 
    // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
