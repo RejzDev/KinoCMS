@@ -25,4 +25,10 @@ class CinemaImage extends Model
         }
         $this->insert($images);
     }
+
+    public function deletes(string $patch)
+    {
+        return $this->where('patch', '=', $patch)->delete();
+    }
+
 }

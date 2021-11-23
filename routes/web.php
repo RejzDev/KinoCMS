@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
     use Illuminate\Support\Facades\Auth;
     use App\Http\Controllers\Admin\MovieController;
     use App\Http\Controllers\Admin\CinemaController;
+    use App\Http\Controllers\Admin\HallController;
 
     /*
     |--------------------------------------------------------------------------
@@ -22,8 +23,10 @@ Route::get('/', function () {
 
     Route::resource('movies', MovieController::class);
     Route::resource('cinema', CinemaController::class);
+    Route::resource('hall', HallController::class);
 
     Route::post('/image/removeImage', [\App\Http\Controllers\Admin\ImageController::class, 'removeImage']);
+    Route::post('/cinema-image/removeImage', [\App\Http\Controllers\Admin\CinemaImageController::class, 'removeImage']);
 
 Auth::routes();
 

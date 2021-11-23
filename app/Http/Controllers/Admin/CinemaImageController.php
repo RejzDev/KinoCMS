@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\Image;
 use App\Helpers\ImageSaver;
+use App\Models\CinemaImage;
 
-class ImageController extends Controller
+class CinemaImageController extends Controller
 {
     private $imageSaver;
 
@@ -19,7 +18,7 @@ class ImageController extends Controller
     public function removeImage(Request $request)
     {
 
-        $images = new Image();
+        $images = new CinemaImage();
         if (isset($request->patch)){
             $images->deletes($request->patch);
             $this->imageSaver->removeGalery($request, $request->dir);

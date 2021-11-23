@@ -141,10 +141,18 @@
                 'required' => 'Поле «:attribute» обязательно для заполнения',
                 'max' => 'Поле «:attribute» должно быть не больше :max символов',
             ],
+            'number' => [
+                'required' => 'Поле «:attribute» обязательно для заполнения',
+                'numeric' => 'Поле «:attribute» должно бить числом',
+                 ],
             'description' => [
                 'required' => 'Поле «:attribute» обязательно для заполнения',
             ],
             'main_img' => [
+                'mimes' => 'Поле «:attribute» должо мати формат jpeg,jpg,png',
+                'max' => 'Поле «:attribute» должно быть не больше :max символов',
+            ],
+            'banner_img' => [
                 'mimes' => 'Поле «:attribute» должо мати формат jpeg,jpg,png',
                 'max' => 'Поле «:attribute» должно быть не больше :max символов',
             ],
@@ -189,6 +197,7 @@
 
         'attributes' => [
             'name' => 'Название фильма',
+            'number' => 'Номер зала',
             'description' => 'Описание',
             'main_img' => 'Главная картинка',
             'image' => 'Галерея',

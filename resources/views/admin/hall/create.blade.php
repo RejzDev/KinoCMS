@@ -20,25 +20,22 @@
             @endif
             <!-- /.card-header -->
                 <!-- form start -->
-                <form action="{{route('cinema.store')}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('hall.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
+                        <input type="hidden" name="cinema_id" value="{{$cinema_id}}">
                         <div class="form-group">
-                            <label for="name">Название кинотеатра</label>
-                            <input type="text" class="form-control" name="name" id="name" placeholder="Название фильма">
+                            <label for="name">Номер зала</label>
+                            <input type="text" class="form-control" name="number" id="number" placeholder="Номер зала">
                         </div>
+
                         <div class="form-group">
-                            <label for="conditions">Условие</label>
-                            <textarea class="form-control" rows="5" name="conditions" id="conditions"
-                                      placeholder="текст"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="description">Описание</label>
+                            <label for="description">Описание зала</label>
                             <textarea class="form-control" rows="5" name="description" id="description"
                                       placeholder="текст"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputFile">Главная картинка</label>
+                            <label for="exampleInputFile">Схема зала</label>
                             <div class="input-group">
                                 <img src="{{ Storage::disk('public')->url('catalog/movie/source/no-img.jpg') }}" alt="" class="img-lg">
                                 <input type="file" class="form-control-file" name="main_img">
@@ -46,10 +43,10 @@
 
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputFile">Фото верхнего банера</label>
+                            <label for="exampleInputFile">Верхний банер банер</label>
                             <div class="input-group">
                                 <img src="{{ Storage::disk('public')->url('catalog/movie/source/no-img.jpg') }}" alt="" class="img-lg">
-                                <input type="file" class="form-control-file" name="baner_img">
+                                <input type="file" class="form-control-file" name="banner_img">
                             </div>
 
                         </div>

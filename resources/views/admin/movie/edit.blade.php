@@ -75,7 +75,7 @@
                                         @if(isset($movie['images'][$i]['position']))
                                             <div class="col-md-2">
                                                     <span class="close-image-icon">
-                                                    <a href="#" class="close" aria-label="Close" onclick="removeImage({{$i, $movie->id}}); return false;">
+                                                    <a href="#" class="close" aria-label="Close" onclick="removeImage({{$i}}, 'movie'); return false;">
                                                      <span aria-hidden="true" title="Удалить">&times;</span>
                                                     </a>
                                                     </span>

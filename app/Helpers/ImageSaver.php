@@ -14,10 +14,7 @@
         public function upload(Request $request, $item, string $dir)
         {
             $name = $item->main_img ?? null;
-            if ($item && $request->remove) { // если надо удалить изображение
-                $this->remove($item, $dir);
-                $name = null;
-            }
+
             $source = $request->file('main_img');
             if ($source) { // если было загружено изображение
                 // перед загрузкой нового изображения удаляем старое
@@ -30,6 +27,21 @@
                 $path = Storage::disk('public')->path($path); // абсолютный путь
                 $name = basename($path); // имя файла
 
+                if ($request->file('banner_img')){
+                    $source = $request->file('baner_img');
+                    if ($source) { // если было загружено изображение
+                        // перед загрузкой нового изображения удаляем старое
+                        if ($item && $item->image) {
+                            $this->remove($item, $dir);
+                        }
+                        $ext = $source->extension();
+                        // сохраняем загруженное изображение без всяких изменений
+                        $path = $source->store('catalog/' . $dir . '/source', 'public');
+                        $path = Storage::disk('public')->path($path); // абсолютный путь
+                        $name = basename($path); // имя файла
+                }
+
+            }
             }
             return $name;
         }
@@ -41,13 +53,7 @@
                 $name = $img->patch ?? null;
             }
             $i = 0;
-            foreach ($object->images as $img) {
-                if ($image && $request->remove && $img->position == $request->img_pos[$i]) {
-                    $this->removeGalery($image, $dir);
-                    $name = null;
-                    $i++;
-                }
-            }
+
             $source = $image;
             if ($source) { // если было загружено изображение
                 // перед загрузкой нового изображения удаляем старое
@@ -72,7 +78,7 @@
 
 
         public
-        function remove($item, $dir)
+        function remove($item, string $dir)
         {
             $old = $item->image;
             if ($old) {
@@ -81,7 +87,7 @@
         }
 
         public
-        function removeGalery($item, $dir)
+        function removeGalery($item, string $dir)
         {
             $old = $item->patch;
             if ($old) {

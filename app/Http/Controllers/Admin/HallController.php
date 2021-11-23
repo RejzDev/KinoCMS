@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Cinema;
+use App\Models\Hall;
 use Illuminate\Http\Request;
-use App\Models\Movie;
-use App\Models\Image;
-use App\Models\CinemaImage;
+use App\Http\Controllers\Controller;
+use App\Models\HallImage;
 use App\Helpers\ImageSaver;
 
-class CinemaController extends Controller
+class HallController extends Controller
 {
 
     private $imageSaver;
@@ -27,11 +25,7 @@ class CinemaController extends Controller
      */
     public function index()
     {
-        $cinema = new Cinema();
-        $date = $cinema->allCinema();
-
-
-        return view('admin.cinema.index', ['date' => $date]);
+        //
     }
 
     /**
@@ -39,10 +33,10 @@ class CinemaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-
-        return view('admin.cinema.create');
+       $cinema_id =  $request->cinema_id;
+        return view('admin.hall.create',['cinema_id' => $cinema_id]);
     }
 
     /**
@@ -53,21 +47,21 @@ class CinemaController extends Controller
      */
     public function store(Request $request)
     {
-        $cinema = new Cinema();
-        $images = new CinemaImage();
+        $hall = new Hall();
+        $images = new HallImage();
 
-        $cinema->getRelationValue('images');
-        $cinema->getRelationValue('halls');
+        $hall->getRelationValue('images');
+
 
 
 
         $this->validate($request, [
-            'name' => 'required|max:100',
+            'number' => 'required|numeric|unique:halls',
             'description' => 'required',
             'main_img' => '|mimes:jpeg,jpg,png|max:5000',
-            'border_img' => '|mimes:jpeg,jpg,png|max:5000',
+            'banner_img' => '|mimes:jpeg,jpg,png|max:5000',
             'image[0]' => '|mimes:jpeg,jpg,png|max:5000',
-            'url' => 'required|max:100|unique:movies,url|regex:~^[-_a-z0-9]+$~i',
+            'url' => 'required|max:100|unique:halls,url|regex:~^[-_a-z0-9]+$~i',
             'title' => 'required|max:100',
             'keywords' => 'required',
             'seo-description' => 'required',
@@ -76,15 +70,16 @@ class CinemaController extends Controller
 
         $data = $request->all();
 
-        $data['main_img'] = $this->imageSaver->upload($request, null, 'cinema');
-        $data['border_img'] = $this->imageSaver->upload($request, null, 'cinema');
 
-        $cinema_id = $cinema->create($data);
+        $data['main_img'] = $this->imageSaver->upload($request, null, 'hall');
+        $data['banner_img'] = $this->imageSaver->upload($request, null, 'hall');
+
+        $hall_id = $hall->create($data);
 
         if (!empty($request->file('image'))) {
-            $imagesDate['cinema_id'] = $cinema_id;
+            $imagesDate['cinema_id'] = $hall_id;
             foreach ($request->file('image') as $image) {
-                $data['images'][] = $this->imageSaver->uploadGalary($request, $image, $cinema, 'cinema');
+                $data['images'][] = $this->imageSaver->uploadGalary($request, $image, $hall, 'cinema');
             }
 
             $i = 0;
@@ -95,16 +90,15 @@ class CinemaController extends Controller
             } while ($i < count($data['images']));
             $id = $images->creates($imagesDate);
     }
-        return redirect(route('cinema.index'))->withSuccess('Кинотеатр был успешно добавлен!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Cinema  $cinema
+     * @param  \App\Models\Hall  $hall
      * @return \Illuminate\Http\Response
      */
-    public function show(Cinema $cinema)
+    public function show(Hall $hall)
     {
         //
     }
@@ -112,29 +106,22 @@ class CinemaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Cinema  $cinema
+     * @param  \App\Models\Hall  $hall
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cinema $cinema)
+    public function edit(Hall $hall)
     {
-
-
-        $cinema->getRelationValue('images');
-        $cinema->getRelationValue('halls');
-
-
-
-        return view('admin.cinema.edit',['cinema' => $cinema]);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cinema  $cinema
+     * @param  \App\Models\Hall  $hall
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cinema $cinema)
+    public function update(Request $request, Hall $hall)
     {
         //
     }
@@ -142,11 +129,20 @@ class CinemaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Cinema  $cinema
+     * @param  \App\Models\Hall  $hall
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cinema $cinema)
+    public function destroy(Hall $hall)
     {
-        //
+        $images = new HallImage();
+        $hall->delete();
+
+        $this->imageSaver->remove(, 'hall');
+
+      $images->deletes($hall->patch);
+      $this->imageSaver->removeGalery($hall, 'hall');
+
+
+
     }
 }

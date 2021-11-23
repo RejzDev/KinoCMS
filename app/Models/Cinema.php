@@ -12,12 +12,12 @@ class Cinema extends Model
     //Зв'язок з таблицею images
     public function images()
     {
-        return $this->hasMany(Image::class,'key_img');
+        return $this->hasMany(CinemaImage::class,'cinema_id');
     }
 
     public function halls()
     {
-        return $this->hasMany(Image::class,'cinema_id');
+        return $this->hasMany(Hall::class,'cinema_id');
     }
 
 
@@ -28,7 +28,7 @@ class Cinema extends Model
     public function create(array $data): int
     {
         $main_img = (isset($data['main_img'])) ? $data['main_img'] : null;
-        $border_img = (isset($data['background_img'])) ? $data['border_img'] : null;
+        $border_img = (isset($data['border_img'])) ? $data['border_img'] : null;
         $this->name = $data['name'];
         $this->description = $data['description'];
         $this->conditions = $data['conditions'];
@@ -43,6 +43,10 @@ class Cinema extends Model
         $object = $this->save();
 
         return $this->id;
+    }
+
+    public function allCinema(){
+      return  $this->all();
     }
 
 

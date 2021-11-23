@@ -69,20 +69,6 @@ class Image extends Model
     }
     public function updates(array $date)
     {
-       // $images = array();
-      //  $i=0;
-       //foreach ($date['images'] as $item) {
-       //    if (isset($date['img_pos'][$i])) $pos = $date['img_pos'][$i];
-       //    $images[] = [
-       //        'key_img' => $date['movie_id'],
-       //        'patch' => $item,
-       //        'position' => $pos
-       //
-       //    ];
-       //    $i++;
-       //}
-       // $this->insert($images);
-
 
         return $this->where('patch', '=', $date['oldPatch'])->update(["patch" => $date['newPatch']]);
     }
