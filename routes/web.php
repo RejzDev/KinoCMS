@@ -27,6 +27,7 @@ Route::get('/', function () {
 
     Route::post('/image/removeImage', [\App\Http\Controllers\Admin\ImageController::class, 'removeImage']);
     Route::post('/cinema-image/removeImage', [\App\Http\Controllers\Admin\CinemaImageController::class, 'removeImage']);
+    Route::post('/hall-image/removeImage', [\App\Http\Controllers\Admin\HallImageController::class, 'removeImage']);
 
 Auth::routes();
 
@@ -34,11 +35,6 @@ Auth::routes();
     Route::middleware(['role:admin'])->prefix('admin_panel')->group(function () {
         //
         Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index']);
-
-   //    Route::get('/movie', [App\Http\Controllers\Admin\MovieController::class, 'index']);
-//
-   //    //Виправити на post
-   //    Route::get('/movie/create', [App\Http\Controllers\Admin\MovieController::class, 'create']);
 
 
 

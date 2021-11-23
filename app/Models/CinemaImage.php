@@ -26,6 +26,12 @@ class CinemaImage extends Model
         $this->insert($images);
     }
 
+    public function updates(array $date)
+    {
+
+        return $this->where('patch', '=', $date['oldPatch'])->update(["patch" => $date['newPatch']]);
+    }
+
     public function deletes(string $patch)
     {
         return $this->where('patch', '=', $patch)->delete();

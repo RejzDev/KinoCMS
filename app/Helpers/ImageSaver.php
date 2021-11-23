@@ -86,6 +86,14 @@
             }
         }
 
+        function delete($item, string $dir)
+        {
+            $old = $item;
+            if ($old) {
+                Storage::disk('public')->delete('catalog/' . $dir . '/source/' . $old);
+            }
+        }
+
         public
         function removeGalery($item, string $dir)
         {

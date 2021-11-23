@@ -56,7 +56,7 @@ class HallController extends Controller
 
 
         $this->validate($request, [
-            'number' => 'required|numeric|unique:halls',
+            'number' => 'required|numeric',
             'description' => 'required',
             'main_img' => '|mimes:jpeg,jpg,png|max:5000',
             'banner_img' => '|mimes:jpeg,jpg,png|max:5000',
@@ -77,7 +77,7 @@ class HallController extends Controller
         $hall_id = $hall->create($data);
 
         if (!empty($request->file('image'))) {
-            $imagesDate['cinema_id'] = $hall_id;
+            $imagesDate['hall_id'] = $hall_id;
             foreach ($request->file('image') as $image) {
                 $data['images'][] = $this->imageSaver->uploadGalary($request, $image, $hall, 'cinema');
             }
@@ -90,6 +90,7 @@ class HallController extends Controller
             } while ($i < count($data['images']));
             $id = $images->creates($imagesDate);
     }
+        return redirect(route('cinema.edit', $data['cinema_id']))->withSuccess('Зал был успешно добавлен!');
     }
 
     /**
@@ -111,7 +112,9 @@ class HallController extends Controller
      */
     public function edit(Hall $hall)
     {
-        //
+        $hall->getRelationValue('images');
+
+        return view('admin.hall.edit',['hall' => $hall]);
     }
 
     /**
@@ -123,7 +126,66 @@ class HallController extends Controller
      */
     public function update(Request $request, Hall $hall)
     {
-        //
+
+        $images = new HallImage();
+
+        $hall->getRelationValue('images');
+
+        if (!empty($request->file('image'))) {
+            for ($i = 0; $i < 5; $i++) {
+                if (isset($request->image[$i])) {
+                    $img_pos[] = $i + 1;
+                    $request['img_pos'] = $img_pos;
+                }
+            }
+
+        }
+
+
+        $this->validate($request, [
+            'number' => 'required|numeric',
+            'description' => 'required',
+            'main_img' => '|mimes:jpeg,jpg,png|max:5000',
+            'banner_img' => '|mimes:jpeg,jpg,png|max:5000',
+            'image[0]' => '|mimes:jpeg,jpg,png|max:5000',
+            'url' => 'required|max:100|regex:~^[-_a-z0-9]+$~i|unique:halls,url,' . $hall['id'],
+            'title' => 'required|max:100',
+            'keywords' => 'required',
+            'seo-description' => 'required',
+        ]);
+
+
+        $data = $request->all();
+
+
+        $data['main_img'] = $this->imageSaver->upload($request, null, 'hall');
+        $data['banner_img'] = $this->imageSaver->upload($request, null, 'hall');
+
+        $hall_id = $hall->updates($data, $hall);
+
+
+
+        if (!empty($request->file('image'))) {
+            $imagesDate['hall_id'] = $hall->id;
+            $i=0;
+
+            foreach ($request->file('image') as $image) {
+                if (!empty($movie->images[$i]['patch'])) {
+                    $imagesDate['newPatch'] = $this->imageSaver->uploadGalary($request, $image, $hall, 'hall');
+
+                    $imagesDate['oldPatch'] = $movie->images[$i]['patch'];
+                    $images->updates($imagesDate);
+                } else {
+                    $imagesDate['images'][] = $this->imageSaver->uploadGalary($request, $image, $hall, 'hall');
+                }
+                $i++;
+            }
+            if (isset($imagesDate['images'])) {
+                $images->creates($imagesDate);
+            }
+
+        }
+        return redirect(route('cinema.edit', $hall['cinema_id']))->withSuccess('Зал был успешно обновльон!');
     }
 
     /**
@@ -137,7 +199,8 @@ class HallController extends Controller
         $images = new HallImage();
         $hall->delete();
 
-        $this->imageSaver->remove(, 'hall');
+        $this->imageSaver->delete($hall->logo_img, 'hall');
+        $this->imageSaver->delete($hall->banner_img, 'hall');
 
       $images->deletes($hall->patch);
       $this->imageSaver->removeGalery($hall, 'hall');

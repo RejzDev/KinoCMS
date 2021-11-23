@@ -27,8 +27,9 @@
             @endif
             <!-- /.card-header -->
                 <!-- form start -->
-                <form action="{{route('cinema.store')}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('cinema.update', $cinema['id'])}}" method="post" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div class="card-body">
                         <div class="form-group">
                             <label for="name">Название кинотеатра</label>
@@ -166,7 +167,7 @@
                                                     </td>
 
                                                     <td class="project-actions text-right">
-                                                        <a class="btn btn-info btn-sm" href="">
+                                                        <a class="btn btn-info btn-sm" href="{{route('hall.edit', $hall['id'])}}">
                                                             <i class="fas fa-pencil-alt">
                                                             </i>
                                                         </a>
@@ -175,7 +176,7 @@
                                                            class="btn btn-danger btn-sm delete-btn">
                                                             <i class="fas fa-trash">
                                                             </i>
-                                                            Удалить
+
                                                         </a>
 
                                                     </td>

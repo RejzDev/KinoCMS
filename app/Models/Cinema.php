@@ -45,6 +45,25 @@ class Cinema extends Model
         return $this->id;
     }
 
+    public function updates(array $data, Cinema $cinema): int
+    {
+        $main_img = (isset($data['main_img'])) ? $data['main_img'] : null;
+        $border_img = (isset($data['border_img'])) ? $data['border_img'] : null;
+        $cinema->name = $data['name'];
+        $cinema->description = $data['description'];
+        $cinema->conditions = $data['conditions'];
+        if ($main_img != null){ $cinema->logo_img = $main_img;}
+        if ($border_img != null){ $cinema->background_img = $border_img;}
+        $cinema->url = $data['url'];
+        $cinema->title = $data['title'];
+        $cinema->keywords = $data['keywords'];
+        $cinema->seo_description = $data['seo-description'];
+
+        $object = $cinema->update();
+
+        return $cinema->id;
+    }
+
     public function allCinema(){
       return  $this->all();
     }

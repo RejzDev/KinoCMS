@@ -131,7 +131,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="/" class="nav-link">
+                        <a href="{{route('cinema.index') }}" class="nav-link">
                             <p>
                                 Кинотеатры
                             </p>

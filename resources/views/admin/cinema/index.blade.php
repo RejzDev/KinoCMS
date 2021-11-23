@@ -16,7 +16,7 @@
         <h2 class="text-center">Список кинотеатров</h2>
             <div class="form-group col-sm-4 text-center">
                 <a href="{{route('cinema.create')}}"
-                   class="btn btn-block btn-success">Создать зал</a>
+                   class="btn btn-block btn-success">Создать кинотеатр</a>
             </div>
         <div class="row text-center">
             @foreach($date as $item)
