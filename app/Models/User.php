@@ -42,4 +42,35 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getUsers()
+    {
+       return $this->all();
+    }
+
+    public function updates(array $data, User $user): int
+    {
+        $user->name = $data['name'];
+        $user->surname = $data['surname'];
+        $user->pseudonym = $data['nick'];
+        $user->email = $data['email'];
+        $user->address = $data['address'];
+        $user->email = $data['email'];
+        if ($data['password'] == null){
+            $user->password = $user['password'];
+        } else {
+            $user->password = $data['password'];
+        }
+        $user->password = $user['password'];
+        $user->card = $data['card'];
+        $user->language = 1;
+        $user->sex = 1;
+        $user->phone = $data['phone'];
+        $user->phone = $data['date'];
+        $user->city = $data['city'];
+
+        $user->update();
+
+        return $user->id;
+    }
 }

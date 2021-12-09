@@ -15,6 +15,10 @@ class CinemaImageController extends Controller
         $this->imageSaver = $imageSaver;
     }
 
+    /**
+     * Видалення зображень
+     * @param Request $request
+     */
     public function removeImage(Request $request)
     {
 

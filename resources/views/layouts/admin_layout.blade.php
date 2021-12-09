@@ -25,6 +25,11 @@
     <link rel="stylesheet" href="{{asset('admin/plugins/daterangepicker/daterangepicker.css?v=1222')}}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{asset('admin/plugins/summernote/summernote-bs4.min.css?v=1222')}}">
+
+    <link rel="stylesheet" href="{{asset('css/main.css?v=1222')}}">
+
+    @yield('css')
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -139,7 +144,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="/" class="nav-link">
+                        <a href="{{route('news.index')}}" class="nav-link">
                             <p>
                                 Новости
                             </p>
@@ -147,7 +152,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="/" class="nav-link">
+                        <a href="{{route('action.index')}}" class="nav-link">
                             <p>
                                 Акции
                             </p>
@@ -155,7 +160,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="/" class="nav-link">
+                        <a href="{{route('pages.index')}}" class="nav-link">
                             <p>
                                 Страницы
                             </p>
@@ -163,7 +168,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="/" class="nav-link">
+                        <a href="{{route('user.index')}}" class="nav-link">
                             <p>
                                 Пользователи
                             </p>
@@ -248,6 +253,8 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="/admin/dist/js/pages/dashboard.js"></script>
 
+
+@yield('js')
 <meta name="csrf-token" content="{!! csrf_token() !!}" />
 
 </body>

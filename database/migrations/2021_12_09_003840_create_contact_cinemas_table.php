@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePagesTable extends Migration
+class CreateContactCinemasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,17 @@ class CreatePagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pages', function (Blueprint $table) {
+        Schema::create('contact_cinemas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name', 100);
+            $table->string('name', 100)->unsigned();
             $table->text('description');
+            $table->text('address');
             $table->string('image', 100)->nullable();
-            $table->string('url_video', 300);
-             $table->string('url', 100);
-            $table->string('title', 100);
-            $table->string('keywords', 100);
-            $table->text('seo_description');
-            $table->integer('status');
+            $table->unsignedBigInteger('contact_id')->nullable();
+            $table->bigInteger('status');
             $table->timestamps();
+
+            $table->foreign('contact_id')->references('id')->on('contacts')->onDelete('cascade');
         });
     }
 
@@ -35,6 +34,6 @@ class CreatePagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pages');
+        Schema::dropIfExists('contact_cinemas');
     }
 }

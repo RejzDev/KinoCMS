@@ -4152,7 +4152,8 @@ input[type="button"].btn-block {
 
 .custom-switch .custom-control-label::before {
   left: -2.25rem;
-  width: 1.75rem;
+  width: 2.30rem;
+  height: 2.30rem;
   pointer-events: all;
   border-radius: 0.5rem;
 }
@@ -52424,3 +52425,4 @@ a.text-muted:hover {
   color: #3f474e;
 }
 /*# sourceMappingURL=adminlte.css.map */
+

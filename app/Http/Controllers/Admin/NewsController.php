@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Cinema;
+use App\Models\News;
 use Illuminate\Http\Request;
-use App\Models\Movie;
-use App\Models\Image;
-use App\Models\CinemaImage;
 use App\Helpers\ImageSaver;
+use App\Models\NewsImage;
 
-class CinemaController extends Controller
+class NewsController extends Controller
 {
 
     private $imageSaver;
@@ -21,34 +19,30 @@ class CinemaController extends Controller
     }
 
     /**
-     * Вид
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $cinema = new Cinema();
-        $date = $cinema->allCinema();
+        $news = new News();
+        $date = $news->getNews();
 
 
-        return view('admin.cinema.index', ['date' => $date]);
+        return view('admin.news.index', ['news' => $date]);
     }
 
     /**
-     * Сторінка створення
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-
-        return view('admin.cinema.create');
+        return view('admin.news.create');
     }
 
     /**
-     * Збереження даних
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -56,21 +50,21 @@ class CinemaController extends Controller
      */
     public function store(Request $request)
     {
-        $cinema = new Cinema();
-        $images = new CinemaImage();
+        $news = new News();
+        $images = new NewsImage();
 
-        $cinema->getRelationValue('images');
-        $cinema->getRelationValue('halls');
+        $news->getRelationValue('images');
+
 
 
 
         $this->validate($request, [
             'name' => 'required|max:100',
+            'date' => 'required|max:100',
             'description' => 'required',
             'main_img' => '|mimes:jpeg,jpg,png|max:5000',
-            'border_img' => '|mimes:jpeg,jpg,png|max:5000',
             'image[0]' => '|mimes:jpeg,jpg,png|max:5000',
-            'url' => 'required|max:100|unique:movies,url|regex:~^[-_a-z0-9]+$~i',
+            'url' => 'required|max:100|unique:news,url|regex:~^[-_a-z0-9]+$~i',
             'title' => 'required|max:100',
             'keywords' => 'required',
             'seo-description' => 'required',
@@ -79,15 +73,14 @@ class CinemaController extends Controller
 
         $data = $request->all();
 
-        $data['main_img'] = $this->imageSaver->upload($request, null, 'cinema');
-        $data['border_img'] = $this->imageSaver->upload($request, null, 'cinema');
+        $data['main_img'] = $this->imageSaver->upload($request, null, 'news');
 
-        $cinema_id = $cinema->create($data);
+        $news_id = $news->create($data);
 
         if (!empty($request->file('image'))) {
-            $imagesDate['cinema_id'] = $cinema_id;
+            $imagesDate['news_id'] = $news_id;
             foreach ($request->file('image') as $image) {
-                $data['images'][] = $this->imageSaver->uploadGalary($request, $image, $cinema, 'cinema');
+                $data['images'][] = $this->imageSaver->uploadGalary($request, $image, $news, 'news');
             }
 
             $i = 0;
@@ -97,55 +90,47 @@ class CinemaController extends Controller
                 $i++;
             } while ($i < count($data['images']));
             $id = $images->creates($imagesDate);
-    }
-        return redirect(route('cinema.index'))->withSuccess('Кинотеатр был успешно добавлен!');
+        }
+        return redirect(route('news.index'))->withSuccess('Новость была успешно добавлена!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Cinema  $cinema
+     * @param  \App\Models\News  $news
      * @return \Illuminate\Http\Response
      */
-    public function show(Cinema $cinema)
+    public function show(News $news)
     {
         //
     }
 
     /**
-     * Сторінка редагування
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Cinema  $cinema
+     * @param  \App\Models\News  $news
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cinema $cinema)
+    public function edit(News $news)
     {
+        $news->getRelationValue('images');
 
-
-        $cinema->getRelationValue('images');
-        $cinema->getRelationValue('halls');
-
-
-
-        return view('admin.cinema.edit',['cinema' => $cinema]);
+        return view('admin.news.edit', ['news' => $news]);
     }
 
     /**
-     *
-     * Оновлення кинотеатра
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cinema  $cinema
+     * @param  \App\Models\News  $news
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cinema $cinema)
+    public function update(Request $request, News $news)
     {
 
-        $images = new CinemaImage();
+        $images = new NewsImage();
 
-        $cinema->getRelationValue('images');
+        $news->getRelationValue('images');
 
         if (!empty($request->file('image'))) {
             for ($i = 0; $i < 5; $i++) {
@@ -160,11 +145,11 @@ class CinemaController extends Controller
 
         $this->validate($request, [
             'name' => 'required|max:100',
+            'date' => 'required|max:100',
             'description' => 'required',
             'main_img' => '|mimes:jpeg,jpg,png|max:5000',
-            'border_img' => '|mimes:jpeg,jpg,png|max:5000',
             'image[0]' => '|mimes:jpeg,jpg,png|max:5000',
-            'url' => 'required|max:100|regex:~^[-_a-z0-9]+$~i|unique:cinemas,url,' . $cinema['id'],
+            'url' => 'required|max:100|regex:~^[-_a-z0-9]+$~i|unique:news,url,' . $news['id'],
             'title' => 'required|max:100',
             'keywords' => 'required',
             'seo-description' => 'required',
@@ -173,25 +158,24 @@ class CinemaController extends Controller
 
         $data = $request->all();
 
-        $data['main_img'] = $this->imageSaver->upload($request, null, 'cinema');
-        $data['border_img'] = $this->imageSaver->upload($request, null, 'cinema');
+        $data['main_img'] = $this->imageSaver->upload($request, $news, 'news');
 
-        $cinema_id = $cinema->updates($data, $cinema);
+        $news_id = $news->updates($data, $news);
 
 
 
         if (!empty($request->file('image'))) {
-            $imagesDate['cinema_id'] = $cinema->id;
+            $imagesDate['news_id'] = $news->id;
             $i=0;
 
             foreach ($request->file('image') as $image) {
-                if (!empty($movie->images[$i]['patch'])) {
-                    $imagesDate['newPatch'] = $this->imageSaver->uploadGalary($request, $image, $cinema, 'cinema');
+                if (!empty($news->images[$i]['patch'])) {
+                    $imagesDate['newPatch'] = $this->imageSaver->uploadGalary($request, $image, $news, 'news');
 
-                    $imagesDate['oldPatch'] = $movie->images[$i]['patch'];
+                    $imagesDate['oldPatch'] = $news->images[$i]['patch'];
                     $images->updates($imagesDate);
                 } else {
-                    $imagesDate['images'][] = $this->imageSaver->uploadGalary($request, $image, $cinema, 'cinema');
+                    $imagesDate['images'][] = $this->imageSaver->uploadGalary($request, $image, $news, 'news');
                 }
                 $i++;
             }
@@ -200,18 +184,29 @@ class CinemaController extends Controller
             }
 
         }
-        return redirect(route('cinema.index'))->withSuccess('Кинотеатр был успешно обновльон!');
-
+        return redirect(route('news.index'))->withSuccess('Новость была успешно обновлена!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Cinema  $cinema
+     * @param  \App\Models\News  $news
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cinema $cinema)
+    public function destroy(News $news)
     {
-        //
+        $news->getRelationValue('images');
+        $images = new NewsImage();
+
+        $news->delete();
+
+        $this->imageSaver->delete($news->image, 'news');
+
+        foreach ($news->images as $img){
+            $this->imageSaver->removeGalery($img, 'news');
+        }
+
+
+        return redirect(route('news.index'))->withSuccess('Новость была успешно удалена!');
     }
 }

@@ -15,7 +15,7 @@ class CreateHallsTable extends Migration
     {
         Schema::create('halls', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('number');
+            $table->bigInteger('number')->unsigned();;
             $table->text('description');
             $table->string('image', 100)->nullable();
             $table->string('banner_img', 100)->nullable();
@@ -26,7 +26,7 @@ class CreateHallsTable extends Migration
             $table->unsignedBigInteger('cinema_id')->nullable();
             $table->timestamps();
 
-            $table->foreign('cinema_id')->references('id')->on('cinemas');
+            $table->foreign('cinema_id')->references('id')->on('cinemas')->onDelete('cascade');
         });
     }
 

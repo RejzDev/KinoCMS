@@ -40,6 +40,7 @@ class HallController extends Controller
     }
 
     /**
+     * Збереження залу
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -105,6 +106,7 @@ class HallController extends Controller
     }
 
     /**
+     * Сторінка edit
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Hall  $hall
@@ -118,6 +120,7 @@ class HallController extends Controller
     }
 
     /**
+     * Оновлення залу
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -189,6 +192,7 @@ class HallController extends Controller
     }
 
     /**
+     * Видалення залу
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Hall  $hall

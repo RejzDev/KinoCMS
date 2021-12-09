@@ -5,6 +5,13 @@ use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\Admin\MovieController;
     use App\Http\Controllers\Admin\CinemaController;
     use App\Http\Controllers\Admin\HallController;
+    use App\Http\Controllers\Admin\NewsController;
+    use App\Http\Controllers\Admin\ActionController;
+    use App\Http\Controllers\Admin\PageController;
+    use App\Http\Controllers\Admin\MainPageController;
+    use App\Http\Controllers\Admin\ContactController;
+    use App\Http\Controllers\Admin\ContactCinemaController;
+    use App\Http\Controllers\Admin\UserController;
 
     /*
     |--------------------------------------------------------------------------
@@ -24,6 +31,13 @@ Route::get('/', function () {
     Route::resource('movies', MovieController::class);
     Route::resource('cinema', CinemaController::class);
     Route::resource('hall', HallController::class);
+    Route::resource('news', NewsController::class);
+    Route::resource('action', ActionController::class);
+    Route::resource('pages', PageController::class);
+    Route::resource('main-page', MainPageController::class);
+    Route::resource('contact', ContactController::class);
+    Route::resource('contact-cinema', ContactCinemaController::class);
+    Route::resource('user', UserController::class);
 
     Route::post('/image/removeImage', [\App\Http\Controllers\Admin\ImageController::class, 'removeImage']);
     Route::post('/cinema-image/removeImage', [\App\Http\Controllers\Admin\CinemaImageController::class, 'removeImage']);

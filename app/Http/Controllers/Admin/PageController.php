@@ -3,52 +3,55 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Cinema;
+use App\Models\Page;
 use Illuminate\Http\Request;
-use App\Models\Movie;
-use App\Models\Image;
-use App\Models\CinemaImage;
 use App\Helpers\ImageSaver;
+use App\Models\PageImage;
+use App\Models\MainPage;
+use App\Models\Contact;
 
-class CinemaController extends Controller
+class PageController extends Controller
 {
-
     private $imageSaver;
 
     public function __construct(ImageSaver $imageSaver)
     {
         $this->imageSaver = $imageSaver;
     }
-
     /**
-     * Вид
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $cinema = new Cinema();
-        $date = $cinema->allCinema();
+        $news = new Page();
+        $date = $news->getPage();
 
+        $mainPage = new MainPage();
+        $main = $mainPage->getMainPage();
 
-        return view('admin.cinema.index', ['date' => $date]);
+        $contacts = new Contact();
+        $contact = $contacts->getContact();
+
+        //dd(\Request::ip());
+
+        return view('admin.page.index', ['page' => $date,
+            'main' => $main,
+            'contact' => $contact]);
     }
 
     /**
-     * Сторінка створення
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-
-        return view('admin.cinema.create');
+        return view('admin.page.create');
     }
 
     /**
-     * Збереження даних
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -56,21 +59,21 @@ class CinemaController extends Controller
      */
     public function store(Request $request)
     {
-        $cinema = new Cinema();
-        $images = new CinemaImage();
+        $page = new Page();
+        $images = new PageImage();
 
-        $cinema->getRelationValue('images');
-        $cinema->getRelationValue('halls');
+        $page->getRelationValue('images');
+
 
 
 
         $this->validate($request, [
             'name' => 'required|max:100',
+            'date' => 'required|max:100',
             'description' => 'required',
             'main_img' => '|mimes:jpeg,jpg,png|max:5000',
-            'border_img' => '|mimes:jpeg,jpg,png|max:5000',
             'image[0]' => '|mimes:jpeg,jpg,png|max:5000',
-            'url' => 'required|max:100|unique:movies,url|regex:~^[-_a-z0-9]+$~i',
+            'url' => 'required|max:100|unique:pages,url|regex:~^[-_a-z0-9]+$~i',
             'title' => 'required|max:100',
             'keywords' => 'required',
             'seo-description' => 'required',
@@ -79,15 +82,14 @@ class CinemaController extends Controller
 
         $data = $request->all();
 
-        $data['main_img'] = $this->imageSaver->upload($request, null, 'cinema');
-        $data['border_img'] = $this->imageSaver->upload($request, null, 'cinema');
+        $data['main_img'] = $this->imageSaver->upload($request, null, 'page');
 
-        $cinema_id = $cinema->create($data);
+        $page_id = $page->create($data);
 
         if (!empty($request->file('image'))) {
-            $imagesDate['cinema_id'] = $cinema_id;
+            $imagesDate['page_id'] = $page_id;
             foreach ($request->file('image') as $image) {
-                $data['images'][] = $this->imageSaver->uploadGalary($request, $image, $cinema, 'cinema');
+                $data['images'][] = $this->imageSaver->uploadGalary($request, $image, $page, 'page');
             }
 
             $i = 0;
@@ -97,55 +99,46 @@ class CinemaController extends Controller
                 $i++;
             } while ($i < count($data['images']));
             $id = $images->creates($imagesDate);
-    }
-        return redirect(route('cinema.index'))->withSuccess('Кинотеатр был успешно добавлен!');
+        }
+        return redirect(route('pages.index'))->withSuccess('Страница была успешно добавлена!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Cinema  $cinema
+     * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function show(Cinema $cinema)
+    public function show(Page $page)
     {
-        //
+
     }
 
     /**
-     * Сторінка редагування
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Cinema  $cinema
+     * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cinema $cinema)
+    public function edit(Page $page)
     {
+        $page->getRelationValue('images');
 
-
-        $cinema->getRelationValue('images');
-        $cinema->getRelationValue('halls');
-
-
-
-        return view('admin.cinema.edit',['cinema' => $cinema]);
+        return view('admin.page.edit', ['page' => $page]);
     }
 
     /**
-     *
-     * Оновлення кинотеатра
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cinema  $cinema
+     * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cinema $cinema)
+    public function update(Request $request, Page $page)
     {
+        $images = new PageImage();
 
-        $images = new CinemaImage();
-
-        $cinema->getRelationValue('images');
+        $page->getRelationValue('images');
 
         if (!empty($request->file('image'))) {
             for ($i = 0; $i < 5; $i++) {
@@ -160,11 +153,11 @@ class CinemaController extends Controller
 
         $this->validate($request, [
             'name' => 'required|max:100',
+            'date' => 'required|max:100',
             'description' => 'required',
             'main_img' => '|mimes:jpeg,jpg,png|max:5000',
-            'border_img' => '|mimes:jpeg,jpg,png|max:5000',
             'image[0]' => '|mimes:jpeg,jpg,png|max:5000',
-            'url' => 'required|max:100|regex:~^[-_a-z0-9]+$~i|unique:cinemas,url,' . $cinema['id'],
+            'url' => 'required|max:100|regex:~^[-_a-z0-9]+$~i|unique:pages,url,' . $page['id'],
             'title' => 'required|max:100',
             'keywords' => 'required',
             'seo-description' => 'required',
@@ -173,25 +166,24 @@ class CinemaController extends Controller
 
         $data = $request->all();
 
-        $data['main_img'] = $this->imageSaver->upload($request, null, 'cinema');
-        $data['border_img'] = $this->imageSaver->upload($request, null, 'cinema');
+        $data['main_img'] = $this->imageSaver->upload($request, $page, 'news');
 
-        $cinema_id = $cinema->updates($data, $cinema);
+        $page_id = $page->updates($data, $page);
 
 
 
         if (!empty($request->file('image'))) {
-            $imagesDate['cinema_id'] = $cinema->id;
+            $imagesDate['page_id'] = $page->id;
             $i=0;
 
             foreach ($request->file('image') as $image) {
-                if (!empty($movie->images[$i]['patch'])) {
-                    $imagesDate['newPatch'] = $this->imageSaver->uploadGalary($request, $image, $cinema, 'cinema');
+                if (!empty($news->images[$i]['patch'])) {
+                    $imagesDate['newPatch'] = $this->imageSaver->uploadGalary($request, $image, $page, 'page');
 
-                    $imagesDate['oldPatch'] = $movie->images[$i]['patch'];
+                    $imagesDate['oldPatch'] = $page->images[$i]['patch'];
                     $images->updates($imagesDate);
                 } else {
-                    $imagesDate['images'][] = $this->imageSaver->uploadGalary($request, $image, $cinema, 'cinema');
+                    $imagesDate['images'][] = $this->imageSaver->uploadGalary($request, $image, $page, 'page');
                 }
                 $i++;
             }
@@ -200,18 +192,29 @@ class CinemaController extends Controller
             }
 
         }
-        return redirect(route('cinema.index'))->withSuccess('Кинотеатр был успешно обновльон!');
-
+        return redirect(route('pages.index'))->withSuccess('Страница была успешно обновлена!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Cinema  $cinema
+     * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cinema $cinema)
+    public function destroy(Page $page)
     {
-        //
+        $page->getRelationValue('images');
+
+
+        $page->delete();
+
+        $this->imageSaver->delete($page->image, 'page');
+
+        foreach ($page->images as $img){
+            $this->imageSaver->removeGalery($img, 'page');
+        }
+
+
+        return redirect(route('pages.index'))->withSuccess('Страница была успешно удалена!');
     }
 }
