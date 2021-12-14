@@ -44,7 +44,10 @@ Route::get('/', function () {
     Route::post('/cinema-image/removeImage', [\App\Http\Controllers\Admin\CinemaImageController::class, 'removeImage']);
     Route::post('/hall-image/removeImage', [\App\Http\Controllers\Admin\HallImageController::class, 'removeImage']);
 
-    Route::get('send', [MailController::class, 'send']);
+    Route::post('send', [MailController::class, 'send'])->name('send');
+    Route::post('save-user', [MailController::class, 'saveUser'])->name('saveUser');
+    Route::get('mail-users', [MailController::class, 'mailUsers'])->name('mail.users');
+    Route::get('mail', [MailController::class, 'index'])->name('mail.index');
 
 Auth::routes();
 
