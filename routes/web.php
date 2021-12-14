@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\Admin\ContactController;
     use App\Http\Controllers\Admin\ContactCinemaController;
     use App\Http\Controllers\Admin\UserController;
+    use App\Http\Controllers\MailController;
 
     /*
     |--------------------------------------------------------------------------
@@ -42,6 +43,8 @@ Route::get('/', function () {
     Route::post('/image/removeImage', [\App\Http\Controllers\Admin\ImageController::class, 'removeImage']);
     Route::post('/cinema-image/removeImage', [\App\Http\Controllers\Admin\CinemaImageController::class, 'removeImage']);
     Route::post('/hall-image/removeImage', [\App\Http\Controllers\Admin\HallImageController::class, 'removeImage']);
+
+    Route::get('send', [MailController::class, 'send']);
 
 Auth::routes();
 
