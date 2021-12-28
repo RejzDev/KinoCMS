@@ -180,8 +180,31 @@
                             <!-- /.row -->
                         </div>
                         <!-- /.card-footer -->
+
+
                     </div>
                     <!-- /.card -->
+
+                    <!-- PIE CHART -->
+                    <div class="card card-danger">
+                        <div class="card-header">
+                            <h3 class="card-title">Pie Chart</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="pie-chart" width="800" height="450"></canva   </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
 
 
 
@@ -193,6 +216,31 @@
         </div><!-- /.container-fluid -->
     </section>
 
+@endsection
+
+@section('js')
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+
+    <script>
+        new Chart(document.getElementById("pie-chart"), {
+            type: 'pie',
+            data: {
+                labels: ["Africa", "Asia"],
+                datasets: [{
+                    label: "Population (millions)",
+                    backgroundColor: ["#3e95cd", "#8e5ea2"],
+                    data: [2478,5267]
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Predicted world population (millions) in 2050'
+                }
+            }
+        });
+    </script>
 @endsection
 
 
