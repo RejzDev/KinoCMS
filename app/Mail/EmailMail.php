@@ -12,15 +12,17 @@ class EmailMail extends Mailable
     use Queueable, SerializesModels;
 
     public $mail;
+    public $patch;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($mail)
+    public function __construct($mail, $patch = 'mail')
     {
         $this->mail = $mail;
+        $this->patch = $patch;
     }
 
     /**

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\Admin\ContactCinemaController;
     use App\Http\Controllers\Admin\UserController;
     use App\Http\Controllers\MailController;
+    use App\Http\Controllers\Admin\BannerController;
 
     /*
     |--------------------------------------------------------------------------
@@ -39,6 +40,9 @@ Route::get('/', function () {
     Route::resource('contact', ContactController::class);
     Route::resource('contact-cinema', ContactCinemaController::class);
     Route::resource('user', UserController::class);
+    Route::resource('banner', BannerController::class);
+    Route::resource('main-banner', \App\Http\Controllers\Admin\MainBannerController::class);
+    Route::resource('bg_banner', \App\Http\Controllers\Admin\BgBannerController::class);
 
     Route::post('/image/removeImage', [\App\Http\Controllers\Admin\ImageController::class, 'removeImage']);
     Route::post('/cinema-image/removeImage', [\App\Http\Controllers\Admin\CinemaImageController::class, 'removeImage']);
@@ -48,6 +52,10 @@ Route::get('/', function () {
     Route::post('save-user', [MailController::class, 'saveUser'])->name('saveUser');
     Route::get('mail-users', [MailController::class, 'mailUsers'])->name('mail.users');
     Route::get('mail', [MailController::class, 'index'])->name('mail.index');
+    Route::get('mail-html', [MailController::class, 'addMail'])->name('mail.html');
+    Route::post('mail-upload', [MailController::class, 'upload'])->name('mail.upload');
+    Route::post('mail-sendMail', [MailController::class, 'sendMail'])->name('mail.sendMail');
+    Route::post('mail-destroy', [MailController::class, 'destroy'])->name('mail.destroy');
 
 Auth::routes();
 

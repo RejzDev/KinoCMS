@@ -180,6 +180,12 @@
             'seo-description' => [
                 'required' => 'Поле «:attribute» обязательно для заполнения',
             ],
+            'content' => [
+                'required' => 'Поле «:attribute» обязательно для заполнения',
+            ],
+            'mail_view' => [
+                'required' => 'Поле «:attribute» обязательно для заполнения',
+            ],
 
         ],
 
@@ -206,6 +212,8 @@
             'title' => 'Title',
             'keywords' => 'Keywords',
             'seo-description' => 'Description',
+            'content' => 'Поле',
+            'mail_view' => 'Шаблон письма',
 
             /* ... */
         ],

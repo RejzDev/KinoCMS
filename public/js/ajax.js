@@ -56,4 +56,70 @@ function deletes(id){
     });
 }
 
+function deleteMail(id){
+    var mail = document.getElementById("mail_"+id);
+    mail.remove();
+    $.ajax({
+        url: "mail-destroy",
+        type: "POST",
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType : 'json',
+        data: {
+            id: id
+        },
+        success: (data) => {
+
+
+        },
+        error: (data) => {
+            console.log(data)
+        }
+    });
+}
+
+
+function removeBanner(id){
+
+    var banner = document.getElementById("banner_"+id);
+    banner.remove();
+    $.ajax({
+        url: "/main-banner/"+id,
+        type: "DELETE",
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType : 'json',
+        success: (data) => {
+            console.log(data)
+
+        },
+        error: (data) => {
+            console.log(data)
+        }
+    });
+}
+
+function removeBgBanner(id){
+
+    var banner = document.getElementById("bgBanner_"+id);
+    banner.remove();
+    $.ajax({
+        url: "/bg_banner/"+id,
+        type: "DELETE",
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType : 'json',
+        success: (data) => {
+            console.log(data)
+
+        },
+        error: (data) => {
+            console.log(data)
+        }
+    });
+}
+
 
