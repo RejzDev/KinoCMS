@@ -74,5 +74,20 @@ class User extends Authenticatable
         return $user->id;
     }
 
+        public function getStatistic()
+        {
 
+
+            $users = count($this->getUsers());
+            $mans = $this->where('sex', '=', 1)->count('id');
+            $womens = $users - $mans;
+            $interestMan = (100 * $mans) / $users;
+            $interestWomen = 100 -  $interestMan;
+
+            $date['man'] = $interestMan;
+            $date['women'] = $interestWomen;
+
+
+            return $date;
+        }
 }

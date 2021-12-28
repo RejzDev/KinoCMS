@@ -188,7 +188,7 @@
                     <!-- PIE CHART -->
                     <div class="card card-danger">
                         <div class="card-header">
-                            <h3 class="card-title">Pie Chart</h3>
+                            <h3 class="card-title">Пол</h3>
 
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -226,17 +226,17 @@
         new Chart(document.getElementById("pie-chart"), {
             type: 'pie',
             data: {
-                labels: ["Africa", "Asia"],
+                labels: ["Женский", "Мужской"],
                 datasets: [{
-                    label: "Population (millions)",
+                    label: "100% от общего числа сеансов",
                     backgroundColor: ["#3e95cd", "#8e5ea2"],
-                    data: [2478,5267]
+                    data: [{{$data['women']}},{{$data['man']}}]
                 }]
             },
             options: {
                 title: {
                     display: true,
-                    text: 'Predicted world population (millions) in 2050'
+                    text: '100% от общего числа сеансов'
                 }
             }
         });

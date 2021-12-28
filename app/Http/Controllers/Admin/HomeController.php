@@ -14,6 +14,9 @@ class HomeController extends Controller
 
         $user = $users->getUsers();
 
-        return view('admin.home.index', ['user' => $user]);
+        $data = $users->getStatistic();
+
+        return view('admin.home.index', ['user' => $user,
+            'data' => $data]);
     }
 }
