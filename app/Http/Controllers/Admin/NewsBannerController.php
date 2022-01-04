@@ -53,7 +53,7 @@ class NewsBannerController extends Controller
         $data['main_img'] = $this->imageSaver->upload($request, null, 'banner');
 
 
-        $banner->create($data);
+        $banner->creates($data);
 
         return redirect(route('banner.index'))->withSuccess('Баннер был успешно добавлен!');
 
@@ -78,7 +78,7 @@ class NewsBannerController extends Controller
      */
     public function edit(NewsBanner $newsBanner)
     {
-        return view('admin.banner.create_news-banner', ['banner' => $newsBanner]);
+        return view('admin.banner.edit_news-banner', ['banner' => $newsBanner]);
 
     }
 
@@ -112,6 +112,6 @@ class NewsBannerController extends Controller
      */
     public function destroy(NewsBanner $newsBanner)
     {
-        //
+        $newsBanner->delete();
     }
 }

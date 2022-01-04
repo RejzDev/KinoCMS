@@ -53,7 +53,7 @@ class MainBannerController extends Controller
         $data['main_img'] = $this->imageSaver->upload($request, null, 'banner');
 
 
-        $banner->create($data);
+        $banner->creates($data);
 
         return redirect(route('banner.index'))->withSuccess('Баннер был успешно добавлен!');
     }

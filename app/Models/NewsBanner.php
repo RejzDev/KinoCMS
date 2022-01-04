@@ -19,10 +19,10 @@ class NewsBanner extends Model
         return  $this->where('banner_id', '=', '2')->get();
     }
 
-    public function create(array $data): int
+    public function creates(array $data): int
     {
         $main_img = (isset($data['main_img'])) ? $data['main_img'] : null;
-        $this->banner_id = 1;
+        $this->banner_id = 2;
         $this->url = $data['url'];
         if ($main_img != null){ $this->image = $main_img;}
 
@@ -34,7 +34,7 @@ class NewsBanner extends Model
     public function updates(array $data, MainBanner $mainBanner): int
     {
         $main_img = (isset($data['main_img'])) ? $data['main_img'] : null;
-        $mainBanner->banner_id = 1;
+        $mainBanner->banner_id = 2;
         $mainBanner->url = $data['url'];
         if ($main_img != null){ $mainBanner->image = $main_img;}
 

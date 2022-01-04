@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\Admin\UserController;
     use App\Http\Controllers\MailController;
     use App\Http\Controllers\Admin\BannerController;
+    use App\Http\Controllers\HomeController;
 
     /*
     |--------------------------------------------------------------------------
@@ -26,9 +27,8 @@ use Illuminate\Support\Facades\Route;
     |
     */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
 
     Route::resource('movies', MovieController::class);
     Route::resource('cinema', CinemaController::class);
@@ -42,6 +42,7 @@ Route::get('/', function () {
     Route::resource('user', UserController::class);
     Route::resource('banner', BannerController::class);
     Route::resource('main-banner', \App\Http\Controllers\Admin\MainBannerController::class);
+    Route::resource('news-banner', \App\Http\Controllers\Admin\NewsBannerController::class);
     Route::resource('bg_banner', \App\Http\Controllers\Admin\BgBannerController::class);
 
     Route::post('/image/removeImage', [\App\Http\Controllers\Admin\ImageController::class, 'removeImage']);
@@ -57,12 +58,16 @@ Route::get('/', function () {
     Route::post('mail-sendMail', [MailController::class, 'sendMail'])->name('mail.sendMail');
     Route::post('mail-destroy', [MailController::class, 'destroy'])->name('mail.destroy');
 
-Auth::routes();
+
+    Route::get('/', [HomeController::class, 'index'])->name('index.home');
+
+
+    Auth::routes();
 
    // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
     Route::middleware(['role:admin'])->prefix('admin_panel')->group(function () {
         //
-        Route::get('/', [App\Http\Controllers\Admin\HomeController::class, 'index']);
+        Route::get('/index', [App\Http\Controllers\Admin\HomeController::class, 'index']);
 
 
 

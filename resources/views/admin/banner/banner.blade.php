@@ -184,16 +184,16 @@
 
                                             @foreach($data['newsBanner'] as $news)
 
-                                                <div class="col-md-2" id="banner_{{$news['id']}}">
+                                                <div class="col-md-2" id="newsBanner_{{$news['id']}}">
                                                     <span class="close-image-icon">
-                                                    <a href="#" class="close" aria-label="Close" onclick="removeBanner({{$news['id']}}); return false;">
+                                                      <a href="#" class="close" aria-label="Close" onclick="removeNewsBanner({{$news['id']}}); return false;">
                                                      <span aria-hidden="true" title="Удалить">&times;</span>
                                                     </a>
                                                     </span>
                                                     <img
                                                         src="{{ Storage::disk('public')->url('catalog/banner/source/' . $news['image']) }}"
                                                         alt="" class="img-lg">
-                                                    <a href="{{route('main-banner.edit', $news['id'])}}" class="btn btn-default">Редактировать</a>
+                                                    <a href="{{route('news-banner.edit', $news['id'])}}" class="btn btn-default">Редактировать</a>
                                                     <br>
                                                     <label for="url">Url</label>
                                                     <p   name="url" id="url">{{$news['url']}}</p>
@@ -206,7 +206,7 @@
 
                                     </div>
                                     <div class="input-group text-center">
-                                        <a href="{{route('main-banner.create')}}" class="btn btn-default">Добавить баннер</a>
+                                        <a href="{{route('news-banner.create')}}" class="btn btn-default">Добавить баннер</a>
                                     </div>
 
                                     <br>

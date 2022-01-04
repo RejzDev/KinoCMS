@@ -16,7 +16,7 @@ class MainBanner extends Model
         return  $this->where('banner_id', '=', '1')->get();
     }
 
-    public function create(array $data): int
+    public function creates(array $data): int
     {
         $main_img = (isset($data['main_img'])) ? $data['main_img'] : null;
         $this->banner_id = 1;

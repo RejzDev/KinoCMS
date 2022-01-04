@@ -19,7 +19,7 @@ class CinemaImageController extends Controller
      * Видалення зображень
      * @param Request $request
      */
-    public function removeImage(Request $request)
+    public function removeImage(Request $request): void
     {
 
         $images = new CinemaImage();

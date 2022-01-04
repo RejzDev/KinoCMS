@@ -19,7 +19,7 @@
             <div class="container-fluid">
                 <div class="card">
 
-                    <form action="{{route('main-banner.update', $banner['id'])}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('news-banner.update', $banner['id'])}}" method="post" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="card-body">

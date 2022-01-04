@@ -120,7 +120,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="/" class="nav-link">
+                        <a href="/banner" class="nav-link">
                             <p>
                                 Баннера/Слайдеры
                             </p>
@@ -176,7 +176,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="/" class="nav-link">
+                        <a href="/mail" class="nav-link">
                             <p>
                                 Рассылка
                             </p>

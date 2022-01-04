@@ -19,7 +19,7 @@
             <div class="container-fluid">
                 <div class="card">
 
-                    <form action="{{route('main-banner.store')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('news-banner.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
                             <div class="form-group">

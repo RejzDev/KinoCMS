@@ -122,4 +122,25 @@ function removeBgBanner(id){
     });
 }
 
+function removeNewsBanner(id){
+
+    var banner = document.getElementById("newsBanner_"+id);
+    banner.remove();
+    $.ajax({
+        url: "/news-banner/"+id,
+        type: "DELETE",
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType : 'json',
+        success: (data) => {
+            console.log(data)
+
+        },
+        error: (data) => {
+            console.log(data)
+        }
+    });
+}
+
 

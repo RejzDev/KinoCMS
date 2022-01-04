@@ -66,3 +66,11 @@ input:checked + .slider:before {
 .btn_style{
     color: red;
 }
+
+.nav-box{
+    margin-bottom: 90px;
+}
+.nav-head{
+    position: relative;
+    padding-right: 900px;
+}
