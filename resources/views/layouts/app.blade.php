@@ -94,8 +94,14 @@
                                 </form>
                             </div>
 
-
                         </div>
+
+                        <ul class="social-icons">
+                            <li><a class="social-icon-twitter" href="#" title="..." target="_blank" rel="noopener"></a></li>
+                            <li><a class="social-icon-fb" href="#" title="..." target="_blank" rel="noopener"></a></li>
+                            <li><a class="social-icon-vk" href="#" title="..." target="_blank" rel="noopener"></a></li>
+                            <li><a class="social-icon-telegram" href="#" title="..." target="_blank" rel="noopener"></a></li>
+                               </ul>
                         </div>
                 </nav>
 

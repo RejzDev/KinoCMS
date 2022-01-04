@@ -74,3 +74,58 @@ input:checked + .slider:before {
     position: relative;
     padding-right: 900px;
 }
+
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 0;
+}
+.social-icons>li {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+}
+.social-icons a {
+    position: relative;
+    background-color: #eee;
+    display: block;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: background-color .3s ease-in-out;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: .25rem;
+}
+.social-icons a:hover {
+    background-color: #e0e0e0;
+}
+.social-icons a::before {
+    content: "";
+    position: absolute;
+    width: 2.8rem;
+    height: 2.8rem;
+    left: .65rem;
+    top: .65rem;
+    background: transparent no-repeat center center;
+    background-size: 100% 100%;
+}
+.social-icons .social-icon-twitter::before {
+    background-image: url("/images/facebook.svg");
+}
+.social-icons .social-icon-fb::before {
+    background-image: url("/images/twiter.svg");
+}
+.social-icons .social-icon-vk::before {
+    background-image: url("/images/telegram.svg");
+}
+.social-icons .social-icon-telegram::before {
+    background-image: url("/images/youtube.svg");
+}
+.social-icons .social-icon-youtube::before {
+    background-image: url("...");
+}
