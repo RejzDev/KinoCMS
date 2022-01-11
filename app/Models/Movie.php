@@ -37,7 +37,16 @@ class Movie extends Model
      */
     public function getOngoingMovies(): Collection
     {
-        return $this->with('images')->where('status', '=', 1)->get();
+        return $this->with('images')->where('status', '=', 1)->where('soon', '=', 0)->get();
+    }
+
+    /**
+     * Вертає усі фільми зі статусом 1
+     * @return Collection
+     */
+    public function getSoonMovies(): Collection
+    {
+        return $this->with('images')->where('status', '=', 1)->where('soon', '=', 1)->get();
     }
 
     /**

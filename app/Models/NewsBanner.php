@@ -31,7 +31,7 @@ class NewsBanner extends Model
         return $this->id;
     }
 
-    public function updates(array $data, MainBanner $mainBanner): int
+    public function updates(array $data, NewsBanner $mainBanner): int
     {
         $main_img = (isset($data['main_img'])) ? $data['main_img'] : null;
         $mainBanner->banner_id = 2;
@@ -42,5 +42,10 @@ class NewsBanner extends Model
         $object = $mainBanner->save();
 
         return $mainBanner->id;
+    }
+
+    public function getNewsBanner()
+    {
+        return  $this->where('banner_id', '=', '2')->limit(1)->get();
     }
 }

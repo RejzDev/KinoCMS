@@ -60,14 +60,15 @@ use Illuminate\Support\Facades\Route;
 
 
     Route::get('/', [HomeController::class, 'index'])->name('index.home');
+    Route::get('/ongoing-movies', [HomeController::class, 'OngoingMovies'])->name('ongoing.home');
 
 
     Auth::routes();
 
-   // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
+   Route::get('/home', [App\Http\Controllers\Admin\HomeController::class, 'index']);
     Route::middleware(['role:admin'])->prefix('admin_panel')->group(function () {
         //
-        Route::get('/index', [App\Http\Controllers\Admin\HomeController::class, 'index']);
+       // Route::get('/index', [App\Http\Controllers\Admin\HomeController::class, 'index']);
 
 
 

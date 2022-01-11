@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Movie;
+use App\Models\News;
+use App\Models\NewsBanner;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,21 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('main.home');
+        $movies = new Movie();
+        $newsBanner= new NewsBanner();
+        $date['state'] = $movies->getOngoingMovies();
+        $date['soon'] = $movies->getSoonMovies();
+        $date['banner'] = $newsBanner->getNewsBanner();
+
+        return view('main.home', ['date' => $date]);
+    }
+
+
+    public function OngoingMovies()
+    {
+        $movies = new Movie();
+        $date = $movies->getOngoingMovies();
+
+        return view('movie.index', ['date' => $date]);
     }
 }

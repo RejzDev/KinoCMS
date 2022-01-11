@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Http\Request;
+use App\Models\Visitor;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +25,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $data['ip'] = \Request::ip();
+        $data['userAgent'] = \Request::userAgent();
+
+        $visitor = new Visitor();
+        $result = $visitor->saveVisitor($data);
+
+
     }
 }

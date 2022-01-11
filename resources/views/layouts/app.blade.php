@@ -107,7 +107,7 @@
 
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="container-fluid">
-                        <a class="navbar-brand" href="#">Navbar</a>
+                        <a class="navbar-brand" href="#">KinoCMS</a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
@@ -116,22 +116,30 @@
                         <div class=" collapse navbar-collapse" id="navbarNavDropdown">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                    <a class="nav-link active" aria-current="page" href="#">Афиша</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Features</a>
+                                    <a class="nav-link" href="#">Расписание</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Pricing</a>
+                                    <a class="nav-link" href="#">Скоро</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Кинотеатры</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Акции</a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Dropdown link
+                                       О кинотеатре
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                        <li><a class="dropdown-item" href="#">Новости</a></li>
+                                        <li><a class="dropdown-item" href="#">Реклама</a></li>
+                                        <li><a class="dropdown-item" href="#">Кафе</a></li>
+                                        <li><a class="dropdown-item" href="#">Мобильное приложение</a></li>
+                                        <li><a class="dropdown-item" href="#">Контакти</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -147,7 +155,99 @@
 
             @yield('content')
         </main>
+
+
+
+
+        <!-- Footer -->
+        <footer class="text-center text-lg-start bg-light text-muted">
+            <!-- Section: Social media -->
+            <section
+                class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
+            >
+
+
+                <!-- Right -->
+            </section>
+            <!-- Section: Social media -->
+
+            <!-- Section: Links  -->
+            <section class="">
+                <div class="container text-center text-md-start mt-5">
+                    <!-- Grid row -->
+                    <div class="row mt-3">
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                            <!-- Links -->
+                            <h6 class="text-uppercase fw-bold mb-4">
+                                Афиша
+                            </h6>
+                            <p>
+                                <a href="#!" class="text-reset">Расписание</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">Скоро в прокате</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">Кинотеатры</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">Акции</a>
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                            <!-- Links -->
+                            <h6 class="text-uppercase fw-bold mb-4">
+                                О-кинотеатре
+                            </h6>
+                            <p>
+                                <a href="#!" class="text-reset">Новости</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">Реклама</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">Кафе-Бар</a>
+                            </p>
+                            <p>
+                                <a href="#!" class="text-reset">Контакты</a>
+                            </p>
+                        </div>
+                        <!-- Grid column -->
+
+                        <!-- Grid column -->
+                        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                            <!-- Links -->
+                            <ul class="social-icons">
+                                <li><a class="social-icon-twitter" href="#" title="..." target="_blank" rel="noopener"></a></li>
+                                <li><a class="social-icon-fb" href="#" title="..." target="_blank" rel="noopener"></a></li>
+                                <li><a class="social-icon-vk" href="#" title="..." target="_blank" rel="noopener"></a></li>
+                                <li><a class="social-icon-telegram" href="#" title="..." target="_blank" rel="noopener"></a></li>
+                            </ul>
+                        </div>
+                        <!-- Grid column -->
+                    </div>
+                    <!-- Grid row -->
+                </div>
+            </section>
+            <!-- Section: Links  -->
+
+            <!-- Copyright -->
+            <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+                ©KinoCMS:
+            </div>
+            <!-- Copyright -->
+        </footer>
+        <!-- Footer -->
     </div>
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     @yield('js')
 </body>
