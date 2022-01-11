@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Movie;
 use App\Models\News;
 use App\Models\NewsBanner;
+use App\Models\Cinema;
 
 class HomeController extends Controller
 {
@@ -52,5 +53,14 @@ class HomeController extends Controller
         $date['title'] = 'Скоро в кино';
 
         return view('movie.index', ['date' => $date]);
+    }
+
+    public function cinemas()
+    {
+        $cinema = new Cinema();
+        $date = $cinema->allCinema();
+
+
+        return view('cinema.index', ['date' => $date]);
     }
 }

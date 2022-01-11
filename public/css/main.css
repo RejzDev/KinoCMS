@@ -153,6 +153,11 @@ body{
 .img-ong{
     width: 200px;
 }
+
+.img-kino{
+    width: 500px;
+    height: 300px;
+}
 .row{
     padding: 5px;
 }
