@@ -7,6 +7,8 @@ use App\Models\Movie;
 use App\Models\News;
 use App\Models\NewsBanner;
 use App\Models\Cinema;
+use App\Models\Action;
+use Illuminate\Support\Carbon;
 
 class HomeController extends Controller
 {
@@ -62,5 +64,19 @@ class HomeController extends Controller
 
 
         return view('cinema.index', ['date' => $date]);
+    }
+
+    public function actions()
+    {
+        $action = new Action();
+        $date = $action->getAction();
+
+        foreach ($date as $item){
+            $item['dates'] = Carbon::parse($item['created_at'])->format('Y-m-d');
+
+        }
+
+
+        return view('actions.index', ['date' => $date]);
     }
 }

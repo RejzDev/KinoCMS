@@ -63,6 +63,7 @@ use Illuminate\Support\Facades\Route;
     Route::get('/ongoing-movies', [HomeController::class, 'OngoingMovies'])->name('ongoing.home');
     Route::get('/soon-movies', [HomeController::class, 'SoonMovies'])->name('soon.home');
     Route::get('/cinemas', [HomeController::class, 'cinemas'])->name('cinema.home');
+    Route::get('/actions', [HomeController::class, 'actions'])->name('action.home');
 
 
     Auth::routes();

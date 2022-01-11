@@ -157,7 +157,7 @@ class ActionController extends Controller
 
         $data = $request->all();
 
-        $data['main_img'] = $this->imageSaver->upload($request, $action, 'news');
+        $data['main_img'] = $this->imageSaver->upload($request, $action, 'action');
 
         $action_id = $action->updates($data, $action);
 
