@@ -39,7 +39,17 @@ class HomeController extends Controller
     public function OngoingMovies()
     {
         $movies = new Movie();
-        $date = $movies->getOngoingMovies();
+        $date['data'] = $movies->getOngoingMovies();
+        $date['title'] = 'Сейчас в кино';
+
+        return view('movie.index', ['date' => $date]);
+    }
+
+    public function SoonMovies()
+    {
+        $movies = new Movie();
+        $date['data']  = $movies->getSoonMovies();
+        $date['title'] = 'Скоро в кино';
 
         return view('movie.index', ['date' => $date]);
     }

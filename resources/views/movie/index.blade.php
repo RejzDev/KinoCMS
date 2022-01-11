@@ -12,20 +12,21 @@
 
             <div class="col-md-2">
                 <div class="col-md-2 lin">
-                    <a href="" class="btn btn-dark">Авиша</a>
+                    <a href="{{route('ongoing.home')}}" class="btn btn-dark">Авиша</a>
                 </div>
 
                 <div class="col-md-2 lin">
-                    <a href="" class="btn btn-dark">Скоро</a>
+                    <a href="{{route('soon.home')}}" class="btn btn-dark">Скоро</a>
                 </div>
             </div>
 
             <div class="col-md-10 bg-ong">
                 <div class="row">
 
-                    @foreach($date as $item)
+                    @foreach($date['data'] as $item)
 
                         <div class="item col-md-3">
+                            <p>{{$date['title']}}</p>
                             @php
                                 if ($item['image']) {
                                     // $url = url('storage/catalog/category/image/' . $category->image);
