@@ -18,7 +18,11 @@
          */
         public function index()
         {
-            //
+
+            $model = new TimeTable();
+            $date = $model->allTimeTable();
+
+            return view('admin.time_tables.index', ['data' => $date]);
         }
 
         /**

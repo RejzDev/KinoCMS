@@ -10,6 +10,16 @@ class TimeTable extends Model
 {
     use HasFactory;
 
+    public function movies(){
+        return $this->belongsTo(Movie::class, 'movie_id');
+
+    }
+
+    public function halls(){
+        return $this->belongsTo(Hall::class, 'hall_id');
+
+    }
+
     public function create(array $data): int
     {
          $this->time = $data['time'];
@@ -21,5 +31,9 @@ class TimeTable extends Model
         $object = $this->save();
 
         return $this->id;
+    }
+
+    public function allTimeTable(){
+        return $this->with('movies')->with('halls')->orderBy('id', 'desc')->get();
     }
 }
