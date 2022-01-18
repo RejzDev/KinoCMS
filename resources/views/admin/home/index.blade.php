@@ -168,7 +168,7 @@
                 labels:[day3, day2, day1],
                 datasets: [{
                     label: 'Сеансы',
-                    data: [{{$data['line'][0]}}, {{$data['line'][1]}}, {{$data['line'][2]}}],
+                    data: [{{$data['line'][2]}}, {{$data['line'][1]}}, {{$data['line'][0]}}],
                     fill: false,
                     borderColor: 'rgb(75, 192, 192)',
                     tension: 0.1

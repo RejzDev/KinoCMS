@@ -69,4 +69,16 @@ class Cinema extends Model
     }
 
 
+    public function searches(string $search)
+    {
+        return $this->with('halls')->where('name', 'like', '%' . $search . '%')->get();
+
+    }
+
+    public function getLastHalls()
+    {
+        return $this->with('halls')->orderBy('id', 'desc')->limit(10)->get();
+    }
+
+
 }

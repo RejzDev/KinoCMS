@@ -15,6 +15,8 @@ class Hall extends Model
         return $this->hasMany(HallImage::class,'hall_id');
     }
 
+
+
     public function create(array $data): int
     {
         $main_img = (isset($data['main_img'])) ? $data['main_img'] : null;
@@ -54,4 +56,6 @@ class Hall extends Model
 
         return $hall->id;
     }
+
+
 }

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\MailController;
     use App\Http\Controllers\Admin\BannerController;
     use App\Http\Controllers\HomeController;
+    use App\Http\Controllers\Admin\TimeTablesController;
 
     /*
     |--------------------------------------------------------------------------
@@ -44,6 +45,7 @@ use Illuminate\Support\Facades\Route;
     Route::resource('main-banner', \App\Http\Controllers\Admin\MainBannerController::class);
     Route::resource('news-banner', \App\Http\Controllers\Admin\NewsBannerController::class);
     Route::resource('bg_banner', \App\Http\Controllers\Admin\BgBannerController::class);
+    Route::resource('time-tables', TimeTablesController::class);
 
     Route::post('/image/removeImage', [\App\Http\Controllers\Admin\ImageController::class, 'removeImage']);
     Route::post('/cinema-image/removeImage', [\App\Http\Controllers\Admin\CinemaImageController::class, 'removeImage']);
@@ -57,6 +59,8 @@ use Illuminate\Support\Facades\Route;
     Route::post('mail-upload', [MailController::class, 'upload'])->name('mail.upload');
     Route::post('mail-sendMail', [MailController::class, 'sendMail'])->name('mail.sendMail');
     Route::post('mail-destroy', [MailController::class, 'destroy'])->name('mail.destroy');
+    Route::post('movie-searches', [TimeTablesController::class, 'moviesSearches'])->name('movie.searches');
+    Route::post('hall-searches', [TimeTablesController::class, 'hallsSearches'])->name('hall.searches');
 
 
     Route::get('/', [HomeController::class, 'index'])->name('index.home');

@@ -28,7 +28,8 @@
         public function index()
         {
             $movies = new Movie();
-            $date = $movies->getOngoingMovies();
+            $date['ong'] = $movies->getOngoingMovies();
+            $date['soon'] = $movies->getSoonMovies();
 
 
             return view('admin.movie.index', ['date' => $date]);
