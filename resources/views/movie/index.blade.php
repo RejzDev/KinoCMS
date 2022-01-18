@@ -23,6 +23,7 @@
             <div class="col-md-10 bg-ong">
                 <div class="row">
 
+
                     @foreach($date['data'] as $item)
 
                         <div class="item col-md-3">

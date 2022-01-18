@@ -115,4 +115,8 @@
             return $this->orderBy('id', 'desc')->limit(10)->get();
         }
 
+        public function allMovie(){
+            return  $this->all();
+        }
+
     }

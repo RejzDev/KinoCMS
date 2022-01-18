@@ -28,8 +28,10 @@
             @endif
             <!-- /.card-header -->
                 <!-- form start -->
-                <form action="{{route('time-tables.store')}}" method="post" enctype="multipart/form-data">
-                    @csrf
+
+                    <form action="{{ route('time-tables.update', $timeTable['id']) }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
                     <div class="card-body">
                         <div class="form-group">
                             <label for="name">Виберете фильм</label>
@@ -37,7 +39,7 @@
                             <select id='sel_emp' name="movie" class="country_select form-control">
                                 <option value='0'>Виберете фильм</option>
                                 @foreach($movies as $movie)
-                                    <option value='{{$movie['id']}}'>{{$movie['name']}}</option>
+                                    <option value='{{$movie['id']}}' @if($movie['id'] == $timeTable['movie_id']) selected @endif>{{$movie['name']}}</option>
                                 @endforeach
                             </select>
                         </div>

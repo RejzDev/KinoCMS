@@ -54,6 +54,8 @@
             $data = $request->all();
 
             $model->create($data);
+
+            return redirect(route('time-tables.index'))->withSuccess('Расписание  добавлено!');
         }
 
         /**
@@ -75,7 +77,12 @@
          */
         public function edit(TimeTable $timeTable)
         {
-            //
+            $model = new Movie();
+
+            $result = $model->getLastMovies();
+
+            return view('admin.time_tables.edit',['timeTable' => $timeTable,
+                'movies' => $result]);
         }
 
         /**
@@ -98,7 +105,7 @@
          */
         public function destroy(TimeTable $timeTable)
         {
-            //
+            $timeTable->delete();
         }
 
 

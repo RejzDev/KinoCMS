@@ -68,6 +68,10 @@ use Illuminate\Support\Facades\Route;
     Route::get('/soon-movies', [HomeController::class, 'SoonMovies'])->name('soon.home');
     Route::get('/cinemas', [HomeController::class, 'cinemas'])->name('cinema.home');
     Route::get('/actions', [HomeController::class, 'actions'])->name('action.home');
+    Route::get('/timetables', [HomeController::class, 'timeTable'])->name('time-table.home');
+    Route::post('/filter', [HomeController::class, 'filter'])->name('filter');
+    Route::post('moviesearches', [HomeController::class, 'moviesSearches'])->name('movies.searches');
+    Route::post('cinema-searches', [HomeController::class, 'cinemaSearches'])->name('cinema.searches');
 
 
     Auth::routes();

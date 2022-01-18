@@ -80,5 +80,16 @@ class Cinema extends Model
         return $this->with('halls')->orderBy('id', 'desc')->limit(10)->get();
     }
 
+    public function getLastCinema()
+    {
+        return $this->with('halls')->orderBy('id', 'desc')->limit(10)->get();
+    }
+
+    public function searchesCinema(string $search)
+    {
+        return $this->where('name', 'like', '%' . $search . '%')->get();
+
+    }
+
 
 }

@@ -10,6 +10,7 @@ use App\Models\Cinema;
 use App\Models\Action;
 use Illuminate\Support\Carbon;
 use App\Models\TimeTable;
+use App\Models\Hall;
 
 class HomeController extends Controller
 {
@@ -86,4 +87,111 @@ class HomeController extends Controller
 
         return view('actions.index', ['date' => $date]);
     }
+
+    public function timeTable()
+    {
+        $model = new TimeTable();
+        $movie = new Movie();
+
+
+
+
+        $data['movies'] = $model->getOngoingToday();
+        $data['date'] = $data['movies'][0]['date'];
+        $data['movie'] = $movie->allMovie();
+
+        return view('time_table.index', ['data' => $data]);
+    }
+
+
+    public function filter(Request $request)
+    {
+
+
+        $model = new TimeTable();
+
+        $data = $request->all();
+
+        $movie = new Movie();
+
+
+
+
+
+
+        $result['movie'] = $movie->allMovie();
+
+        $result['movies'] = $model->getfilter($data);
+
+        $result['date'] = $result['movies'][0]->date;
+
+
+
+        return view('time_table.filter', ['data' => $result]);
+    }
+
+    public function moviesSearches(Request $request)
+    {
+
+        $model = new Movie();
+
+        $search = $request->search;
+
+
+        if (is_null($search)){
+            $result = $model->getLastMovies();
+        }else{
+            $result = $model->searches($search);
+        }
+
+
+        foreach ($result as $item) {
+            $data[] =array(
+                "id"=>$item['id'],
+                "text"=>$item['name']
+            );
+
+        }
+
+        $headers = [ 'Content-Type' => 'application/json; charset=utf-8' ];
+
+        return response()->json($data, 200, $headers, JSON_UNESCAPED_UNICODE);
+
+
+
+    }
+
+
+    public function cinemaSearches(Request $request)
+    {
+
+        $model = new Cinema();
+
+        $search = $request->search;
+
+
+        if (is_null($search)){
+            $result = $model->getLastHalls();
+        }else{
+            $result = $model->searches($search);
+        }
+
+
+        foreach ($result as $item) {
+
+                $data[] = array(
+                    "id" => $item['id'],
+                    "text" => $item['name']
+                );
+
+        }
+
+        $headers = [ 'Content-Type' => 'application/json; charset=utf-8' ];
+
+        return response()->json($data, 200, $headers, JSON_UNESCAPED_UNICODE);
+
+
+
+    }
+
 }
