@@ -22,7 +22,7 @@
 
             <div class="form-group col-sm-4 text-center">
                 <a href="{{route('time-tables.create')}}"
-                   class="btn btn-block btn-success"></a>
+                   class="btn btn-block btn-success">Создать расписание</a>
             </div>
 
         <h2 class="text-center">Расписанние</h2>

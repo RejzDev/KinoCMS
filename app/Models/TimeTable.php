@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use DateTimeZone;
 
 class TimeTable extends Model
 {
@@ -36,4 +37,17 @@ class TimeTable extends Model
     public function allTimeTable(){
         return $this->with('movies')->with('halls')->orderBy('id', 'desc')->get();
     }
+
+    public function getOngoing(){
+        return $this->with('movies')->with('halls')->whereMonth('date', Carbon::parse(Carbon::now(new DateTimeZone('Europe/Kiev')))->format('m'))
+            ->get();
+
+    }
+
+    public function getSoon(){
+        return $this->with('movies')->with('halls')->whereMonth('date','>', Carbon::parse(Carbon::now(new DateTimeZone('Europe/Kiev')))->format('m'))
+            ->get();
+
+    }
+
 }

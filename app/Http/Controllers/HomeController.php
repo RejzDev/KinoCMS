@@ -9,6 +9,7 @@ use App\Models\NewsBanner;
 use App\Models\Cinema;
 use App\Models\Action;
 use Illuminate\Support\Carbon;
+use App\Models\TimeTable;
 
 class HomeController extends Controller
 {
@@ -41,18 +42,24 @@ class HomeController extends Controller
 
     public function OngoingMovies()
     {
-        $movies = new Movie();
-        $date['data'] = $movies->getOngoingMovies();
-        $date['title'] = 'Сейчас в кино';
+        $movies = new TimeTable();
+        $date['data'] = $movies->getOngoing();
+        foreach ($date['data'] as $item){
+            $item['title'] = 'Сейчас в кино';
+        }
+
 
         return view('movie.index', ['date' => $date]);
     }
 
     public function SoonMovies()
     {
-        $movies = new Movie();
-        $date['data']  = $movies->getSoonMovies();
-        $date['title'] = 'Скоро в кино';
+        $movies = new TimeTable();
+        $date['data']  = $movies->getSoon();
+
+        foreach ($date['data'] as $item){
+            $item['title'] = 'С ' . $item['date'];
+        }
 
         return view('movie.index', ['date' => $date]);
     }

@@ -26,11 +26,11 @@
                     @foreach($date['data'] as $item)
 
                         <div class="item col-md-3">
-                            <p>{{$date['title']}}</p>
+                            <p>{{$item['title']}}</p>
                             @php
-                                if ($item['image']) {
+                                if ($item['movies']['image']) {
                                     // $url = url('storage/catalog/category/image/' . $category->image);
-                                    $url = Storage::disk('public')->url('catalog/movie/source/' . $item['image']);
+                                    $url = Storage::disk('public')->url('catalog/movie/source/' . $item['movies']['image']);
                                 } else {
                                     // $url = url('storage/catalog/category/image/default.jpg');
                                     $url = Storage::disk('public')->url('catalog/movie/source/no-img.jpg');
@@ -39,7 +39,7 @@
                             <div class="thumbnail">
                                 <img class="group list-group-image img-ong" src="{{ $url }}" alt="" class="img-fluid">
                                 <div class="caption">
-                                    <h4 class="group inner list-group-item-heading">{{$item['name']}}</h4>
+                                    <h4 class="group inner list-group-item-heading">{{$item['movies']['name']}}</h4>
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-12 col-md-6">
