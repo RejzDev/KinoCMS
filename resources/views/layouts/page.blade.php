@@ -25,80 +25,29 @@
 </head>
 <body>
 
-    <div id="app">
-
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-
-            <div class="container">
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    <div id="app" class="bg-white">
 
         <header>
 
             <div class="container">
 
+
+                <div class="col-md-12 block-head">
                 <nav class="navbar navbar-expand-lg navbar-light ">
                     <div class="container-fluid">
                         <div class="row col-md-12">
-                            <div class="logo-xl col-md-2">
+                            <div class="logo-xl col-md-2 logo">
                                 <img src="/images/img.png" alt="" class="logo-xs">
                             </div>
 
-                            <div class="col-md-3 text-center">
+                            <div class="col-md-3 text-center search">
                                 <form class="d-flex">
                                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
 
                                 </form>
                             </div>
 
-                            <div class="col-md-4 text-left">
+                            <div class="col-md-2 text-left">
                                 <ul class="social-icons">
                                     <li><a class="social-icon-twitter" href="#" title="..." target="_blank"
                                            rel="noopener"></a></li>
@@ -111,9 +60,9 @@
                                 </ul>
                             </div>
 
-                            <div class="col-md-3 text-left">
-                                <p class="phone-pg">(048) 777-77-77</p>
-                                <p class="phone-pg">(048) 777-77-77</p>
+                            <div class="col-md-3 text-left text-black text-phone">
+                                <p class="phone-p">(048) 777-77-77</p>
+                                <p class="phone-p">(048) 777-77-77</p>
                             </div>
 
                         </div>
@@ -121,7 +70,7 @@
                     </div>
                 </nav>
 
-                <nav class="navbar navbar-expand-lg navbar-light bg-light col-md-6 menu">
+                <nav class="navbar navbar-expand-lg navbar-light border border-dark col-md-6 menu">
                     <div class="container-fluid">
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
@@ -164,6 +113,7 @@
                         </div>
 
                 </nav>
+                </div>
             </div>
         </header>
 

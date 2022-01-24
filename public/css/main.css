@@ -83,6 +83,8 @@ input:checked + .slider:before {
     margin-top: 1rem;
     margin-bottom: 1rem;
     padding-left: 0;
+    height: 10px;
+    margin-top: 15px;
 }
 .social-icons>li {
     margin-left: 0.25rem;
@@ -97,8 +99,8 @@ input:checked + .slider:before {
     -ms-user-select: none;
     user-select: none;
     transition: background-color .3s ease-in-out;
-    width: 4.5rem;
-    height: 4.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: .25rem;
 }
 .social-icons a:hover {
@@ -107,8 +109,8 @@ input:checked + .slider:before {
 .social-icons a::before {
     content: "";
     position: absolute;
-    width: 2.8rem;
-    height: 2.8rem;
+    width: 1.2rem;
+    height: 1.2rem;
     left: .65rem;
     top: .65rem;
     background: transparent no-repeat center center;
@@ -267,11 +269,44 @@ body{
 .phone-pg{
     color: #fbfbfc;
     font-size: 25px;
+
+}
+
+.text-phone{
+    height: 15px;
+}
+
+.phone-p{
+    color: #020207;
+    font-size: 25px;
+    margin-bottom: -5px;
 }
 .slide_main{
     margin-top: -20px;
 }
 
 .menu{
-    float: right;
+    color: rgb(8 8 8);
+    float: left;
+    margin-top: -20px;
+    margin-left: 200px;
+    padding: 1px 1px 1px 1px;
+
 }
+
+.block-head{
+    padding: 5px 0 10px 100px;
+}
+
+
+
+.logo{
+    margin-top: 30px;
+}
+
+.search{
+    height: 10px;
+    margin-top: 15px;
+}
+
+
