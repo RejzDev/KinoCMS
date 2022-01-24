@@ -1,9 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.page')
 
 @section('css')
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="{{asset('/admin/plugins/select2/css/select2.css?v=11254')}}">
+    <link rel="stylesheet" href="{{asset('/admin/plugins/select2-bootstrap4-theme/elect2-bootstrap4.min.css?v=1522')}}">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 @endsection
 
 @section('title', 'Главная')
@@ -81,20 +86,34 @@
                 </div>
                 <div class="form-group">
 
-                    <select class="form-control col-md-2" name="movie">
-                        <option>Виберете фильм</option>
-                        @foreach($data['movie'] as $item)
-                            <option value="{{$item['id']}}">{{$item['name']}}</option>
-                        @endforeach
-                    </select>
+                    <div class="form-group col-md-2">
+                        <select id="cinema_select" class="js-data-example-ajax form-control" name="cinema">
+                            <option value="">Виберете кинотеатр</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <input type="date" class="form-control" name="date">
+                    </div>
+
+                    <div  class="form-group col-md-2">
+                        <select id="movies_select" class="js-data-example-ajax form-control" name="movie">
+                            <option value="">Виберете фильм</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <select id="halls_select" class="js-data-example-ajax form-control" name="hall">
+                            <option value="">Виберете зал</option>
+                        </select>
+                    </div>
+
+
+
                 </div>
 
-                <input type="date" class="form-control col-md-2" name="date">
-
-                <div class="card-footer col-md-4">
+                <div class="form-group col-md-2">
                     <button type="submit" class="btn btn-primary">Показать</button>
                 </div>
-
             </div>
 
             </form>
@@ -153,4 +172,103 @@
         </div>
     </div>
     </div>
+@endsection
+@section('js')
+    <script src="/admin/plugins/select2/js/select2.js"></script>
+    <!-- Script -->
+    <script type="text/javascript">
+        // CSRF Token
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $(document).ready(function(){
+            console.log(1);
+
+            $( "#sel_emp" ).select2();
+
+
+        });
+
+
+        $('#cinema_select').select2({
+            ajax: {
+                url: "{{route('cinema.searches')}}",
+                type: "post",
+                headers: {
+                    'X-CSRF-Token': '{{csrf_token()}}'
+                },
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        search: params.term // search term
+                    };
+                },
+                processResults: function (response) {
+                    return {
+                        results: response,
+
+                    };
+
+                },
+                cache: true
+
+            }
+        });
+
+        $('#movies_select').select2({
+            ajax: {
+                url: "{{route('movie.searches')}}",
+                type: "post",
+                headers: {
+                    'X-CSRF-Token': '{{csrf_token()}}'
+                },
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        search: params.term // search term
+                    };
+                },
+                processResults: function (response) {
+                    return {
+                        results: response,
+
+                    };
+
+                },
+                cache: true
+
+            }
+        });
+
+        $('#halls_select').select2({
+            ajax: {
+                url: "{{route('halls.searches')}}",
+                type: "post",
+                headers: {
+                    'X-CSRF-Token': '{{csrf_token()}}'
+                },
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        search: params.term // search term
+                    };
+                },
+                processResults: function (response) {
+                    return {
+                        results: response,
+
+                    };
+
+                },
+                cache: true
+
+            }
+        });
+
+
+    </script>
+
+
+
 @endsection

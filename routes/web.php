@@ -72,6 +72,7 @@ use Illuminate\Support\Facades\Route;
     Route::post('/filter', [HomeController::class, 'filter'])->name('filter');
     Route::post('moviesearches', [HomeController::class, 'moviesSearches'])->name('movies.searches');
     Route::post('cinema-searches', [HomeController::class, 'cinemaSearches'])->name('cinema.searches');
+    Route::post('halls-searches', [HomeController::class, 'hallsSearches'])->name('halls.searches');
 
 
     Auth::routes();

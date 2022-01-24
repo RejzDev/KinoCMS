@@ -34,7 +34,7 @@ class Visitor extends Model
             $this->save();
 
             $count = $countVisit->saveCountVisit();
-            dd($count);
+
 
             $result = 'gh';
         }

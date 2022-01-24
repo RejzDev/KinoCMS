@@ -97,7 +97,7 @@ class HomeController extends Controller
 
 
         $data['movies'] = $model->getOngoingToday();
-        $data['date'] = $data['movies'][0]['date'];
+        $data['date'] = isset($data['movies'][0]['date']) ? $data['movies'][0]['date'] : null;
         $data['movie'] = $movie->allMovie();
 
         return view('time_table.index', ['data' => $data]);
@@ -123,7 +123,9 @@ class HomeController extends Controller
 
         $result['movies'] = $model->getfilter($data);
 
-        $result['date'] = $result['movies'][0]->date;
+
+
+
 
 
 
@@ -183,6 +185,40 @@ class HomeController extends Controller
                     "id" => $item['id'],
                     "text" => $item['name']
                 );
+
+        }
+
+        $headers = [ 'Content-Type' => 'application/json; charset=utf-8' ];
+
+        return response()->json($data, 200, $headers, JSON_UNESCAPED_UNICODE);
+
+
+
+    }
+
+    public function hallsSearches(Request $request)
+    {
+
+        $model = new Cinema();
+
+        $search = $request->search;
+
+
+        if (is_null($search)){
+            $result = $model->getLastHalls();
+        }else{
+            $result = $model->searches($search);
+        }
+
+
+        foreach ($result as $item) {
+
+            foreach ($item['halls'] as $hall) {
+                $data[] = array(
+                    "id" => $hall['id'],
+                    "text" => $item['name'] . ' (' . $hall['number'] . ' Зал)'
+                );
+            }
 
         }
 

@@ -159,6 +159,7 @@
                         </a>
                     </li>
 
+
                     <li class="nav-item">
                         <a href="{{route('pages.index')}}" class="nav-link">
                             <p>
@@ -179,6 +180,14 @@
                         <a href="/mail" class="nav-link">
                             <p>
                                 Рассылка
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{route('time-tables.index')}}" class="nav-link">
+                            <p>
+                                Расписание
                             </p>
                         </a>
                     </li>

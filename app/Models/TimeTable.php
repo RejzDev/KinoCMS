@@ -56,68 +56,52 @@ class TimeTable extends Model
             ->get();
 
     }
+
+
+
+
     public function getfilter(array $data){
 
-       // return DB::table('time_tables')->join('movies', 'movies.id', '=', 'time_tables.movie_id')
-       //     ->where('movies.id', '=', 52)->get();
 
-   if (isset($data['type_movie'][0])){
-       return DB::table('time_tables')->join('movies', 'movies.id', '=', 'time_tables.movie_id')
-           ->join('halls', 'halls.id', '=', 'time_tables.hall_id')
-           ->where('movies.type_movie', 'like', '%' . $data['type_movie'][0] .'%')->get();
+        $builder = TimeTable::join('movies', 'movies.id', '=', 'time_tables.movie_id')
+       ->join('halls', 'halls.id', '=', 'time_tables.hall_id')->orderByDesc('date');
 
 
-   } elseif (!is_null($data['date'])){
-       return DB::table('time_tables')->join('movies', 'movies.id', '=', 'time_tables.movie_id')
-           ->join('halls', 'halls.id', '=', 'time_tables.hall_id')
-           ->where('time_tables.date', '=', Carbon::parse($data['date'])->format('Y-m-d'))->get();
+        $typeMovie = isset($data['type_movie']) ? implode(',', $data['type_movie']) : null;
 
-   } elseif (isset($data['hall'])){
-       return DB::table('time_tables')->join('movies', 'movies.id', '=', 'time_tables.movie_id')
-           ->join('halls', 'halls.id', '=', 'time_tables.hall_id')
-           ->where('time_tables.hall_id', '=', $data['hall'])
-           ->get();
-   } elseif (!is_null($data['movie'])){
-       return DB::table('time_tables')->join('movies', 'movies.id', '=', 'time_tables.movie_id')
-           ->join('halls', 'halls.id', '=', 'time_tables.hall_id')
-           ->where('movies.id', '=', $data['movie'])->get();
 
-   } elseif (isset($data['type_movie'][0]) && !is_null($data['date'])){
-       return DB::table('time_tables')->join('movies', 'movies.id', '=', 'time_tables.movie_id')
-           ->join('halls', 'halls.id', '=', 'time_tables.hall_id')
-           ->where('movies.type_movie', 'like', '%' . $data['type_movie'][0] .'%')
-           ->where('time_tables.date', '=', Carbon::parse($data['date'])->format('Y-m-d'))->get();
+        // отбираем только новинки
+       if (!is_null($data['type_movie'][0])) {
+           $builder->where('type_movie',  'like', '%' . $data['type_movie'][0] .'%');
+       }
+        // отбираем только лидеров продаж
+        if (!is_null($data['date'])) {
 
-   } elseif (isset($data['type_movie'][0]) && isset($data['hall'])){
-       return DB::table('time_tables')->join('movies', 'movies.id', '=', 'time_tables.movie_id')
-           ->join('halls', 'halls.id', '=', 'time_tables.hall_id')
-           ->where('movies.type_movie', 'like', '%' . $data['type_movie'][0] .'%')
-           ->where('time_tables.hall_id', '=', $data['hall'])->get();
-   }
+        $builder->where('date', '=', Carbon::parse($data['date'])->format('Y-m-d'));
+
+    }
+        // отбираем только со скидкой
+        if (isset($data['hall'])) {
+            $builder->where('time_tables.hall_id', '=', $data['hall']);
+        }
+
+        // отбираем только со скидкой
+        if (isset($data['movie'])) {
+            $builder->where('time_tables.movie_id', '=', $data['movie']);
+        }
+
+        // отбираем только со скидкой
+        if (isset($data['cinema'])) {
+            $builder->where('halls.cinema_id', '=', $data['cinema']);
+        }
 
 
 
-
-      // return DB::table('time_tables')->join('movies', 'movies.id', '=', 'time_tables.movie_id')
-      //     ->join('halls', 'halls.id', '=', 'time_tables.hall_id')
-      //     ->where('movies.type_movie', 'like', '%' . $data['type_movie'][0] .'%')
-      //     ->where('time_tables.movie_id', '=', $data['cinema'])
-      //     ->where('time_tables.date', '=', $data['date'])
-      //     ->where('time_tables.hall_id', '=', $data['hall'])
-      //     ->get();
+        $products = $builder->get();
+        return $products;
 
 
     }
 
-    public function getfilterType(array $data){
-
-
-            return DB::table('time_tables')->join('movies', 'movies.id', '=', 'time_tables.movie_id')
-                ->join('halls', 'halls.id', '=', 'time_tables.hall_id')
-                ->where('movies.type_movie', 'like', '%' . $data['type_movie'][0] .'%')->get();
-
-
-
-    }
 
 }

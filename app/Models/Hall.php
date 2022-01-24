@@ -56,6 +56,15 @@ class Hall extends Model
 
         return $hall->id;
     }
+    public function getHalls()
+    {
+        return $this->orderBy('id', 'desc')->limit(10)->get();
+    }
 
+    public function searchesHall(string $search)
+    {
+        return $this->where('name', 'like', '%' . $search . '%')->get();
+
+    }
 
 }

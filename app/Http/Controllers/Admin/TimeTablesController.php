@@ -106,6 +106,9 @@
         public function destroy(TimeTable $timeTable)
         {
             $timeTable->delete();
+
+            return redirect(route('time-tables.index'))->withSuccess('Расписание  видалено!');
+
         }
 
 
