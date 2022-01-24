@@ -23,9 +23,9 @@
 
     @yield('css')
 </head>
-<body>
+<body class="bg-img">
 
-    <div id="app">
+    <div id="app ">
 
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
 
@@ -151,7 +151,7 @@
         </header>
 
 
-        <main class="py-4">
+        <main class="py-4 ">
 
             @yield('content')
         </main>

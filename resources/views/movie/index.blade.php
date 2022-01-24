@@ -5,22 +5,22 @@
 @section('content')
 
 
-    <div class="container bg-white">
+    <div class="container">
 
 
         <div class="row text-center">
 
             <div class="col-md-2">
                 <div class="col-md-2 lin">
-                    <a href="{{route('ongoing.home')}}" class="btn btn-dark">Авиша</a>
+                    <a href="{{route('ongoing.home')}}" class="btn btn-standart {{request()->is('ongoing-movies*') ? 'btn-buy' : null}}">Авиша</a>
                 </div>
 
                 <div class="col-md-2 lin">
-                    <a href="{{route('soon.home')}}" class="btn btn-dark">Скоро</a>
+                    <a href="{{route('soon.home')}}" class="btn btn-standart {{request()->is('soon-movies*') ? 'btn-buy' : null}} ">Скоро</a>
                 </div>
             </div>
 
-            <div class="col-md-10 bg-ong">
+            <div class="col-md-10 bg-ong ">
                 <div class="row">
 
 

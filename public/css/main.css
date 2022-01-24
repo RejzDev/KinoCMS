@@ -131,7 +131,7 @@ input:checked + .slider:before {
 }
 
 body{
-    background-image: url("/images/bg.jpg"); /* Цвет фона и путь к файлу */
+    background-color: #f0f6ff; /* Цвет фона и путь к файлу */
 
     background-repeat: no-repeat;
     background-position: center center;
@@ -140,6 +140,11 @@ body{
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+}
+
+.bg-img{
+    background-image: url("/images/bg.jpg"); /* Цвет фона и путь к файлу */
+
 }
 
 .bg-style{
@@ -168,4 +173,93 @@ body{
 .bg-ong{
     background-color: #0a001f;
     color: #f0f6ff;
+}
+
+.btn-standart{
+    background-color: #ffffff;
+    border-color: #0a001f;
+    width: 100px;
+
+
+}
+
+.active-btn{
+    content: '';
+    position: absolute;
+    right: -45px; top: 0px;
+    border: 25px solid transparent;
+    border-left: 20px solid green;
+
+}
+
+
+.block {
+    background-color: #d5d2d2;
+    border-color: #f0f6ff;
+    clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+}
+
+
+
+.btn-buy {
+    display: block;
+    color: #090606;
+    border-radius: 0em; /* Обнулить округлости */
+    -moz-border-radius: 0em; /* Обнулить округлости */
+    -webkit-border-radius: 0em; /* Обнулить округлости */
+    background: #d0d0d0;
+    border: none;
+
+    border-bottom: 2px solid #fdfafa;
+    position: relative;
+
+    margin: 0 auto; /* Это просто для выравнивания кнопки посередине */
+}
+.btn-buy:after, .btn-buy:before {
+    left: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+}
+.btn-buy:after {
+    border-color: rgba(136, 183, 213, 0);
+    border-left-color: #d0d0d0;
+    border-width: 16px;
+    margin-top: -16px;
+}
+.btn-buy:before {
+    border-color: rgba(215, 215, 218, 0);
+    border-left-color: #f1f0f5;
+    border-width: 16px;
+    margin-top: -14px;
+}
+.btn-buy:hover,
+.btn-buy:focus,
+.btn-buy:active,
+.btn-buy.active,
+.open .dropdown-toggle.btn-buy {
+    color: #fff;
+    outline: none;
+    background: #c0c0c2;
+    border-bottom: 2px solid #ffffff;
+}
+.btn-buy:hover:after,
+.btn-buy:focus:after,
+.btn-buy:active:after,
+.btn-buy.active:after {
+    border-left-color: #c0c0c2;
+}
+.btn-buy:active,
+.btn-buy.active,
+.open .dropdown-toggle.btn-buy {
+    background: #d9d9dc;
+    color: #f8f2f2;
+}
+.btn-buy:active:after,
+.btn-buy.active:after,
+.open .dropdown-toggle.btn-buy:after {
+    border-left-color: #c0c0c2;
 }
