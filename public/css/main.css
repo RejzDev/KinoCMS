@@ -263,3 +263,15 @@ body{
 .open .dropdown-toggle.btn-buy:after {
     border-left-color: #c0c0c2;
 }
+
+.phone-pg{
+    color: #fbfbfc;
+    font-size: 25px;
+}
+.slide_main{
+    margin-top: -20px;
+}
+
+.menu{
+    float: right;
+}

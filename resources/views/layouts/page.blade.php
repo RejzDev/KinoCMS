@@ -86,29 +86,46 @@
 
                 <nav class="navbar navbar-expand-lg navbar-light ">
                     <div class="container-fluid">
-                        <div class="row">
-                            <div class="text-left">
+                        <div class="row col-md-12">
+                            <div class="logo-xl col-md-2">
+                                <img src="/images/img.png" alt="" class="logo-xs">
+                            </div>
+
+                            <div class="col-md-3 text-center">
                                 <form class="d-flex">
                                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                    <button class="btn btn-success" type="submit">Search</button>
+
                                 </form>
+                            </div>
+
+                            <div class="col-md-4 text-left">
+                                <ul class="social-icons">
+                                    <li><a class="social-icon-twitter" href="#" title="..." target="_blank"
+                                           rel="noopener"></a></li>
+                                    <li><a class="social-icon-fb" href="#" title="..." target="_blank" rel="noopener"></a>
+                                    </li>
+                                    <li><a class="social-icon-vk" href="#" title="..." target="_blank" rel="noopener"></a>
+                                    </li>
+                                    <li><a class="social-icon-telegram" href="#" title="..." target="_blank"
+                                           rel="noopener"></a></li>
+                                </ul>
+                            </div>
+
+                            <div class="col-md-3 text-left">
+                                <p class="phone-pg">(048) 777-77-77</p>
+                                <p class="phone-pg">(048) 777-77-77</p>
                             </div>
 
                         </div>
 
-                        <ul class="social-icons">
-                            <li><a class="social-icon-twitter" href="#" title="..." target="_blank" rel="noopener"></a></li>
-                            <li><a class="social-icon-fb" href="#" title="..." target="_blank" rel="noopener"></a></li>
-                            <li><a class="social-icon-vk" href="#" title="..." target="_blank" rel="noopener"></a></li>
-                            <li><a class="social-icon-telegram" href="#" title="..." target="_blank" rel="noopener"></a></li>
-                               </ul>
-                        </div>
+                    </div>
                 </nav>
 
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light col-md-6 menu">
                     <div class="container-fluid">
-                        <a class="navbar-brand" href="#">KinoCMS</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                                aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
 

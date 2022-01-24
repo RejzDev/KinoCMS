@@ -11,6 +11,7 @@ use App\Models\Action;
 use Illuminate\Support\Carbon;
 use App\Models\TimeTable;
 use App\Models\Hall;
+use App\Models\MainBanner;
 
 class HomeController extends Controller
 {
@@ -33,9 +34,11 @@ class HomeController extends Controller
     {
         $movies = new Movie();
         $newsBanner= new NewsBanner();
+        $mainBanner= new MainBanner();
         $date['state'] = $movies->getOngoingMovies();
         $date['soon'] = $movies->getSoonMovies();
         $date['banner'] = $newsBanner->getNewsBanner();
+        $date['mainBanner'] = $mainBanner->getMainBanners();
 
         return view('main.home', ['date' => $date]);
     }

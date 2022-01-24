@@ -10,10 +10,15 @@ class MainBanner extends Model
     use HasFactory;
 
 
+    public function banners()
+    {
+        return $this->belongsTo(Banner::class,'banner_id');
+    }
+
 
     public function getMainBanners()
     {
-        return  $this->where('banner_id', '=', '1')->get();
+        return  $this->with('banners')->where('banner_id', '=', '1')->get();
     }
 
     public function creates(array $data): int
