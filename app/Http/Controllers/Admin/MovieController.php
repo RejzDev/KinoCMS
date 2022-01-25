@@ -112,7 +112,7 @@
                     array_push($genres, array(
                         'name' => $data['name-pole'][$i],
                         'description' => $data['genre'][$i],
-                        'movie_id' => 52,
+                        'movie_id' => $movie,
                     ));
 
                 }

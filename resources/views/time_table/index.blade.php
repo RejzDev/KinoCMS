@@ -112,13 +112,27 @@
                                         {{$item['halls']['number']}}
                                     </td>
                                     <td>{{$item['price']}}</td>
-                                    <td></td>
+                                    <form action="{{route('booking.movie', $item['movies']['id'])}}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                    <input type="hidden" value="{{$item['movies']['id']}}" name="movie_id">
+                                    <input type="hidden" value="{{$item['price']}}" name="price">
+                                    <input type="hidden" value="{{$item['hall_id']}}" name="hall">
+                                    <input type="hidden" value="{{$item['id']}}" name="time_table_id">
+                                    <td><div class="form-group col-md-2">
+                                            <button type="submit" class="btn ">Бронировать</button>
+                                        </div></td>
+
+                                    </form>
                                 </tr>
+
                                 @endforeach
                                 </tbody>
                             </table>
                         </div>
                         <!-- /.card-body -->
+
+
+
                     </div>
 
 

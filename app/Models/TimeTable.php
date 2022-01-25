@@ -63,8 +63,8 @@ class TimeTable extends Model
     public function getfilter(array $data){
 
 
-        $builder = TimeTable::join('movies', 'movies.id', '=', 'time_tables.movie_id')
-       ->join('halls', 'halls.id', '=', 'time_tables.hall_id')->orderByDesc('date');
+        $builder = DB::table('time_tables')->join('movies', 'time_tables.movie_id', '=', 'movies.id')
+       ->join('halls', 'time_tables.hall_id', '=', 'halls.id')->select('*', 'time_tables.id');
 
 
 
@@ -103,6 +103,10 @@ class TimeTable extends Model
         return $products;
 
 
+    }
+
+    public function getId(int $time_table_id){
+        return $this->with('halls')->find($time_table_id);
     }
 
 

@@ -69,7 +69,7 @@
                     </div>
                     </div>
 
-                <input type="hidden" name="movie" value="{{$movie['id']}}">
+                <input type="hidden" value="{{$movie['id']}}" name="movie_id">
 
 
 
@@ -83,7 +83,7 @@
 
 
 
-            <form action="{{route('filter_movie')}}" method="post" enctype="multipart/form-data">
+            <form action="{{route('booking.movie', $movie['id'])}}" method="post" enctype="multipart/form-data">
                 @csrf
 
                 @if(isset($result['movies']))
@@ -95,6 +95,10 @@
                                 <span>{{$item->time}}  {{$item->type_movie}}
                            <p>Зал {{$item->number}}</p>
                         </span>
+
+                                <input type="hidden" value="{{$movie['id']}}" name="movie_id">
+                                <input type="hidden" value="{{$item->price}}" name="price">
+                                <input type="hidden" value="{{$item->id}}" name="time_table_id">
 
                             </label>
 
