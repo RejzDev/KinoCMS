@@ -7,6 +7,7 @@
     use Illuminate\Http\Request;
     use App\Helpers\ImageSaver;
     use App\Models\Image;
+    use App\Models\Genre;
 
     class MovieController extends Controller
     {
@@ -60,6 +61,9 @@
 
             $movies->getRelationValue('images');
 
+            $data = $request->all();
+
+
 
             $this->validate($request, [
                 'name' => 'required|max:100',
@@ -75,7 +79,7 @@
             ]);
 
 
-            $data = $request->all();
+
 
             $data['ch'] = implode(',', $request->input('type_movie'));
 
@@ -97,6 +101,23 @@
                     $i++;
                 } while ($i < count($data['images']));
                 $id = $images->creates($imagesDate);
+
+            }
+
+            if (isset($data['name-pole'])){
+                $genre = new Genre();
+                $genres = array();
+                $count = 0;
+                for ($i = 0; $i < count($data['name-pole']); $i++){
+                    array_push($genres, array(
+                        'name' => $data['name-pole'][$i],
+                        'description' => $data['genre'][$i],
+                        'movie_id' => 52,
+                    ));
+
+                }
+
+               $genre->create($movie);
 
             }
 
@@ -126,6 +147,7 @@
         public function edit(Movie $movie)
         {
             $movie->getRelationValue('images');
+            $movie->getRelationValue('genres');
 
 
             $date = explode(',', $movie['type_movie']);
@@ -154,8 +176,10 @@
         public function update(Request $request, Movie $movie)
         {
 
+
             $images = new Image();
             $movie->getRelationValue('images');
+
 
 
             if (!empty($request->file('image'))) {
@@ -208,6 +232,35 @@
                 if (isset($imagesDate['images'])) {
                     $images->creates($imagesDate);
                 }
+
+            }
+
+            if (isset($data['name-pole'])){
+
+
+                $genre = new Genre();
+                $genresSave = array();
+                $genresUp = array();
+                $count = 0;
+                for ($i = 0; $i < count($data['name-pole']); $i++){
+                    if (is_null($data['genre_id'][$i])){
+                        array_push($genresSave, array(
+                            'name' => $data['name-pole'][$i],
+                            'description' => $data['genre'][$i],
+                            'movie_id' => $movie->id,
+                        ));
+                    } else{
+                        array_push($genresUp, array(
+                            'name' => $data['name-pole'][$i],
+                            'description' => $data['genre'][$i],
+                            'id' => $data['genre_id'][$i],
+                        ));
+                    }
+
+                }
+
+                $genre->create($genresSave);
+                $genre->updates($genresUp);
 
             }
 

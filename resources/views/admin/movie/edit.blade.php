@@ -133,7 +133,27 @@
 
                             </div>
                         </div>
-                        <label for="name">SEO блок:</label>
+
+                         <label for="genre">Добавить поле в  краткое описание:</label>
+
+                         @foreach($movie['genres'] as $item)
+                         <p><label for="var1"> Поле: </label>
+                             <input type="hidden" value="{{$item['id']}}" name="genre_id[]" id="genreId{{$item['id']}}">
+                             <input type="text" value="{{$item['name']}}" name="name-pole[]" id="name-pole{{$item['id']}}">
+                             <input type="text" value="{{$item['description']}}" name="genre[]" id="genre{{$item['id']}}">
+                             <a href="#" onclick="deletesGenre({{$item['id']}}); return false;"
+                                class="btn btn-danger btn-sm delete-btn">
+                                 <i class="fas fa-trash">
+                                 </i>
+
+                             </a>
+                         </p>
+                         @endforeach
+
+                         <p><span id="addVar"> Добавить новый элемент </span> </p>
+
+
+                         <label for="name">SEO блок:</label>
                         <div class="form-group">
                             <label for="name">URL:</label>
                             <input type="text" class="form-control" name="url" value="{{$movie['url']}}" id="url"
@@ -169,4 +189,76 @@
         </div>
     </div>
 
+@endsection
+@section('js')
+    <script>
+
+
+        // Количество начальных параметров
+
+        var varCount = 0;
+
+
+
+        $(function () {
+
+            // Новое нажатие кнопки
+
+            $('#addVar').on('click', function(){
+
+                varCount++;
+
+                $node = '<p><label for="var'+varCount+'"> Поле'+varCount+': </label>'
+
+                    + '<input type="hidden"  name="genre_id[]" id="genre_id'+varCount+'">'
+                    + '<input type="text"  name="name-pole[]" id="name-pole'+varCount+'">'
+                    + '<input type="text"  name="genre[]" id="genre'+varCount+'">'
+
+                    + '<span class = "remove"> Удалить </span> </p>';
+
+                // Новый элемент формы добавляется перед кнопкой "новая"
+
+                $(this).parent().before($node);
+
+            });
+
+
+
+            // Удалить нажатие кнопки
+
+            $('form').on('click', '.removeVar', function(){
+
+                $(this).parent().remove();
+
+                //varCount--;
+
+            });
+
+        });
+
+
+        function deletesGenre(id){
+
+            var genre = document.getElementById("genreId"+id);
+            var name = document.getElementById("name-pole"+id);
+            var genre = document.getElementById("genre"+id);
+            genre.remove();
+            $.ajax({
+                url: "/genre/"+id,
+                type: "DELETE",
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
+                dataType : 'json',
+                success: (data) => {
+                    console.log(data)
+
+                },
+                error: (data) => {
+                    console.log(data)
+                }
+            });
+        }
+
+    </script>
 @endsection

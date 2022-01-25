@@ -73,6 +73,14 @@
 
                             </div>
                         </div>
+
+
+                        <label for="genre">Добавить поле в  краткое описание:</label>
+
+                            <p><span id="addVar"> Добавить новый элемент </span> </p>
+
+
+
                         <label for="name">SEO блок:</label>
                         <div class="form-group">
                             <label for="name">URL:</label>
@@ -106,4 +114,53 @@
         </div>
     </div>
 
+@endsection
+
+@section('js')
+    <script>
+
+
+        // Количество начальных параметров
+
+        var varCount = 0;
+
+
+
+        $(function () {
+
+            // Новое нажатие кнопки
+
+            $('#addVar').on('click', function(){
+
+                varCount++;
+
+                $node = '<p><label for="var'+varCount+'"> Поле'+varCount+': </label>'
+
+                    + '<input type="text"  name="name-pole[]" id="name-pole'+varCount+'">'
+                    + '<input type="text"  name="genre[]" id="genre'+varCount+'">'
+
+                    + '<span class = "removeVar"> Удалить </span> </p>';
+
+                // Новый элемент формы добавляется перед кнопкой "новая"
+
+                $(this).parent().before($node);
+
+            });
+
+
+
+            // Удалить нажатие кнопки
+
+            $('form').on('click', '.removeVar', function(){
+
+                $(this).parent().remove();
+
+                //varCount--;
+
+            });
+
+        });
+
+
+    </script>
 @endsection

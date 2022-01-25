@@ -67,17 +67,19 @@ class TimeTable extends Model
        ->join('halls', 'halls.id', '=', 'time_tables.hall_id')->orderByDesc('date');
 
 
+
+        $date = isset($data['date']) ? $data['date'] : null;
         $typeMovie = isset($data['type_movie']) ? implode(',', $data['type_movie']) : null;
 
 
         // отбираем только новинки
-       if (!is_null($data['type_movie'][0])) {
-           $builder->where('type_movie',  'like', '%' . $data['type_movie'][0] .'%');
+       if ($typeMovie) {
+           $builder->where('type_movie',  'like', '%' . $typeMovie .'%');
        }
         // отбираем только лидеров продаж
-        if (!is_null($data['date'])) {
+        if (!is_null($date)) {
 
-        $builder->where('date', '=', Carbon::parse($data['date'])->format('Y-m-d'));
+        $builder->where('date', '=', Carbon::parse($date)->format('Y-m-d'));
 
     }
         // отбираем только со скидкой

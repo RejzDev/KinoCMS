@@ -46,6 +46,7 @@ use Illuminate\Support\Facades\Route;
     Route::resource('news-banner', \App\Http\Controllers\Admin\NewsBannerController::class);
     Route::resource('bg_banner', \App\Http\Controllers\Admin\BgBannerController::class);
     Route::resource('time-tables', TimeTablesController::class);
+    Route::resource('genre', \App\Http\Controllers\Admin\GenreController::class);
 
     Route::post('/image/removeImage', [\App\Http\Controllers\Admin\ImageController::class, 'removeImage']);
     Route::post('/cinema-image/removeImage', [\App\Http\Controllers\Admin\CinemaImageController::class, 'removeImage']);
@@ -70,9 +71,16 @@ use Illuminate\Support\Facades\Route;
     Route::get('/actions', [HomeController::class, 'actions'])->name('action.home');
     Route::get('/timetables', [HomeController::class, 'timeTable'])->name('time-table.home');
     Route::post('/filter', [HomeController::class, 'filter'])->name('filter');
+    Route::post('/filterMovie', [\App\Http\Controllers\MoviesController::class, 'filterMovie'])->name('filter_movie');
     Route::post('moviesearches', [HomeController::class, 'moviesSearches'])->name('movies.searches');
     Route::post('cinema-searches', [HomeController::class, 'cinemaSearches'])->name('cinema.searches');
     Route::post('halls-searches', [HomeController::class, 'hallsSearches'])->name('halls.searches');
+
+
+
+
+
+    Route::get('movie/{id}', [\App\Http\Controllers\MoviesController::class, 'pageMovie'])->name('page.movie');
 
 
     Auth::routes();

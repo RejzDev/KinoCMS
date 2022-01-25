@@ -59,10 +59,6 @@
                         <td>Зал {{$item->halls->number}}</td>
                         <td>{{$item->price}}</td>
                         <td class="project-actions text-right">
-                            <a class="btn btn-info btn-sm" href="{{route('time-tables.edit', $item['id'])}}">
-                                <i class="fas fa-pencil-alt">
-                                </i>
-                            </a>
 
                             <form action="{{route('time-tables.destroy', $item['id'])}}" method="POST"
                                   style="display: inline-block">

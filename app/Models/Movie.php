@@ -32,6 +32,11 @@
             return $this->hasMany(Image::class, 'key_img')->orderBy('position', 'asc');
         }
 
+        public function genres()
+        {
+            return $this->hasMany(Genre::class, 'movie_id');
+        }
+
         /**
          * Вертає усі фільми зі статусом 1
          * @return Collection
@@ -117,6 +122,10 @@
 
         public function allMovie(){
             return  $this->all();
+        }
+
+        public function getMovieId(int $id){
+            return $this->with('images')->with('genres')->find($id);
         }
 
     }
