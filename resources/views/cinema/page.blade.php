@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-12 col-md-6">
-                                        <a class="btn btn-success" href="{{route('page.movie', $item['id'])}}>Купить</a>
+                                        <a class="btn btn-success" href="#">Купить</a>
                                     </div>
                                 </div>
                             </div>

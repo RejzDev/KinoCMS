@@ -29,24 +29,35 @@ use Illuminate\Support\Facades\Route;
     */
 
 
+    Auth::routes();
 
 
-    Route::resource('movies', MovieController::class);
-    Route::resource('cinema', CinemaController::class);
-    Route::resource('hall', HallController::class);
-    Route::resource('news', NewsController::class);
-    Route::resource('action', ActionController::class);
-    Route::resource('pages', PageController::class);
-    Route::resource('main-page', MainPageController::class);
-    Route::resource('contact', ContactController::class);
-    Route::resource('contact-cinema', ContactCinemaController::class);
-    Route::resource('user', UserController::class);
-    Route::resource('banner', BannerController::class);
-    Route::resource('main-banner', \App\Http\Controllers\Admin\MainBannerController::class);
-    Route::resource('news-banner', \App\Http\Controllers\Admin\NewsBannerController::class);
-    Route::resource('bg_banner', \App\Http\Controllers\Admin\BgBannerController::class);
-    Route::resource('time-tables', TimeTablesController::class);
-    Route::resource('genre', \App\Http\Controllers\Admin\GenreController::class);
+    Route::middleware(['role:admin'])->prefix('admin_panel')->group(function () {
+        //
+        // Route::get('/index', [App\Http\Controllers\Admin\HomeController::class, 'index']);
+        Route::get('/home', [App\Http\Controllers\Admin\HomeController::class, 'index']);
+        Route::resource('movies', MovieController::class);
+        Route::resource('cinema', CinemaController::class);
+        Route::resource('hall', HallController::class);
+        Route::resource('news', NewsController::class);
+        Route::resource('action', ActionController::class);
+        Route::resource('pages', PageController::class);
+        Route::resource('main-page', MainPageController::class);
+        Route::resource('contact', ContactController::class);
+        Route::resource('contact-cinema', ContactCinemaController::class);
+        Route::resource('user', UserController::class);
+        Route::resource('banner', BannerController::class);
+        Route::resource('main-banner', \App\Http\Controllers\Admin\MainBannerController::class);
+        Route::resource('news-banner', \App\Http\Controllers\Admin\NewsBannerController::class);
+        Route::resource('bg_banner', \App\Http\Controllers\Admin\BgBannerController::class);
+        Route::resource('time-tables', TimeTablesController::class);
+        Route::resource('genre', \App\Http\Controllers\Admin\GenreController::class);
+
+
+
+    });
+
+
 
     Route::post('/image/removeImage', [\App\Http\Controllers\Admin\ImageController::class, 'removeImage']);
     Route::post('/cinema-image/removeImage', [\App\Http\Controllers\Admin\CinemaImageController::class, 'removeImage']);
@@ -75,21 +86,14 @@ use Illuminate\Support\Facades\Route;
     Route::post('moviesearches', [HomeController::class, 'moviesSearches'])->name('movies.searches');
     Route::post('cinema-searches', [HomeController::class, 'cinemaSearches'])->name('cinema.searches');
     Route::post('halls-searches', [HomeController::class, 'hallsSearches'])->name('halls.searches');
+    Route::post('save-booking', [\App\Http\Controllers\MoviesController::class, 'saveBooking'])->name('saveBooking');
 
 
 
 
 
     Route::get('movie/{id}', [\App\Http\Controllers\MoviesController::class, 'pageMovie'])->name('page.movie');
-
-
-    Auth::routes();
-
-   Route::get('/home', [App\Http\Controllers\Admin\HomeController::class, 'index']);
-    Route::middleware(['role:admin'])->prefix('admin_panel')->group(function () {
-        //
-       // Route::get('/index', [App\Http\Controllers\Admin\HomeController::class, 'index']);
+    Route::post('booking/{id}', [\App\Http\Controllers\MoviesController::class, 'booking'])->name('booking.movie');
 
 
 
-    });

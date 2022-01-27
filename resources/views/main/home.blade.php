@@ -112,7 +112,7 @@
                             <h4 class="group inner list-group-item-heading">{{$item['name']}}</h4>
                             <div class="row">
                                 <div class="col-xs-12 col-md-6">
-                                    <a class="btn btn-success" href="#">Купить билет</a>
+                                    <a class="btn btn-success" href="{{route('page.movie', $item['id'])}}">Купить билет</a>
                                 </div>
                             </div>
                         </div>
