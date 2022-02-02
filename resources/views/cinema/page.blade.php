@@ -2,63 +2,127 @@
 
 @section('title', 'Главная')
 
+@section('css')
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+@endsection
+
 @section('content')
 
 
     <div class="container">
 
+        <div class=" col-md-12">
+            <img src="{{\Storage::disk('public')->url('catalog/cinema/source/' . $data['background_img'])}}" style="width:100%; height: 400px;">
 
+        </div>
         <div class="row text-center col-md-12">
 
             <div class="col-md-2">
-                <div class="col-md-2 lin">
-                    <a href="{{route('ongoing.home')}}" class="btn btn-standart {{request()->is('ongoing-movies*') ? 'btn-buy' : null}}">Авиша</a>
+                <p>Реклама</p>
+
+                <p>Количество залов {{count($data['halls'])}}</p>
+                <div class="row">
+                    @foreach($data['halls'] as $item)
+                            <span class="border border-dark">Зал {{$item['number']}}</span>
+                    @endforeach
                 </div>
 
-                <div class="col-md-2 lin">
-                    <a href="{{route('soon.home')}}" class="btn btn-standart {{request()->is('soon-movies*') ? 'btn-buy' : null}} ">Скоро</a>
+
+                <div class="row">
+                    <p>Смотрите сегодня</p>
+                    @foreach($timeTable as $item)
+                        <span class="border border-dark">{{$item['movies']['name']}}</span>
+                    @endforeach
                 </div>
+                <a href="{{route('time-table.home')}}" class="btn btn-success">Расписание всех сеансов</a>
             </div>
 
-            <div class="col-md-10 bg-ong ">
+            <div class="col-md-10 ">
                 <div class="row">
+                    <div class="col-md-3">
+                         <h3 class="text-left">{{$data['name']}}</h3>
+
+                    </div>
+                    <div class="col-md-2">
+                           <img src="{{\Storage::disk('public')->url('catalog/cinema/source/' . $data['logo_img'])}}"  style="width:100px; height: 100px;">
+
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="col">
+                        <a href="{{route('time-table.home')}}" class="btn btn-success">Расписание сеансов</a>
+                        </div>
+                        <div class="row bg-ong">
+                            <div class="back-3D col-md-2">3D</div>
+                            <div class="back-vip col-md-2">VIP</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-10">
+                    <div class="row">
+                        <p class="text-left">{{$data['description']}}</p>
 
 
-                    @foreach($date['data'] as $item)
 
-                        <div class="item col-md-3">
-                            <p>{{$item['title']}}</p>
-                            @php
-                                if ($item['movies']['image']) {
-                                    // $url = url('storage/catalog/category/image/' . $category->image);
-                                    $url = Storage::disk('public')->url('catalog/movie/source/' . $item['movies']['image']);
-                                } else {
-                                    // $url = url('storage/catalog/category/image/default.jpg');
-                                    $url = Storage::disk('public')->url('catalog/movie/source/no-img.jpg');
-                                }
-                            @endphp
-                            <div class="thumbnail">
-                                <img class="group list-group-image img-ong" src="{{ $url }}" alt="" class="img-fluid">
-                                <div class="caption">
-                                    <h4 class="group inner list-group-item-heading">{{$item['movies']['name']}}</h4>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12 col-md-6">
-                                        <a class="btn btn-success" href="#">Купить</a>
+                            <div class="row ">
+                                <h3>Условия</h3>
+
+                                <div class="bg-ong">
+                                    <div class="row ">
+                                    @foreach($page as $item)
+                                    <div class="col-md-6">
+                                    <a href="{{route('page.page', $item['id'])}}">{{$item['name']}}</a>
+                                    <p class="text_cinema text-left">{{$item['description']}}</p>
                                     </div>
+                                    @endforeach
                                 </div>
+                                </div>
+
+
                             </div>
 
 
-                        </div>
 
-                    @endforeach
+                        @if(isset($data['images']))
+                            <div class="row ">
+                                <h3>Фотогалерея</h3>
+                                <div id="carouselExampleIndicators" class="carousel" data-ride="carousel">
+                                    <ol class="carousel-indicators">
+                                        @foreach($data['images'] as $key=>$item)
 
+                                            <li data-target="#carouselExampleIndicators" data-slide-to="{{$key}}" class="@if($key == 0) active @endif "></li>
+
+                                        @endforeach
+                                    </ol>
+                                    <div class="carousel-inner">
+
+                                        @foreach($data['images'] as $key=>$item)
+                                            <div class="carousel-item @if($key == 0) active @endif ">
+                                                <img src="{{\Storage::disk('public')->url('catalog/cinema/source/' . $item['patch'])}}"  style="width:550px; height: 300px;">
+                                                <div class="carousel-caption">
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
-
-
-        </div>
-    </div>
     </div>
 @endsection
