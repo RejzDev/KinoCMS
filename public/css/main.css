@@ -175,6 +175,7 @@ body{
 .bg-ong{
     background-color: #0a001f;
     color: #f0f6ff;
+    margin-top: 10px;
 }
 
 .btn-standart{
@@ -194,6 +195,23 @@ body{
 
 }
 
+.back-3D{
+    border-radius: 5px;
+    width: 50px;
+    background-color: purple;
+    color: #f0f6ff;
+}
+.back-vip{
+    border-radius: 5px;
+    width: 50px;
+    background-color: red;
+    color: #f0f6ff;
+}
+
+.text_cinema{
+    color: #d4d5d7;
+    font-size: 12px;
+}
 
 .block {
     background-color: #d5d2d2;
@@ -433,4 +451,21 @@ body{
 
 }
 
+.back-3D{
+    border-radius: 5px;
+    width: 50px;
+    background-color: purple;
+    color: #f0f6ff;
+}
+.back-vip{
+    border-radius: 5px;
+    width: 50px;
+    background-color: red;
+    color: #f0f6ff;
+}
+
+.text_cinema{
+    color: #d4d5d7;
+    font-size: 12px;
+}
 

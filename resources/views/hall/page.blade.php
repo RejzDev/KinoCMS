@@ -16,7 +16,7 @@
     <div class="container">
 
         <div class=" col-md-12">
-            <img src="{{\Storage::disk('public')->url('catalog/cinema/source/' . $data['background_img'])}}" style="width:100%; height: 400px;">
+            <img src="{{\Storage::disk('public')->url('catalog/hall/source/' . $data['banner_img'])}}" style="width:100%; height: 400px;">
 
         </div>
         <div class="row text-center col-md-12">
@@ -24,42 +24,20 @@
             <div class="col-md-2">
                 <p>Реклама</p>
 
-                <p>Количество залов {{count($data['halls'])}}</p>
-                <div class="row">
-                    @foreach($data['halls'] as $item)
-                            <span class="border border-dark">Зал {{$item['number']}}</span>
-                    @endforeach
-                </div>
-
 
                 <div class="row">
                     <p>Смотрите сегодня</p>
                     @foreach($timeTable as $item)
-                        <span class="border border-dark">Зал {{$item['number']}}</span>
+                        <span class="border border-dark">{{$item['movies']['name']}}</span>
                     @endforeach
                 </div>
             </div>
 
             <div class="col-md-10 ">
                 <div class="row">
-                    <div class="col-md-3">
-                         <h3 class="text-left">{{$data['name']}}</h3>
+                         <h3 class="text-center">Зал {{$data['number']}}</h3>
 
-                    </div>
-                    <div class="col-md-2">
-                           <img src="{{\Storage::disk('public')->url('catalog/cinema/source/' . $data['logo_img'])}}"  style="width:100px; height: 100px;">
 
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="col">
-                        <a href="" class="btn btn-success">Расписание сеансов</a>
-                        </div>
-                        <div class="row bg-ong">
-                            <div class="back-3D col-md-2">3D</div>
-                            <div class="back-vip col-md-2">VIP</div>
-                        </div>
-                    </div>
 
                 </div>
                 <div class="col-md-10">
@@ -68,20 +46,11 @@
 
 
 
-                            <div class="row ">
-                                <h3>Условия</h3>
 
-                                <div class="bg-ong">
-                                    <div class="row ">
-                                    @foreach($page as $item)
-                                    <div class="col-md-6">
-                                    <a href="{{route('page.page', $item['id'])}}">{{$item['name']}}</a>
-                                    <p class="text_cinema text-left">{{$item['description']}}</p>
-                                    </div>
-                                    @endforeach
-                                </div>
-                                </div>
+                        <div class=" col-md-10">
+                            <img src="{{\Storage::disk('public')->url('catalog/hall/source/' . $data['image'])}}" style="width:100%; height: 400px;">
 
+                        </div>
 
                             </div>
 
@@ -102,7 +71,7 @@
 
                                         @foreach($data['images'] as $key=>$item)
                                             <div class="carousel-item @if($key == 0) active @endif ">
-                                                <img src="{{\Storage::disk('public')->url('catalog/cinema/source/' . $item['patch'])}}"  style="width:550px; height: 300px;">
+                                                <img src="{{\Storage::disk('public')->url('catalog/hall/source/' . $item['patch'])}}"  style="width:550px; height: 300px;">
                                                 <div class="carousel-caption">
                                                 </div>
                                             </div>

@@ -20,6 +20,16 @@
                     </div>
             @endif
             <!-- /.card-header -->
+                    <div class="row float-right">
+
+                        <div class="col-md-2 text-right">
+                            <a href="{{route('locale', 'ru')}}" class="@if(session('locale') == 'ru') active @endif btn btn-light">Руский</a>
+                        </div>
+                        <div class="col-md-2 text-left">
+                            <a href="{{route('locale', 'ua')}}" class="@if(session('locale') == 'ua') active @endif btn  btn-light">Українська</a>
+                        </div>
+
+                    </div>
                 <!-- form start -->
                 <form action="{{route('main-page.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
@@ -27,7 +37,7 @@
 
 
                         <div class="form-group col-md-2">
-                            <label for="name">Телефон</label>
+                            <label for="name">@lang('main.phone')</label>
                             <input type="text" class="form-control" name="phone_1" id="phone_1"
                                    placeholder="067 58 10 180">
                             <input type="text" class="form-control" name="phone_2" id="phone_2"

@@ -29,6 +29,8 @@ use Illuminate\Support\Facades\Route;
     */
 
 
+
+
     Auth::routes();
 
 
@@ -52,7 +54,8 @@ use Illuminate\Support\Facades\Route;
         Route::resource('bg_banner', \App\Http\Controllers\Admin\BgBannerController::class);
         Route::resource('time-tables', TimeTablesController::class);
         Route::resource('genre', \App\Http\Controllers\Admin\GenreController::class);
-
+        Route::post('/news-image/removeImage', [\App\Http\Controllers\Admin\NewsController::class, 'removeImage']);
+        Route::post('/action-image/removeImage', [\App\Http\Controllers\Admin\ActionController::class, 'removeImage']);
 
 
     });
@@ -62,6 +65,7 @@ use Illuminate\Support\Facades\Route;
     Route::post('/image/removeImage', [\App\Http\Controllers\Admin\ImageController::class, 'removeImage']);
     Route::post('/cinema-image/removeImage', [\App\Http\Controllers\Admin\CinemaImageController::class, 'removeImage']);
     Route::post('/hall-image/removeImage', [\App\Http\Controllers\Admin\HallImageController::class, 'removeImage']);
+
 
     Route::post('send', [MailController::class, 'send'])->name('send');
     Route::post('save-user', [MailController::class, 'saveUser'])->name('saveUser');
@@ -91,9 +95,20 @@ use Illuminate\Support\Facades\Route;
 
 
 
+    Route::get('/news', [HomeController::class, 'news'])->name('news.home');
+    Route::get('locale/{locale}', [\App\Http\Controllers\HomeController::class, 'locale'])->name('locale');
 
     Route::get('movie/{id}', [\App\Http\Controllers\MoviesController::class, 'pageMovie'])->name('page.movie');
     Route::post('booking/{id}', [\App\Http\Controllers\MoviesController::class, 'booking'])->name('booking.movie');
 
+    Route::get('page/{id}', [\App\Http\Controllers\PagesController::class, 'pages'])->name('page.page');
+    Route::get('cinemas/{id}', [\App\Http\Controllers\CinemasController::class, 'index'])->name('page.cinema');
+    Route::get('actions/{id}', [\App\Http\Controllers\ActionsController::class, 'index'])->name('actions.page');
+    Route::get('halls/{id}', [\App\Http\Controllers\HallsController::class, 'index'])->name('halls.page');
+    Route::get('users/{id}', [\App\Http\Controllers\UsersController::class, 'index'])->name('users.page');
+    Route::post('users/update/{id}', [\App\Http\Controllers\UsersController::class, 'update'])->name('users.update');
+    Route::get('contacts', [\App\Http\Controllers\HomeController::class, 'contacts'])->name('contacts.page');
 
+    Route::get('/news', [HomeController::class, 'news'])->name('news.home');
+    Route::get('locale/{locale}', [\App\Http\Controllers\HomeController::class, 'locale'])->name('locale');
 

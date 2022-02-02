@@ -17,6 +17,7 @@ class CreateVisitorsTable extends Migration
             $table->bigIncrements('id');
             $table->string('ip');
             $table->string('user_agent');
+            $table->string('browser');
             $table->dateTime('date_visitors', $precision = 0);
             $table->timestamps();
         });

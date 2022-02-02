@@ -67,10 +67,10 @@ class Image extends Model
         }
         $this->insert($images);
     }
-    public function updates(array $date)
+    public function updates(array $date, $pos)
     {
 
-        return $this->where('patch', '=', $date['oldPatch'])->update(["patch" => $date['newPatch']]);
+        return $this->where('patch', '=', $date['oldPatch'])->update(["patch" => $date['newPatch'], 'position' => $pos]);
     }
 
     public function deletes(string $patch)

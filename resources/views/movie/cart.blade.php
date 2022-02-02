@@ -14,7 +14,13 @@
 
 
     <div class="container">
+        <div class=" col-md-12">
 
+
+            <iframe width="100%" height="600"
+                    src="{{$movie['url_trailer']}}?autoplay=1">
+            </iframe>
+        </div>
 
         <div class="row text-center col-md-12">
 
@@ -171,7 +177,7 @@
                             <div class="col-md-8 container-fluid d-flex justify-content-center align-items-center p-0">
 
 
-                                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                                <div id="carouselExampleCaptions" class="carousel" data-bs-ride="carousel">
                                     <div class="carousel-indicators">
                                         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                                         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>

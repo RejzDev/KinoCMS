@@ -189,7 +189,7 @@ class CinemaController extends Controller
                     $imagesDate['newPatch'] = $this->imageSaver->uploadGalary($request, $image, $cinema, 'cinema');
 
                     $imagesDate['oldPatch'] = $movie->images[$i]['patch'];
-                    $images->updates($imagesDate);
+                    $images->updates($imagesDate, $request['img_pos']);
                 } else {
                     $imagesDate['images'][] = $this->imageSaver->uploadGalary($request, $image, $cinema, 'cinema');
                 }

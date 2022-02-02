@@ -161,8 +161,8 @@ class HallController extends Controller
         $data = $request->all();
 
 
-        $data['main_img'] = $this->imageSaver->upload($request, null, 'hall');
-        $data['banner_img'] = $this->imageSaver->upload($request, null, 'hall');
+        $data['main_img'] = $this->imageSaver->upload($request, $hall, 'hall');
+        $data['banner_img'] = $this->imageSaver->uploadBanner($request, $hall, 'hall');
 
         $hall_id = $hall->updates($data, $hall);
 

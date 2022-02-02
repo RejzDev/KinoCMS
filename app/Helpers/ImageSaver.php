@@ -15,6 +15,7 @@
         {
             $name = $item->main_img ?? null;
 
+
             $source = $request->file('main_img');
             if ($source) { // если было загружено изображение
                 // перед загрузкой нового изображения удаляем старое
@@ -27,21 +28,30 @@
                 $path = Storage::disk('public')->path($path); // абсолютный путь
                 $name = basename($path); // имя файла
 
-                if ($request->file('banner_img')){
-                    $source = $request->file('baner_img');
-                    if ($source) { // если было загружено изображение
-                        // перед загрузкой нового изображения удаляем старое
-                        if ($item && $item->image) {
-                            $this->remove($item, $dir);
-                        }
-                        $ext = $source->extension();
-                        // сохраняем загруженное изображение без всяких изменений
-                        $path = $source->store('catalog/' . $dir . '/source', 'public');
-                        $path = Storage::disk('public')->path($path); // абсолютный путь
-                        $name = basename($path); // имя файла
-                }
+
+
 
             }
+            return $name;
+        }
+
+        public function uploadBanner(Request $request, $item, string $dir)
+        {
+            $name = $item->banner_img ?? null;
+
+
+            $source = $request->file('banner_img');
+            if ($source) { // если было загружено изображение
+                // перед загрузкой нового изображения удаляем старое
+                if ($item && $item->image) {
+                    $this->remove($item, $dir);
+                }
+                $ext = $source->extension();
+                // сохраняем загруженное изображение без всяких изменений
+                $path = $source->store('catalog/' . $dir . '/source', 'public');
+                $path = Storage::disk('public')->path($path); // абсолютный путь
+                $name = basename($path); // имя файла
+
             }
             return $name;
         }

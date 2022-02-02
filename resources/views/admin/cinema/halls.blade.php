@@ -18,10 +18,10 @@
                     <tr>
 
                         <th>
-                            Название
+                            @lang('main.сinemaHall')
                         </th>
                         <th>
-                            Дата создания
+                            @lang('main.сinemaHallDate')
                         </th>
                         <th style="width: 30%">
                         </th>

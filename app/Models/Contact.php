@@ -29,11 +29,16 @@ class Contact extends Model
 
     public function updates(array $data, Contact $contact): int
     {
+
         $contact->url = $data['url'];
         $contact->title = $data['title'];
         $contact->keywords = $data['keywords'];
         $contact->seo_description = $data['seo-description'];
-        $contact->status = 1;
+        if (isset($data['status'])){
+            $contact->status = 1;
+        } else{
+            $contact->status = 0;
+        }
 
         $contact->update();
 

@@ -1,6 +1,6 @@
 @extends('layouts.admin_layout')
 
-@section('title', 'Главная')
+@section('title', 'Админ Панель')
 
 @section('content')
 
@@ -8,13 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Dashboard</h1>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard v1</li>
-                    </ol>
+                    <h1 class="m-0">Админ Панель</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -40,13 +34,27 @@
                         <div class="inner">
                             <h3>{{count($user)}}</h3>
 
-                            <p>User Registrations</p>
+                            <p>Зарегистрирование пользователи</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="#" class="small-box-footer">Пользователи <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
+                </div>
+                <div class="col-lg-3 col-5">
+
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                        <div class="inner">
+                            <h3>{{$countUsers}}</h3>
+
+                            <p>Пользователи онлайн</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person"></i>
+                        </div>
+                              </div>
                 </div>
 
                 <!-- ./col -->
@@ -59,48 +67,21 @@
                 <!-- right col (We are only adding the ID to make the widgets sortable)-->
                 <section class="col-lg-5 connectedSortable">
 
-                    <!-- Map card -->
-                    <div class="card bg-gradient-primary">
-                        <div class="card-header border-0">
-                            <h3 class="card-title">
-                                <i class="fas fa-map-marker-alt mr-1"></i>
-                                Visitors
-                            </h3>
-                            <!-- card tools -->
+                    <!-- DONUT CHART -->
+                    <div class="card card-danger">
+                        <div class="card-header">
+                            <h3 class="card-title">Donut Chart</h3>
+
                             <div class="card-tools">
-                                <button type="button" class="btn btn-primary btn-sm daterange" title="Date range">
-                                    <i class="far fa-calendar-alt"></i>
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                                 </button>
-                                <button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
                             </div>
-                            <!-- /.card-tools -->
                         </div>
                         <div class="card-body">
-                            <div id="world-map" style="height: 250px; width: 100%;"></div>
+                            <canvas id="donutChart" style="height:230px; min-height:230px"></canvas>
                         </div>
-                        <!-- /.card-body-->
-                        <div class="card-footer bg-transparent">
-                            <div class="row">
-                                <div class="col-4 text-center">
-                                    <div id="sparkline-1"></div>
-                                    <div class="text-white">Visitors</div>
-                                </div>
-                                <!-- ./col -->
-                                <div class="col-4 text-center">
-                                    <div id="sparkline-2"></div>
-                                    <div class="text-white">Online</div>
-                                </div>
-                                <!-- ./col -->
-                                <div class="col-4 text-center">
-                                    <div id="sparkline-3"></div>
-                                    <div class="text-white">Sales</div>
-                                </div>
-                                <!-- ./col -->
-                            </div>
-                            <!-- /.row -->
-                        </div>
+                        <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
 
@@ -127,6 +108,7 @@
                                 <button type="button" class="btn btn-tool" data-card-widget="remove">
                                     <i class="fas fa-times"></i>
                                 </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
                             </div>
                         </div>
                         <div class="card-body">
@@ -215,7 +197,34 @@
         });
 
 
-
+        //-------------
+        //- DONUT CHART -
+        //-------------
+        // Get context with jQuery - using jQuery's .get() method.
+        var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
+        var donutData        = {
+            labels: [
+                'Chrome',
+                'FireFox',
+            ],
+            datasets: [
+                {
+                    data: [{{$browser['Chrome']}}, {{$browser['Firefox']}}],
+                    backgroundColor : ['#f56954', '#00a65a'],
+                }
+            ]
+        }
+        var donutOptions     = {
+            maintainAspectRatio : false,
+            responsive : true,
+        }
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        var donutChart = new Chart(donutChartCanvas, {
+            type: 'doughnut',
+            data: donutData,
+            options: donutOptions
+        })
 
 
 

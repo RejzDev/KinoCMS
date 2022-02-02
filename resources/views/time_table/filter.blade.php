@@ -1,7 +1,6 @@
 @extends('layouts.page')
 
 @section('css')
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="{{asset('/admin/plugins/select2/css/select2.css?v=11254')}}">
     <link rel="stylesheet" href="{{asset('/admin/plugins/select2-bootstrap4-theme/elect2-bootstrap4.min.css?v=1522')}}">
@@ -27,46 +26,51 @@
                 @csrf
             <div class="form-check">
 
-                <div class="col-md-4 text-left">
-                    <input type="checkbox" name="type_movie[]" value="3D" class="form-check-input" id="3D">
-                    <label class="form-check-label" for="3D">3D</label>
-                    <input type="checkbox" name="type_movie[]" value="2D" class="form-check-input" id="2D">
-                    <label class="form-check-label" for="2D">IMAX</label>
-                    <input type="checkbox" name="type_movie[]" value="IMAX" class="form-check-input"
-                           id="IMAX">
-                    <label class="form-check-label" for="IMAX">VIP</label>
 
-                </div>
+
                 <div class="form-group">
+                    <div class="row">
 
-                    <div class="form-group col-md-2">
-                        <select id="cinema_select" class="js-data-example-ajax form-control" name="cinema">
-                            <option value="">Виберете кинотеатр</option>
-                        </select>
+                        <div class="col-md-3 text-left">
+                            <input type="checkbox" name="type_movie[]" value="3D" class="form-check-input" id="3D">
+                            <label class="form-check-label" for="3D">3D</label>
+                            <input type="checkbox" name="type_movie[]" value="2D" class="form-check-input" id="2D">
+                            <label class="form-check-label" for="2D">IMAX</label>
+                            <input type="checkbox" name="type_movie[]" value="IMAX" class="form-check-input"
+                                   id="IMAX">
+                            <label class="form-check-label" for="IMAX">VIP</label>
+
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <select id="cinema_select" class="js-data-example-ajax form-control" name="cinema">
+                                <option value="">Виберете кинотеатр</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <input type="date" class="form-control" name="date">
+                        </div>
+
+                        <div  class="form-group col-md-2">
+                            <select id="movies_select" class="js-data-example-ajax form-control" name="movie">
+                                <option value="">Виберете фильм</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <select id="halls_select" class="js-data-example-ajax form-control" name="hall">
+                                <option value="">Виберете зал</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-2">
+                            <button type="submit" class="btn btn-primary">Показать</button>
+                        </div>
+
                     </div>
-
-                    <div class="form-group col-md-2">
-                        <input type="date" class="form-control" name="date">
-                    </div>
-
-                    <div  class="form-group col-md-2">
-                        <select id="movies_select" class="js-data-example-ajax form-control" name="movie">
-                            <option value="">Виберете фильм</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <select id="halls_select" class="js-data-example-ajax form-control" name="hall">
-                            <option value="">Виберете зал</option>
-                        </select>
-                    </div>
-
-
 
                 </div>
 
-                <div class="form-group col-md-2">
-                    <button type="submit" class="btn btn-primary">Показать</button>
-                </div>
             </div>
 
             </form>

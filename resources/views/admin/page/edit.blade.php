@@ -19,6 +19,16 @@
                     </div>
             @endif
             <!-- /.card-header -->
+                    <div class="row float-right">
+
+                        <div class="col-md-2 text-right">
+                            <a href="{{route('locale', 'ru')}}" class="@if(session('locale') == 'ru') active @endif btn btn-light">Руский</a>
+                        </div>
+                        <div class="col-md-2 text-left">
+                            <a href="{{route('locale', 'ua')}}" class="@if(session('locale') == 'ua') active @endif btn  btn-light">Українська</a>
+                        </div>
+
+                    </div>
                 <!-- form start -->
                 <form action="{{ route('pages.update', $page['id']) }}" method="post" enctype="multipart/form-data">
                     @csrf
@@ -27,23 +37,20 @@
                         <div class="form-group">
 
                             <div class="col-md-6">
-                            <label for="name">Название страници</label>
+                                <label for="name">@lang('main.namePage')</label>
                             <input type="text" class="form-control" name="name" id="name" value="{{$page['name']}}"
                                    placeholder="Название страници">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="name">Дата публикации</label>
-                                <input type="date" class="form-control" name="date" id="date"  placeholder="Дата публикации" value="{{ Carbon\Carbon::parse($page['created_at'])->format('Y-m-d') }}">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="description">Описание</label>
+                            <label for="description">@lang('main.description')</label>
                             <textarea class="form-control" rows="5" name="description" id="description"
                                       placeholder="текст">{{$page['description']}}</textarea>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputFile">Главная картинка</label>
+                            <label for="exampleInputFile">@lang('main.main_img')</label>
+
 
 
                             <div class="input-group">
@@ -55,7 +62,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputFile">Галерея картинка</label>
+                            <label for="exampleInputFile">@lang('main.galery_img')</label>
+
                             @php
                                 $i =0;
                                 if (isset($page['images'][0]) ){
@@ -116,11 +124,7 @@
 
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="name">Сылка на видео:</label>
-                            <input type="text" class="form-control" name="url-video" id="url-video"
-                                   placeholder="Сылка на видео" value="{{$page['url_video']}}">
-                        </div>
+
 
                         </div>
                         <label for="name">SEO блок:</label>

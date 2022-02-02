@@ -54,6 +54,11 @@
             return $mainPage->id;
         }
 
+        public function getPage()
+        {
+            return $this->find(1);
+        }
+
 
 
     }

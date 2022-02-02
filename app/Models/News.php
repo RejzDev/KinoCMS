@@ -49,6 +49,11 @@ class News extends Model
         $news->title = $data['title'];
         $news->keywords = $data['keywords'];
         $news->seo_description = $data['seo-description'];
+        if (isset($data['status'])){
+            $news->status = 1;
+        } else{
+            $news->status = 0;
+        }
 
         $object = $news->update();
 

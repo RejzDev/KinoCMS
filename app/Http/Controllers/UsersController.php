@@ -16,6 +16,18 @@ class UsersController extends Controller
 
 
 
-        return view('actions.page', ['data' => $data]);
+        return view('user.index', ['user' => $data]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $users = new User();
+        $user = $users->getUserIds($id);
+        $data = $request->all();
+
+        $user->updates($data, $user);
+
+        return redirect(route('users.page', $id));
+
     }
 }

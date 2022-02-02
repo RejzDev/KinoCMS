@@ -39,8 +39,14 @@ class Hall extends Model
 
     public function updates(array $data, Hall $hall): int
     {
-        $main_img = (isset($data['main_img'])) ? $data['main_img'] : null;
-        $banner_img = (isset($data['banner_img'])) ? $data['banner_img'] : null;
+        if (isset($data['main_img'])) {
+            $main_img = $data['main_img'];
+        }
+
+        if (isset($data['banner_img'])) {
+            $banner_img = $data['banner_img'];
+        }
+
         $hall->number = $data['number'];
         $hall->description = $data['description'];
         if ($main_img != null){ $hall->image = $main_img;}
@@ -65,6 +71,13 @@ class Hall extends Model
     {
         return $this->where('name', 'like', '%' . $search . '%')->get();
 
+    }
+
+    public function getHallIds(int $id)
+    {
+
+
+        return $this->with('images')->find($id);
     }
 
 }

@@ -20,20 +20,31 @@
             @endif
             <!-- /.card-header -->
                 <!-- form start -->
+                    <div class="row float-right">
+
+                        <div class="col-md-2 text-right">
+                            <a href="{{route('locale', 'ru')}}" class="@if(session('locale') == 'ru') active @endif btn btn-light">Руский</a>
+                        </div>
+                        <div class="col-md-2 text-left">
+                            <a href="{{route('locale', 'ua')}}" class="@if(session('locale') == 'ua') active @endif btn  btn-light">Українська</a>
+                        </div>
+
+                    </div>
+
                 <form action="{{route('movies.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="name">Название фильма</label>
+                            <label for="name">@lang('main.nameFilm')</label>
                             <input type="text" class="form-control" name="name" id="name" placeholder="Название фильма">
                         </div>
                         <div class="form-group">
-                            <label for="description">Описание</label>
+                            <label for="description">@lang('main.description')</label>
                             <textarea class="form-control" rows="5" name="description" id="description"
                                       placeholder="текст"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputFile">Главная картинка</label>
+                            <label for="exampleInputFile">@lang('main.main_img')</label>
 
 
                             <div class="input-group">
@@ -42,7 +53,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputFile">Галерея картинка</label>
+                            <label for="exampleInputFile">@lang('main.galery_img')</label>
                             <div class="input-group">
                                 @for($i =0; $i < 5; $i++)
                                     <div class="col-md-2"><img
@@ -55,12 +66,12 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="name">Сылка на трейлер:</label>
+                            <label for="name">@lang('main.trailer')</label>
                             <input type="text" class="form-control" name="url-trailer" id="url-trailer"
                                    placeholder="Сылка на видео Ютуб">
                         </div>
                         <div class="form-group">
-                            <label for="name">Тип кино:</label>
+                            <label for="name">@lang('main.type_movie')</label>
                             <div class="form-check">
 
                                 <input type="checkbox" name="type_movie[]" value="3D" class="form-check-input" id="3D">
@@ -75,9 +86,9 @@
                         </div>
 
 
-                        <label for="genre">Добавить поле в  краткое описание:</label>
+                        <label for="genre">@lang('main.small_desc')</label>
 
-                            <p><span id="addVar"> Добавить новый элемент </span> </p>
+                            <p><span id="addVar"> @lang('main.small_desc_btn') </span> </p>
 
 
 

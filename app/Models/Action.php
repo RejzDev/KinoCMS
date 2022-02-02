@@ -61,4 +61,9 @@ class Action extends Model
 
         return $this->orderBy('created_at', 'desc')->get();
     }
+
+    public function getActionIds(int $id)
+    {
+        return $this->find($id);
+    }
 }

@@ -5,6 +5,9 @@
 @section('content')
 
 
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2605.295288104745!2d28.40934431587912!3d49.23289048221793!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf9b11a1e38ec9104!2zNDnCsDEzJzU4LjQiTiAyOMKwMjQnNDEuNSJF!5e0!3m2!1suk!2sua!4v1643738102536!5m2!1suk!2sua" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+
+
     <div class="row">
         <div class="col-lg-12">
             <!-- general form elements -->

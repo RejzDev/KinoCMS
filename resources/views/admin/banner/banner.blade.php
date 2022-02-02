@@ -92,7 +92,7 @@
 
         </section>
 
-            <h2 class="text-center">На главной верх</h2>
+            <h2 class="text-center">Сквозной банер на заднем фоне</h2>
 
             <section class="content">
 
@@ -155,7 +155,7 @@
             </section>
 
 
-            <h2 class="text-center">На главной верх</h2>
+            <h2 class="text-center">На главной новости акции</h2>
 
             <section class="content">
 

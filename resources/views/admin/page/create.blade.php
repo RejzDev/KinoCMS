@@ -19,25 +19,32 @@
                     </div>
             @endif
             <!-- /.card-header -->
+                    <div class="row float-right">
+
+                        <div class="col-md-2 text-right">
+                            <a href="{{route('locale', 'ru')}}" class="@if(session('locale') == 'ru') active @endif btn btn-light">Руский</a>
+                        </div>
+                        <div class="col-md-2 text-left">
+                            <a href="{{route('locale', 'ua')}}" class="@if(session('locale') == 'ua') active @endif btn  btn-light">Українська</a>
+                        </div>
+
+                    </div>
                 <!-- form start -->
                 <form action="{{route('pages.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="name">Название страници</label>
+                            <label for="name">@lang('main.namePage')</label>
                             <input type="text" class="form-control" name="name" id="name" placeholder="Название страници">
                         </div>
                         <div class="form-group">
-                            <label for="name">Дата публикации</label>
-                            <input type="date" class="form-control" name="date" id="date" placeholder="Дата публикации">
-                        </div>
-                        <div class="form-group">
-                            <label for="description">Описание</label>
+                            <label for="description">@lang('main.description')</label>
                             <textarea class="form-control" rows="5" name="description" id="description"
                                       placeholder="текст"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputFile">Главная картинка</label>
+                            <label for="exampleInputFile">@lang('main.main_img')</label>
+
 
 
                             <div class="input-group">
@@ -46,7 +53,8 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputFile">Галерея картинка</label>
+                            <label for="exampleInputFile">@lang('main.galery_img')</label>
+
                             <div class="input-group">
                                 @for($i =0; $i < 5; $i++)
                                     <div class="col-md-2"><img
@@ -57,11 +65,6 @@
 
                                 @endfor
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Сылка на видео:</label>
-                            <input type="text" class="form-control" name="url-video" id="url-video"
-                                   placeholder="Сылка на видео Ютуб">
                         </div>
 
                         <label for="name">SEO блок:</label>

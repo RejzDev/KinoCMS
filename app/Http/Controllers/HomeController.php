@@ -12,6 +12,12 @@ use Illuminate\Support\Carbon;
 use App\Models\TimeTable;
 use App\Models\Hall;
 use App\Models\MainBanner;
+use App\Models\MainPage;
+use App\Models\Page;
+use App\Models\ContactCinema;
+use App\Models\BgBanner;
+use App\Models\Banner;
+use Illuminate\Support\Facades\App;
 
 class HomeController extends Controller
 {
@@ -35,12 +41,20 @@ class HomeController extends Controller
         $movies = new Movie();
         $newsBanner= new NewsBanner();
         $mainBanner= new MainBanner();
-        $date['state'] = $movies->getOngoingMovies();
-        $date['soon'] = $movies->getSoonMovies();
-        $date['banner'] = $newsBanner->getNewsBanner();
-        $date['mainBanner'] = $mainBanner->getMainBanners();
+        $bgBanner= new BgBanner();
+        $banner= new Banner();
+        $mainPage = new MainPage();
+        $data['state'] = $movies->getOngoingMovies();
+        $data['soon'] = $movies->getSoonMovies();
+        $data['newsBanner'] = $newsBanner->getNewsBanner();
+        $data['mainBanner'] = $mainBanner->getMainBanners();
+        $data['bgBanner'] = $bgBanner->getBgBanners();
+        $data['banner'] = $banner->getBanners();
+        $data['mainPage'] = $mainPage->getPage();
 
-        return view('main.home', ['date' => $date]);
+
+
+        return view('main.home', ['data' => $data]);
     }
 
 
@@ -233,6 +247,52 @@ class HomeController extends Controller
 
     }
 
+
+    public function cinemaPage(Request $request){
+
+
+        return view('cinemas.page');
+
+    }
+
+
+    public function news()
+    {
+        $news = new News();
+        $date = $news->getNews();
+
+        foreach ($date as $item){
+            $item['dates'] = Carbon::parse($item['created_at'])->format('Y-m-d');
+
+        }
+
+
+        return view('news.index', ['date' => $date]);
+    }
+
+    public function contacts()
+    {
+        $contacts = new ContactCinema();
+        $date = $contacts->getContacts();
+        $i = 0;
+        foreach ($date as $item){
+            $date[$i]['cord'] = explode(', ', $item['address']);
+            $i++;
+        }
+
+
+
+        return view('contact.index', ['data' => $date]);
+    }
+
+    public function locale($locale)
+    {
+        session(['locale' => $locale]);
+        App::setLocale($locale);
+       $currentLocale = App::getLocale();
+
+       return redirect()->back();
+    }
 
 
 }

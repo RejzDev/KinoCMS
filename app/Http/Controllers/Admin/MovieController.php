@@ -64,6 +64,13 @@
             $data = $request->all();
 
 
+                $data['url-trailer'] = explode('=', $data['url-trailer']);
+            if (count($data['url-trailer']) > 1)
+            {
+                $data['url-trailer'] = 'https://www.youtube.com/embed/' . $data['url-trailer'][1];
+            }
+
+
 
             $this->validate($request, [
                 'name' => 'required|max:100',
@@ -185,8 +192,8 @@
             if (!empty($request->file('image'))) {
                 for ($i = 0; $i < 5; $i++) {
                     if (isset($request->image[$i])) {
-                       $img_pos[] = $i + 1;
-                       $request['img_pos'] = $img_pos;
+                        $img_pos[] = $i + 1;
+                        $request['img_pos'] = $img_pos;
                     }
                 }
 
@@ -207,6 +214,15 @@
             $data = $request->all();
 
 
+
+
+            if ($movie['url_trailer'] != $data['url-trailer'])
+            {
+                $data['url-trailer'] = explode('=', $data['url-trailer']);
+                $data['url-trailer'] = 'https://www.youtube.com/embed/' . $data['url-trailer'][1];
+            }
+
+
             $data['ch'] = implode(',', $request->input('type_movie'));
 
 
@@ -220,20 +236,33 @@
 
                 foreach ($request->file('image') as $image) {
                     if (!empty($movie->images[$i]['patch'])) {
-                         $imagesDate['newPatch'] = $this->imageSaver->uploadGalary($request, $image, $movie, 'movie');
+                        $imagesDate['newPatch'] = $this->imageSaver->uploadGalary($request, $image, $movie, 'movie');
 
                         $imagesDate['oldPatch'] = $movie->images[$i]['patch'];
-                        $images->updates($imagesDate);
+                        $images->updates($imagesDate, $data['img_pos']);
                     } else {
                         $imagesDate['images'][] = $this->imageSaver->uploadGalary($request, $image, $movie, 'movie');
                     }
                     $i++;
                 }
-                if (isset($imagesDate['images'])) {
-                    $images->creates($imagesDate);
-                }
 
             }
+
+            if (!empty($request->file('newImage'))) {
+                $imagesDate['movie_id'] = $movie->id;
+                $i=0;
+
+                foreach ($request->file('newImage') as $image) {
+
+                        $imagesDate['images'][$i] = $this->imageSaver->uploadGalary($request, $image, $movie, 'movie');
+                    $i++;
+                }
+
+                    $images->creates($imagesDate);
+
+            }
+
+
 
             if (isset($data['name-pole'])){
 

@@ -7,6 +7,7 @@ use App\Models\Action;
 use Illuminate\Http\Request;
 use App\Models\ActionImage;
 use App\Helpers\ImageSaver;
+use App\Models\NewsImage;
 
 class ActionController extends Controller
 {
@@ -178,9 +179,20 @@ class ActionController extends Controller
                 }
                 $i++;
             }
-            if (isset($imagesDate['images'])) {
-                $images->creates($imagesDate);
+
+        }
+
+        if (!empty($request->file('newImage'))) {
+            $imagesDate['news_id'] = $news->id;
+            $i=0;
+
+            foreach ($request->file('newImage') as $image) {
+
+                $imagesDate['images'][$i] = $this->imageSaver->uploadGalary($request, $image, $news, 'news');
+                $i++;
             }
+
+            $images->creates($imagesDate);
 
         }
         return redirect(route('action.index'))->withSuccess('Акция была успешно обновлена!');
@@ -207,5 +219,23 @@ class ActionController extends Controller
 
 
         return redirect(route('action.index'))->withSuccess('Новость была успешно удалена!');
+    }
+
+    /**
+     * Видалення зображень
+     * @param Request $request
+     */
+    public function removeImage(Request $request)
+    {
+
+        $images = new ActionImage();
+        if (isset($request->patch)){
+            $images->deletes($request->patch);
+            $this->imageSaver->removeGalery($request, $request->dir);
+
+        }
+
+
+
     }
 }

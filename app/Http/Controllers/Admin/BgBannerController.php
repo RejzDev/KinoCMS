@@ -80,7 +80,10 @@ class BgBannerController extends Controller
     {
         $data = $request->all();
 
-        $data['main_img'] = $this->imageSaver->upload($request, $bgBanner, 'banner');
+        if (isset($data['main_img'])){
+            $data['main_img'] = $this->imageSaver->upload($request, $bgBanner, 'banner');
+        }
+
 
 
         $bgBanner->updates($data, $bgBanner);

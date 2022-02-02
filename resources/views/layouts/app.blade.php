@@ -22,9 +22,11 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="{{asset('css/main.css?v=1222')}}">
 
+
+
     @yield('css')
 </head>
-<body class="bg-img">
+<body>
 
 <div id="app ">
 
@@ -76,7 +78,17 @@
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+
+                                <a class="dropdown-item" href="{{ route('users.page', Auth::user()->id) }}">
+                                    Профиль
+                                </a>
+
                             </div>
+
+
                         </li>
                     @endguest
                 </ul>
@@ -119,8 +131,8 @@
                             </div>
 
                             <div class="col-md-3 text-left text-white text-phone">
-                                <p class="phone-pg">(048) 777-77-77</p>
-                                <p class="phone-pg">(048) 777-77-77</p>
+                                <p class="phone-pg">{{$mainData['first_phone']}}</p>
+                                <p class="phone-pg">{{$mainData['second_phone']}}</p>
                             </div>
 
                         </div>

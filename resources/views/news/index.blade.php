@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.page')
 
 @section('css')
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 @endsection
@@ -17,10 +17,10 @@
 
         <div class="row text-center">
 
-            <h2 class="text-center">Наши Акции</h2>
+
             <div class="col-md-10 bg-ong ">
                 <div class="row">
-
+                    <h2 class="text-left">Новости</h2>
                     @foreach($date as $item)
 
                         <div class="item col-md-3 ">
@@ -29,17 +29,17 @@
 
                                 if ($item['image']) {
                                     // $url = url('storage/catalog/category/image/' . $category->image);
-                                    $url = Storage::disk('public')->url('catalog/action/source/' . $item['image']);
+                                    $url = Storage::disk('public')->url('catalog/news/source/' . $item['image']);
                                 } else {
                                     // $url = url('storage/catalog/category/image/default.jpg');
-                                    $url = Storage::disk('public')->url('catalog/action/source/no-img.jpg');
+                                    $url = Storage::disk('public')->url('catalog/news/source/no-img.jpg');
                                 }
 
                             @endphp
                             <div class="container-fluid ">
                                 <img class="group list-group-image img-ong" src="{{ $url }}" alt="" >
                                 <div class="caption">
-                                    <a href="{{route('actions.page', $item['id'])}}">{{$item['name']}}</a>
+                                    <a href="#">{{$item['name']}}</a>
                                 </div>
                                 <div class="caption">
                                     <p class="text_cinema text-left">{{$item['dates']}}</p>

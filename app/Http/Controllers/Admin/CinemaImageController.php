@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Helpers\ImageSaver;
 use App\Models\CinemaImage;
+use App\Http\Controllers\Controller;
 
 class CinemaImageController extends Controller
 {
@@ -19,7 +20,7 @@ class CinemaImageController extends Controller
      * Видалення зображень
      * @param Request $request
      */
-    public function removeImage(Request $request): void
+    public function removeImage(Request $request)
     {
 
         $images = new CinemaImage();
@@ -28,6 +29,8 @@ class CinemaImageController extends Controller
             $this->imageSaver->removeGalery($request, $request->dir);
 
         }
+
+
 
     }
 }

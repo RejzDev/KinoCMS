@@ -91,5 +91,12 @@ class Cinema extends Model
 
     }
 
+    public function getCinemaIds(int $id)
+    {
+
+
+        return $this->with('images', 'halls')->find($id);
+    }
+
 
 }

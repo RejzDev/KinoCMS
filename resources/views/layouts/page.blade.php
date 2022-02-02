@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title')</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -61,8 +61,8 @@
                             </div>
 
                             <div class="col-md-3 text-left text-black text-phone">
-                                <p class="phone-p">(048) 777-77-77</p>
-                                <p class="phone-p">(048) 777-77-77</p>
+                                <p class="phone-p">{{$mainData['first_phone']}}</p>
+                                <p class="phone-p">{{$mainData['second_phone']}}</p>
                             </div>
 
                         </div>
@@ -85,7 +85,7 @@
                                     <a class="nav-link" aria-current="page" href="{{route('ongoing.home')}}">Афиша</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link {{request()->is('soon-movies*') ? 'active' : null}}" href="{{route('soon.home')}}">Расписание</a>
+                                    <a class="nav-link {{request()->is('soon-movies*') ? 'active' : null}}" href="{{route('time-table.home')}}">Расписание</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{route('soon.home')}}">Скоро</a>
@@ -101,11 +101,11 @@
                                        О кинотеатре
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <li><a class="dropdown-item" href="#">Новости</a></li>
-                                        <li><a class="dropdown-item" href="#">Реклама</a></li>
-                                        <li><a class="dropdown-item" href="#">Кафе</a></li>
-                                        <li><a class="dropdown-item" href="#">Мобильное приложение</a></li>
-                                        <li><a class="dropdown-item" href="#">Контакти</a></li>
+                                        <li><a class="dropdown-item" href="">Новости</a></li>
+                                        <li><a class="dropdown-item" href="{{route('page.page', 2)}}">Реклама</a></li>
+                                        <li><a class="dropdown-item" href="{{route('page.page', 4)}}">Кафе</a></li>
+                                        <li><a class="dropdown-item" href="{{route('page.page', 7)}}">Мобильное приложение</a></li>
+                                        <li><a class="dropdown-item" href="">Контакти</a></li>
                                     </ul>
                                 </li>
                             </ul>

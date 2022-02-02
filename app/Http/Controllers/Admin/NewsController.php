@@ -7,6 +7,7 @@ use App\Models\News;
 use Illuminate\Http\Request;
 use App\Helpers\ImageSaver;
 use App\Models\NewsImage;
+use App\Models\CinemaImage;
 
 class NewsController extends Controller
 {
@@ -179,9 +180,20 @@ class NewsController extends Controller
                 }
                 $i++;
             }
-            if (isset($imagesDate['images'])) {
-                $images->creates($imagesDate);
+
+        }
+
+        if (!empty($request->file('newImage'))) {
+            $imagesDate['news_id'] = $news->id;
+            $i=0;
+
+            foreach ($request->file('newImage') as $image) {
+
+                $imagesDate['images'][$i] = $this->imageSaver->uploadGalary($request, $image, $news, 'news');
+                $i++;
             }
+
+            $images->creates($imagesDate);
 
         }
         return redirect(route('news.index'))->withSuccess('Новость была успешно обновлена!');
@@ -208,5 +220,23 @@ class NewsController extends Controller
 
 
         return redirect(route('news.index'))->withSuccess('Новость была успешно удалена!');
+    }
+
+    /**
+     * Видалення зображень
+     * @param Request $request
+     */
+    public function removeImage(Request $request)
+    {
+
+        $images = new NewsImage();
+        if (isset($request->patch)){
+            $images->deletes($request->patch);
+            $this->imageSaver->removeGalery($request, $request->dir);
+
+        }
+
+
+
     }
 }

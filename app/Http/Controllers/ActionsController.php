@@ -17,6 +17,6 @@ class ActionsController extends Controller
 
 
 
-        return view('cinema.page', ['data' => $data]);
+        return view('actions.page', ['data' => $data]);
     }
 }

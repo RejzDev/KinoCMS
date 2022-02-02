@@ -33,7 +33,7 @@
                             </label>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="name">Телефон</label>
+                            <label for="name">@lang('main.phone')</label>
                             <input type="text" class="form-control" name="phone_1" id="phone_1"
                                    placeholder="067 58 10 180" value="{{$page['first_phone']}}">
                             <input type="text" class="form-control" name="phone_2" id="phone_2"

@@ -58,7 +58,22 @@ class Page extends Model
     public function getPage()
     {
 
-
         return $this->orderBy('id', 'asc')->get();
     }
+
+
+    public function getPageIds(int $id)
+    {
+
+
+        return $this->with('images')->find($id);
+    }
+
+    public function getPages()
+    {
+
+
+        return $this->where('id', '>', 2)->get();
+    }
+
 }

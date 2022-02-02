@@ -166,7 +166,7 @@ class PageController extends Controller
 
         $data = $request->all();
 
-        $data['main_img'] = $this->imageSaver->upload($request, $page, 'news');
+        $data['main_img'] = $this->imageSaver->upload($request, $page, 'page');
 
         $page_id = $page->updates($data, $page);
 

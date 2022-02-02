@@ -40,4 +40,10 @@ class ContactCinema extends Model
 
         return $contactCinema->id;
     }
+
+    public function getContacts()
+    {
+
+        return $this->all();
+    }
 }

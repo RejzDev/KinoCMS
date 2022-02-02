@@ -27,23 +27,25 @@
                         <div class="form-group">
 
                             <div class="col-md-6">
-                            <label for="name">Название новости</label>
+                                <label for="name">@lang('main.nameNews')</label>
                             <input type="text" class="form-control" name="name" id="name" value="{{$action['name']}}"
                                    placeholder="Название новости">
                             </div>
                             <div class="col-md-6">
-                                <label for="name">Дата публикации</label>
+                                <label for="name">@lang('main.date_pub')</label>
                                 <input type="date" class="form-control" name="date" id="date"  placeholder="Дата публикации" value="{{ Carbon\Carbon::parse($action['created_at'])->format('Y-m-d') }}">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="description">Описание</label>
+                            <label for="description">@lang('main.description')</label>
+
                             <textarea class="form-control" rows="5" name="description" id="description"
                                       placeholder="текст">{{$action['description']}}</textarea>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputFile">Главная картинка</label>
+                            <label for="exampleInputFile">@lang('main.main_img')</label>
+
 
 
                             <div class="input-group">
@@ -55,7 +57,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputFile">Галерея картинка</label>
+                            <label for="exampleInputFile">@lang('main.galery_img')</label>
+
                             @php
                                 $i =0;
                                 if (isset($action['images'][0]) ){
@@ -83,7 +86,7 @@
                                         @if(isset($action['images'][$i]['position']))
                                             <div class="col-md-2">
                                                     <span class="close-image-icon">
-                                                    <a href="#" class="close" aria-label="Close" onclick="removeImage({{$i}}, 'movie'); return false;">
+                                                    <a href="#" class="close" aria-label="Close" onclick="removeImage({{$i}}, 'action'); return false;">
                                                      <span aria-hidden="true" title="Удалить">&times;</span>
                                                     </a>
                                                     </span>
@@ -98,17 +101,17 @@
                                             <div class="col-md-2"><img
                                                     src="{{ Storage::disk('public')->url('catalog/action/source/no-img.jpg') }}"
                                                     alt="" class="img-lg">
-                                                <input type="file" class="form-control-file" name="image[{{$i}}]">
+                                                <input type="file" class="form-control-file" name="newImage[{{$i}}]">
                                             </div>
                                         @endif
                                     @endfor
-                                    @else
+                                @else
                                     @for($i =0; $i < 5; $i++)
-                                            <div class="col-md-2"><img
-                                                    src="{{ Storage::disk('public')->url('catalog/action/source/no-img.jpg') }}"
-                                                    alt="" class="img-lg">
-                                                <input type="file" class="form-control-file" name="image[{{$i}}]">
-                                            </div>
+                                        <div class="col-md-2"><img
+                                                src="{{ Storage::disk('public')->url('catalog/action/source/no-img.jpg') }}"
+                                                alt="" class="img-lg">
+                                            <input type="file" class="form-control-file" name="newImage[{{$i}}]">
+                                        </div>
 
                                     @endfor
                                 @endif

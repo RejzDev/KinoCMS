@@ -17,7 +17,8 @@ class BgBanner extends Model
     public function updates(array $data, BgBanner $bgBanner): int
     {
 
-        $bgBanner->image = $data['main_img'];
+
+        $bgBanner->image = isset($data['main_img']) ? $data['main_img'] : null;
 
         $object = $bgBanner->save();
 

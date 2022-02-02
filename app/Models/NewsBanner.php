@@ -46,6 +46,6 @@ class NewsBanner extends Model
 
     public function getNewsBanner()
     {
-        return  $this->where('banner_id', '=', '2')->limit(1)->get();
+        return  $this->where('banner_id', '=', '2')->get();
     }
 }

@@ -28,6 +28,7 @@ class Visitor extends Model
         } else{
             $this->ip = $data['ip'];
             $this->user_agent = $data['userAgent'];
+            $this->browser = $data['browser'];
             $this->date_visitors = Carbon::now(new DateTimeZone('Europe/Kiev'));
 
 
@@ -78,6 +79,10 @@ class Visitor extends Model
 
 
         return $result;
+    }
+
+    public function getAll(){
+        return $this->all();
     }
 
 }

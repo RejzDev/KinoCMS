@@ -12,8 +12,15 @@ function removeImage(id, dir){
     }
     else if (dir == 'cinema'){
         var url = "/cinema-image/removeImage";
-    } else if (dir == 'hall'){
+    }
+    else if (dir == 'hall'){
         var url = "/hall-image/removeImage";
+    }
+    else if (dir == 'news'){
+        var url = "/admin_panel/news-image/removeImage";
+    }
+    else if (dir == 'action'){
+        var url = "/admin_panel/action-image/removeImage";
     }
 
     $.ajax({

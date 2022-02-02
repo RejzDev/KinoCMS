@@ -26,27 +26,37 @@
                     </div>
             @endif
             <!-- /.card-header -->
+                    <div class="row float-right">
+
+                        <div class="col-md-2 text-right">
+                            <a href="{{route('locale', 'ru')}}" class="@if(session('locale') == 'ru') active @endif btn btn-light">Руский</a>
+                        </div>
+                        <div class="col-md-2 text-left">
+                            <a href="{{route('locale', 'ua')}}" class="@if(session('locale') == 'ua') active @endif btn  btn-light">Українська</a>
+                        </div>
+
+                    </div>
                 <!-- form start -->
                 <form action="{{route('cinema.update', $cinema['id'])}}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="name">Название кинотеатра</label>
+                            <label for="name">@lang('main.nameCinema')</label>
                             <input type="text" class="form-control" name="name" id="name" placeholder="Название фильма" value="{{$cinema['name']}}">
                         </div>
                         <div class="form-group">
-                            <label for="conditions">Условие</label>
+                            <label for="conditions">@lang('main.conditions')</label>
                             <textarea class="form-control" rows="5" name="conditions" id="conditions"
                                       placeholder="текст">{{$cinema['conditions']}}</textarea>
                         </div>
                         <div class="form-group">
-                            <label for="description">Описание</label>
+                            <label for="description">@lang('main.description')</label>
                             <textarea class="form-control" rows="5" name="description" id="description"
                                       placeholder="текст">{{$cinema['description']}}</textarea>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputFile">Главная картинка</label>
+                            <label for="exampleInputFile">@lang('main.main_img')</label>
                             <div class="input-group">
                                 <img
                                     src="{{ Storage::disk('public')->url('catalog/cinema/source/'. $cinema['logo_img']) }}"
@@ -56,7 +66,7 @@
 
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputFile">Фото верхнего банера</label>
+                            <label for="exampleInputFile">@lang('main.banner_img')</label>
                             <div class="input-group">
                                 <img
                                     src="{{ Storage::disk('public')->url('catalog/cinema/source/'. $cinema['background_img']) }}"
@@ -66,7 +76,7 @@
 
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputFile">Галерея картинка</label>
+                            <label for="exampleInputFile">@lang('main.galery_img')</label>
                             @php
                                 $i =0;
                                 if (isset($cinema['images'][0]) ){
